@@ -25,6 +25,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -33,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${pilat.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-black">{children}</body>
+    <html lang="en" className={`${pilat.variable} h-full overflow-hidden bg-black antialiased`}>
+      <body className="h-full overflow-hidden overscroll-none bg-black flex flex-col">{children}</body>
     </html>
   );
 }
