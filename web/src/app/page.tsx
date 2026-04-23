@@ -75,7 +75,7 @@ export default function Home() {
       {/* ─── FRAME 3: STORY ─── */}
       <section className="relative overflow-hidden">
 
-        {/* HOMESICK watermark behind first paragraph */}
+        {/* HOMESICK watermark sits behind the first paragraph */}
         <img
           src="/assets/HOMESICK.png"
           alt=""
@@ -84,40 +84,39 @@ export default function Home() {
           style={{ mixBlendMode: "screen", opacity: 0.9 }}
         />
 
-        {/* Nav + first paragraph */}
-        <div className="relative z-10 grid grid-cols-[auto_1fr] gap-6 px-3 pt-8 pb-12">
+        <div className="relative z-10 grid grid-cols-[auto_1fr] gap-6 px-3 pt-8 pb-16">
+
           <nav className="text-body uppercase leading-tight flex flex-col gap-8 w-14">
             <span>MAGICAL<br />OBJECTS</span>
             <span>SOME<br />STORY</span>
             <span>PIRATE<br />SHIP</span>
           </nav>
-          <p className="text-display leading-snug">
-            We struggled and struggled to make everything work! Then we made it
-            beautiful. Then we perfected it until it was in every blue jean
-            pocket, so polished and universal it became invisible, which is the
-            worst thing a beautiful thing can become.
-          </p>
-        </div>
 
-        {/* Teal rock — full bleed */}
-        <img
-          src="/assets/freepik__make-the-rock-slightly-thinner-maybe-40-thinner-__23593%202.png"
-          alt=""
-          className="w-full block relative z-10"
-        />
+          <div className="text-display leading-snug">
 
-        {/* Paragraphs 2 + 3 */}
-        <div className="relative z-10 grid grid-cols-[auto_1fr] gap-6 px-3 py-12">
-          <div className="w-14" />
-          <div className="text-display leading-snug space-y-10">
-            <p>
+            <p className="mb-10">
+              We struggled and struggled to make everything work! Then we made it
+              beautiful. Then we perfected it until it was in every blue jean
+              pocket, so polished and universal it became invisible, which is the
+              worst thing a beautiful thing can become.
+            </p>
+
+            {/* Crab — floats right, text wraps left */}
+            <img
+              src="/assets/crab.png"
+              alt=""
+              className="float-right w-3/5 ml-4 mb-4"
+            />
+
+            <p className="mb-10">
               You cannot love what you cannot lose. You know this. You have always
               known this. But nothing broke for so long that you forgot. We lost
               our sleep on the device that ruined it! Everything is efficient and
               nothing is yours and the distance between yourself and the world has
               never been wider
             </p>
-            <p>
+
+            <p className="mb-10">
               Our objects are irregular. You might hate one. Good. It wasn&apos;t
               for you. Seventy-two degrees is comfortable for you but it makes
               your friend get sweaty and quiet until their silence makes you
@@ -125,23 +124,21 @@ export default function Home() {
               endings know. Magic is the goal. Soon you will hold something alive
               and shy like a firefly.
             </p>
+
+            {/* Jellyfish — floats right */}
+            <img
+              src="/assets/jelly.png"
+              alt=""
+              className="float-right w-2/5 ml-4 mb-4"
+            />
+
+            <p>
+              This is a story about what happens after everything works. Do you,
+              like us, suspect that perfection might be the problem?
+            </p>
+
+            <div className="clear-both" />
           </div>
-        </div>
-
-        {/* Glowing device — full bleed */}
-        <img
-          src="/assets/freepik__small-retru-device-with-soft-diffused-light-coming__23594%202.png"
-          alt=""
-          className="w-full block relative z-10"
-        />
-
-        {/* Paragraph 4 */}
-        <div className="relative z-10 grid grid-cols-[auto_1fr] gap-6 px-3 py-12">
-          <div className="w-14" />
-          <p className="text-display leading-snug">
-            This is a story about what happens after everything works. Do you,
-            like us, suspect that perfection might be the problem?
-          </p>
         </div>
 
         <img
