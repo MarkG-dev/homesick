@@ -2,9 +2,9 @@
 
 export default function Home() {
   return (
-    <main className="h-[100dvh] flex flex-col overflow-hidden bg-black text-white">
+    <main className="fixed inset-0 flex flex-col overflow-hidden bg-black text-white">
 
-      {/* Sheep video — fills all available height, pauses on last frame */}
+      {/* Sheep video — fills from top of screen to nav */}
       <div className="flex-1 relative overflow-hidden min-h-0">
         <video
           autoPlay
@@ -27,13 +27,15 @@ export default function Home() {
         <button className="text-left text-white">PIRATE<br />SHIP</button>
       </nav>
 
-      {/* HOMESICK — full bleed anchor at bottom */}
-      <img
-        src="/assets/HOMESICK.png"
-        alt="HOMESICK"
-        className="w-full block shrink-0"
-        style={{ mixBlendMode: "screen" }}
-      />
+      {/* HOMESICK — margins match nav px-3 on both sides */}
+      <div className="shrink-0 px-3 pb-2">
+        <img
+          src="/assets/HOMESICK.png"
+          alt="HOMESICK"
+          className="w-full block"
+          style={{ mixBlendMode: "screen" }}
+        />
+      </div>
 
     </main>
   );
