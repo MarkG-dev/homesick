@@ -9,8 +9,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-pilat);
-  --text-body: 14pt;
-  --text-display: 24pt;
+  --text-body: 14px;
+  --text-display: 24px;
 }
 
 @media (prefers-color-scheme: dark) {
