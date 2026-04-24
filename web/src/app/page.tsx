@@ -3,23 +3,41 @@ import { useState, useEffect, useRef } from "react";
 
 const PRODUCTS = [
   {
+    name: "WANDR",
+    description:
+      "This tin can holds one message at a time, in one place. Modern phones are distracting and too accessible (social media, constant notifications, etc.). Constant access kills spontaneity and presence. This device brings both back.",
+  },
+  {
+    name: "SIGH",
+    description:
+      "Breathwork guidance shrunk down to light and vibration in your pocket. It's a little ridiculous that the best way to calm down currently involves pulling out the same device that stresses us out!",
+  },
+  {
     name: "ATC 1.0",
     description:
       "A stone that counts every mile you've ever walked. Not steps today — miles, total, forever. Watch the number build and suddenly a Tuesday afternoon walk matters.",
   },
   {
-    name: "WANDR",
+    name: "PARROT",
     description:
-      "This tin can holds one message at a time, in one place. Modern phones are distracting and too accessible. Constant access kills spontaneity and presence. This device brings both back.",
+      "A robot parrot for your desk. It listens. It repeats things. It has opinions about your vocabulary. Wouldn't it be fun if we all had a parrot? I've always wanted one...",
   },
-  { name: "SIGH", description: "" },
-  { name: "PARROT", description: "" },
-  { name: "123456", description: "" },
-  { name: "SCORE", description: "" },
-  { name: "AURA", description: "" },
-  { name: "DREAMCATCH", description: "" },
+  {
+    name: "SCORE",
+    description:
+      "Turns on when your favorite team is playing and shows their score. Nothing else. Put your team in the room.",
+  },
+  {
+    name: "AURA",
+    description:
+      "Remember mood rings? Same idea, room-sized. Reads the energy and glows accordingly. Nice for dinner dates.",
+  },
+  {
+    name: "DREAMCATCH",
+    description:
+      "Safe underneath a beautiful rock that hides your phone. You want it back? Lift the stone. Deliberately. Elevate your space.",
+  },
   { name: "EVIL CLAUDE", description: "" },
-  { name: "ATC 1.0", description: "" },
 ];
 
 export default function Home() {
@@ -109,7 +127,7 @@ export default function Home() {
       {/* ─── SHEEP (slides down on tap, revealing catalog behind it) ─── */}
       <div
         className={`fixed inset-0 z-20 flex flex-col transition-transform duration-700 ease-in-out ${
-          screen === "sheep" ? "translate-y-0" : "translate-y-full"
+          screen === "sheep" ? "translate-y-0" : "-translate-y-full"
         }`}
         style={{ paddingBottom: bottomPad }}
       >
