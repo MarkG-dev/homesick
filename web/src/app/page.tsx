@@ -3,8 +3,6 @@ import { useState } from "react";
 
 type Screen = "sheep" | "catalog" | "story" | "contact";
 
-// Three physical panels stacked vertically.
-// Container transform selects which panel is in view.
 const offset = (s: Screen) =>
   s === "contact" ? "0dvh" : s === "sheep" ? "-100dvh" : "-200dvh";
 
@@ -15,38 +13,45 @@ const PRODUCTS = [
     name: "WANDR",
     description:
       "This tin can holds one message at a time, in one place. Modern phones are distracting and too accessible (social media, constant notifications, etc.). Constant access kills spontaneity and presence. This device brings both back.",
+    image: null as string | null,
   },
   {
     name: "SIGH",
     description:
       "Breathwork guidance shrunk down to light and vibration in your pocket. It's a little ridiculous that the best way to calm down currently involves pulling out the same device that stresses us out!",
+    image: "/assets/freepik__small-retru-device-with-soft-diffused-light-coming__23594%202.png",
   },
   {
     name: "ATC 1.0",
     description:
       "A stone that counts every mile you've ever walked. Not steps today — miles, total, forever. Watch the number build and suddenly a Tuesday afternoon walk matters.",
+    image: "/assets/freepik_make-the-led-twice-as-wid_2752466544%203.png",
   },
   {
     name: "PARROT",
     description:
       "A robot parrot for your desk. It listens. It repeats things. It has opinions about your vocabulary. Wouldn't it be fun if we all had a parrot? I've always wanted one...",
+    image: "/assets/freepik__make-the-bird-parrot-colors-parakeet-colors-and-ma__23599%202.png",
   },
   {
     name: "SCORE",
     description:
       "Turns on when your favorite team is playing and shows their score. Nothing else. Put your team in the room.",
+    image: null,
   },
   {
     name: "AURA",
     description:
       "Remember mood rings? Same idea, room-sized. Reads the energy and glows accordingly. Nice for dinner dates.",
+    image: null,
   },
   {
     name: "DREAMCATCH",
     description:
       "Safe underneath a beautiful rock that hides your phone. You want it back? Lift the stone. Deliberately. Elevate your space.",
+    image: "/assets/freepik__small-apple-mag-safe-wire-coming-out-of-the-right-__23598%202.png",
   },
-  { name: "EVIL CLAUDE", description: "" },
+  { name: "EVIL CLAUDE", description: "", image: null },
 ];
 
 function Homesick({ dim }: { dim?: boolean }) {
@@ -79,8 +84,7 @@ export default function Home() {
         style={{ transform: `translateY(${offset(screen)})` }}
       >
 
-        {/* ══════ PANEL 1: CONTACT ══════
-            Sits above the viewport until PIRATE SHIP is tapped */}
+        {/* ══════ PANEL 1: CONTACT ══════ */}
         <div className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
           <div
             className="shrink-0 flex justify-between items-center px-3 py-3 text-body uppercase"
@@ -96,7 +100,8 @@ export default function Home() {
               loop
               muted
               playsInline
-              className="absolute inset-0 w-full h-full object-cover object-top"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: "center 30%" }}
             >
               <source
                 src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
@@ -120,8 +125,7 @@ export default function Home() {
           <Homesick />
         </div>
 
-        {/* ══════ PANEL 2: SHEEP ══════
-            Initial visible panel */}
+        {/* ══════ PANEL 2: SHEEP ══════ */}
         <div className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
           <div className="flex-1 relative overflow-hidden min-h-0">
             <video
@@ -129,7 +133,8 @@ export default function Home() {
               muted
               playsInline
               onEnded={(e) => e.currentTarget.pause()}
-              className="absolute inset-0 w-full h-full object-cover object-top"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: "center 20%" }}
             >
               <source
                 src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
@@ -153,14 +158,13 @@ export default function Home() {
           <Homesick />
         </div>
 
-        {/* ══════ PANEL 3: CATALOG / STORY ══════
-            Below the viewport until MAGICAL OBJECTS or SOME STORY is tapped */}
+        {/* ══════ PANEL 3: CATALOG / STORY ══════ */}
         <div className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
 
           {/* — Catalog — */}
-          <div className={`flex-1 min-h-0 ${screen === "story" ? "hidden" : ""}`}>
+          <div className={`flex-1 min-h-0 flex flex-col ${screen === "story" ? "hidden" : ""}`}>
             <div
-              className="grid grid-cols-[1fr_1.3fr_2.2fr] gap-x-3 px-3 pb-4 h-full"
+              className="shrink-0 grid grid-cols-[1fr_1.3fr_2.2fr] gap-x-3 px-3 pb-4"
               style={{ paddingTop: SAFE_TOP }}
             >
               <nav className="text-body uppercase leading-tight flex flex-col gap-8">
@@ -200,6 +204,18 @@ export default function Home() {
                 {PRODUCTS[selected].description}
               </p>
             </div>
+
+            <Homesick />
+
+            <div className="flex-1 min-h-0 relative overflow-hidden">
+              {PRODUCTS[selected].image && (
+                <img
+                  src={PRODUCTS[selected].image as string}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                />
+              )}
+            </div>
           </div>
 
           {/* — Story — */}
@@ -208,7 +224,6 @@ export default function Home() {
               screen === "story" ? "" : "hidden"
             }`}
           >
-            {/* Para 1 + HOMESICK watermark */}
             <div className="relative" style={{ paddingTop: SAFE_TOP }}>
               <img
                 src="/assets/HOMESICK.png"
@@ -244,7 +259,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Paras 2–4 with crab + jelly */}
             <div className="pl-[92px] pr-3 pb-16">
               <div className="relative mb-10">
                 <img
@@ -286,7 +300,7 @@ export default function Home() {
             </div>
           </div>
 
-          <Homesick dim={screen === "story"} />
+          {screen === "story" && <Homesick dim />}
         </div>
 
       </div>
