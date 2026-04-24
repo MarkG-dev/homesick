@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 
+type Screen = "sheep" | "catalog" | "story" | "contact";
+
 const PRODUCTS = [
   {
     name: "WANDR",
@@ -40,11 +42,12 @@ const PRODUCTS = [
   { name: "EVIL CLAUDE", description: "" },
 ];
 
+const SAFE_TOP = "max(env(safe-area-inset-top), 32px)";
+
 export default function Home() {
-  const [screen, setScreen] = useState<"sheep" | "catalog">("sheep");
+  const [screen, setScreen] = useState<Screen>("sheep");
   const [selected, setSelected] = useState(0);
   const homesickRef = useRef<HTMLDivElement>(null);
-  // Start with a reasonable estimate so layout is correct before measurement
   const [bottomPad, setBottomPad] = useState(112);
 
   useEffect(() => {
@@ -55,12 +58,25 @@ export default function Home() {
     return () => ro.disconnect();
   }, []);
 
+  const go = (s: Screen) => setScreen(s);
+
+  const navItem = (label: string, target: Screen, activeScreen: Screen) => (
+    <button
+      className={`text-left ${screen === activeScreen ? "text-white" : "text-white/40"}`}
+      onClick={() => go(target)}
+    >
+      {label.split(" ").join("­").replace("OBJECTS", "OBJECTS\n").replace("STORY", "STORY\n").replace("SHIP", "SHIP")}
+    </button>
+  );
+
   return (
     <>
-      {/* ─── HOMESICK — truly fixed, never moves, above all layers ─── */}
+      {/* ─── HOMESICK — fixed forever ─── */}
       <div
         ref={homesickRef}
-        className="fixed bottom-0 inset-x-0 z-50 px-3 pb-2 bg-black"
+        className={`fixed bottom-0 inset-x-0 z-50 px-3 pb-2 bg-black transition-opacity duration-500 ${
+          screen === "story" ? "opacity-30" : "opacity-100"
+        }`}
       >
         <img
           src="/assets/HOMESICK.png"
@@ -70,45 +86,32 @@ export default function Home() {
         />
       </div>
 
-      {/* ─── CATALOG (base layer, always behind sheep) ─── */}
+      {/* ─── CATALOG (z-10, always behind everything) ─── */}
       <div
         className="fixed inset-0 z-10 flex flex-col bg-black text-white"
         style={{ paddingBottom: bottomPad }}
       >
         <div
           className="flex-1 grid grid-cols-[1fr_1.3fr_2.2fr] gap-x-3 px-3 pb-4 min-h-0 overflow-hidden"
-          style={{ paddingTop: "max(env(safe-area-inset-top), 32px)" }}
+          style={{ paddingTop: SAFE_TOP }}
         >
-          {/* Nav */}
           <nav className="text-body uppercase leading-tight flex flex-col gap-8">
-            <button
-              className="text-left text-white"
-              onClick={() => setScreen("sheep")}
-            >
-              MAGICAL
-              <br />
-              OBJECTS
+            <button className="text-left text-white" onClick={() => go("catalog")}>
+              MAGICAL<br />OBJECTS
             </button>
-            <span className="text-white/40">
-              SOME
-              <br />
-              STORY
-            </span>
-            <span className="text-white/40">
-              PIRATE
-              <br />
-              SHIP
-            </span>
+            <button className={`text-left text-white/40`} onClick={() => go("story")}>
+              SOME<br />STORY
+            </button>
+            <button className={`text-left text-white/40`} onClick={() => go("contact")}>
+              PIRATE<br />SHIP
+            </button>
           </nav>
 
-          {/* Product list */}
           <ul className="text-body uppercase leading-tight flex flex-col gap-0.5 list-none m-0 p-0 overflow-y-auto">
             {PRODUCTS.map((p, i) => (
               <li key={i}>
                 <button
-                  className={`text-left w-full ${
-                    i === selected ? "text-white" : "text-white/40"
-                  }`}
+                  className={`text-left w-full ${i === selected ? "text-white" : "text-white/40"}`}
                   onClick={() => setSelected(i)}
                 >
                   {p.name}
@@ -117,21 +120,138 @@ export default function Home() {
             ))}
           </ul>
 
-          {/* Description */}
-          <p className="text-body leading-snug">
-            {PRODUCTS[selected].description}
+          <p className="text-body leading-snug">{PRODUCTS[selected].description}</p>
+        </div>
+      </div>
+
+      {/* ─── STORY (z-20, instant swap, scrollable) ─── */}
+      <div
+        className={`fixed inset-0 z-20 bg-black text-white overflow-y-auto overscroll-contain ${
+          screen === "story" ? "" : "hidden"
+        }`}
+        style={{ paddingBottom: bottomPad }}
+      >
+        {/* Para 1 — HOMESICK watermark + nav */}
+        <div className="relative" style={{ paddingTop: SAFE_TOP }}>
+          <img
+            src="/assets/HOMESICK.png"
+            aria-hidden
+            className="absolute inset-x-0 top-0 w-full z-0 pointer-events-none"
+            style={{ mixBlendMode: "screen", opacity: 0.9 }}
+          />
+          <div className="relative z-10 grid grid-cols-[auto_1fr] gap-6 px-3 pb-10">
+            <nav className="w-14 text-body uppercase leading-tight flex flex-col gap-8">
+              <button className="text-left text-white/40" onClick={() => go("catalog")}>
+                MAGICAL<br />OBJECTS
+              </button>
+              <button className="text-left text-white">
+                SOME<br />STORY
+              </button>
+              <button className="text-left text-white/40" onClick={() => go("contact")}>
+                PIRATE<br />SHIP
+              </button>
+            </nav>
+            <p className="text-display leading-snug">
+              We struggled and struggled to make everything work! Then we made it
+              beautiful. Then we perfected it until it was in every blue jean
+              pocket, so polished and universal it became invisible, which is the
+              worst thing a beautiful thing can become.
+            </p>
+          </div>
+        </div>
+
+        {/* Paras 2–4 — indented to match para 1 text edge */}
+        <div className="pl-[92px] pr-3 pb-16">
+          <div className="relative mb-10">
+            <img
+              src="/assets/crab.png"
+              alt=""
+              className="absolute left-0 w-[62%] z-20 pointer-events-none"
+              style={{ top: "42%" }}
+            />
+            <p className="text-display leading-snug">
+              You cannot love what you cannot lose. You know this. You have always
+              known this. But nothing broke for so long that you forgot. We lost
+              our sleep on the device that ruined it! Everything is efficient and
+              nothing is yours and the distance between yourself and the world has
+              never been wider
+            </p>
+          </div>
+
+          <div className="relative mb-10">
+            <img
+              src="/assets/jelly.png"
+              alt=""
+              className="absolute right-0 w-[38%] z-20 pointer-events-none"
+              style={{ top: "55%" }}
+            />
+            <p className="text-display leading-snug">
+              Our objects are irregular. You might hate one. Good. It wasn&apos;t
+              for you. Seventy-two degrees is comfortable for you but it makes
+              your friend get sweaty and quiet until their silence makes you
+              laugh. Freed from the multi-function look like them. Your nerve
+              endings know. Magic is the goal. Soon you will hold something alive
+              and shy like a firefly.
+            </p>
+          </div>
+
+          <p className="text-display leading-snug">
+            This is a story about what happens after everything works. Do you,
+            like us, suspect that perfection might be the problem?
           </p>
         </div>
       </div>
 
-      {/* ─── SHEEP (slides down on tap, revealing catalog behind it) ─── */}
+      {/* ─── CONTACT / PIRATE SHIP (z-30, slides down from top) ─── */}
       <div
-        className={`fixed inset-0 z-20 flex flex-col transition-transform duration-700 ease-in-out ${
+        className={`fixed inset-0 z-30 flex flex-col bg-black text-white transition-transform duration-700 ease-in-out ${
+          screen === "contact" ? "translate-y-0" : "-translate-y-full"
+        }`}
+        style={{ paddingBottom: bottomPad }}
+      >
+        <div
+          className="shrink-0 flex justify-between items-center px-3 py-4 text-body uppercase"
+          style={{ paddingTop: SAFE_TOP }}
+        >
+          <span>[CELL PHONE HERE]</span>
+          <span>[EXCITED!]&nbsp;→</span>
+        </div>
+
+        <div className="flex-1 relative overflow-hidden min-h-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          >
+            <source
+              src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+
+        <nav className="shrink-0 px-3 pt-6 pb-4 text-body uppercase leading-tight flex flex-col gap-6">
+          <button className="text-left text-white/40" onClick={() => go("catalog")}>
+            MAGICAL<br />OBJECTS
+          </button>
+          <button className="text-left text-white/40" onClick={() => go("story")}>
+            SOME<br />STORY
+          </button>
+          <button className="text-left text-white">
+            PIRATE<br />SHIP
+          </button>
+        </nav>
+      </div>
+
+      {/* ─── SHEEP (z-40, slides up on MAGICAL OBJECTS tap) ─── */}
+      <div
+        className={`fixed inset-0 z-40 flex flex-col transition-transform duration-700 ease-in-out ${
           screen === "sheep" ? "translate-y-0" : "-translate-y-full"
         }`}
         style={{ paddingBottom: bottomPad }}
       >
-        {/* Video */}
         <div className="flex-1 relative overflow-hidden min-h-0">
           <video
             autoPlay
@@ -147,25 +267,15 @@ export default function Home() {
           </video>
         </div>
 
-        {/* Nav */}
         <nav className="shrink-0 bg-black px-3 pt-6 pb-4 text-body uppercase leading-tight flex flex-col gap-6">
-          <button
-            className="text-left text-white"
-            onClick={() => setScreen("catalog")}
-          >
-            MAGICAL
-            <br />
-            OBJECTS
+          <button className="text-left text-white" onClick={() => go("catalog")}>
+            MAGICAL<br />OBJECTS
           </button>
-          <button className="text-left text-white">
-            SOME
-            <br />
-            STORY
+          <button className="text-left text-white/40" onClick={() => go("story")}>
+            SOME<br />STORY
           </button>
-          <button className="text-left text-white">
-            PIRATE
-            <br />
-            SHIP
+          <button className="text-left text-white/40" onClick={() => go("contact")}>
+            PIRATE<br />SHIP
           </button>
         </nav>
       </div>
