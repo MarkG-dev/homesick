@@ -54,15 +54,15 @@ const PRODUCTS = [
 
 const CONTACT_ITEMS = ["PHONE", "EMAIL", "INSTAGRAM", "TIKTOK", "INQUIRIES?"];
 
-/** Black → transparent, covers status bar + any top edge */
-function TopGradient() {
+/** Black at bottom (matching nav bar) → transparent going up */
+function BottomGradient() {
   return (
     <div
       aria-hidden
-      className="absolute inset-x-0 top-0 pointer-events-none z-10"
+      className="absolute inset-x-0 bottom-0 pointer-events-none z-10"
       style={{
-        height: "22%",
-        background: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)",
+        height: "40%",
+        background: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)",
       }}
     />
   );
@@ -158,7 +158,7 @@ export default function Home() {
                   type="video/mp4"
                 />
               </video>
-              <TopGradient />
+              <BottomGradient />
             </div>
 
             {/* CATALOG ── product image + list/description */}
@@ -172,7 +172,7 @@ export default function Home() {
                   alt={PRODUCTS[selected].name}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <TopGradient />
+                <BottomGradient />
               </div>
               {/* Product block — sticky at bottom, left col = list, right col = description */}
               <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase">
@@ -217,17 +217,7 @@ export default function Home() {
                   type="video/mp4"
                 />
               </video>
-              <TopGradient />
-              {/* Bottom fade into text */}
-              <div
-                aria-hidden
-                className="absolute inset-x-0 bottom-0 pointer-events-none"
-                style={{
-                  height: "55%",
-                  background:
-                    "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,1) 60%)",
-                }}
-              />
+              <BottomGradient />
               <div className="absolute inset-x-0 bottom-0 px-3 pb-3 z-10 text-body text-white leading-snug line-clamp-[10] overflow-hidden">
                 <p className="mb-2">
                   We struggled and struggled to make everything work! Then we
@@ -275,7 +265,7 @@ export default function Home() {
                     type="video/mp4"
                   />
                 </video>
-                <TopGradient />
+                <BottomGradient />
               </div>
               {/* Contact block */}
               <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase">
