@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const PRODUCTS = [
   {
@@ -22,27 +22,41 @@ const PRODUCTS = [
   { name: "ATC 1.0", description: "" },
 ];
 
-function Homesick() {
-  return (
-    <div className="shrink-0 px-3 pb-2 bg-black">
-      <img
-        src="/assets/HOMESICK.png"
-        alt="HOMESICK"
-        className="w-full block"
-        style={{ mixBlendMode: "screen" }}
-      />
-    </div>
-  );
-}
-
 export default function Home() {
   const [screen, setScreen] = useState<"sheep" | "catalog">("sheep");
   const [selected, setSelected] = useState(0);
+  const homesickRef = useRef<HTMLDivElement>(null);
+  // Start with a reasonable estimate so layout is correct before measurement
+  const [bottomPad, setBottomPad] = useState(112);
+
+  useEffect(() => {
+    const el = homesickRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setBottomPad(el.offsetHeight));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <>
-      {/* ─── CATALOG (base layer, always rendered behind sheep) ─── */}
-      <div className="fixed inset-0 z-10 flex flex-col bg-black text-white">
+      {/* ─── HOMESICK — truly fixed, never moves, above all layers ─── */}
+      <div
+        ref={homesickRef}
+        className="fixed bottom-0 inset-x-0 z-50 px-3 pb-2 bg-black"
+      >
+        <img
+          src="/assets/HOMESICK.png"
+          alt="HOMESICK"
+          className="w-full block"
+          style={{ mixBlendMode: "screen" }}
+        />
+      </div>
+
+      {/* ─── CATALOG (base layer, always behind sheep) ─── */}
+      <div
+        className="fixed inset-0 z-10 flex flex-col bg-black text-white"
+        style={{ paddingBottom: bottomPad }}
+      >
         <div
           className="flex-1 grid grid-cols-[1fr_1.3fr_2.2fr] gap-x-3 px-3 pb-4 min-h-0 overflow-hidden"
           style={{ paddingTop: "max(env(safe-area-inset-top), 32px)" }}
@@ -90,17 +104,16 @@ export default function Home() {
             {PRODUCTS[selected].description}
           </p>
         </div>
-
-        <Homesick />
       </div>
 
-      {/* ─── SHEEP (top layer — slides down to reveal catalog) ─── */}
+      {/* ─── SHEEP (slides down on tap, revealing catalog behind it) ─── */}
       <div
         className={`fixed inset-0 z-20 flex flex-col transition-transform duration-700 ease-in-out ${
           screen === "sheep" ? "translate-y-0" : "translate-y-full"
         }`}
+        style={{ paddingBottom: bottomPad }}
       >
-        {/* Video — object-top so top of video aligns with top of frame */}
+        {/* Video */}
         <div className="flex-1 relative overflow-hidden min-h-0">
           <video
             autoPlay
@@ -137,8 +150,6 @@ export default function Home() {
             SHIP
           </button>
         </nav>
-
-        <Homesick />
       </div>
     </>
   );
