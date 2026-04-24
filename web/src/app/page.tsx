@@ -93,7 +93,7 @@ function BottomNav({
           <button
             key={target}
             onClick={() => go(target)}
-            className={`flex items-center gap-1.5 whitespace-nowrap ${
+            className={`flex items-center gap-[3px] whitespace-nowrap ${
               active ? "text-white" : "text-white/40"
             }`}
           >
@@ -183,7 +183,7 @@ export default function Home() {
                       <li key={p.name}>
                         <button
                           onClick={() => setSelected(i)}
-                          className={`flex items-center gap-1.5 text-left ${
+                          className={`flex items-center gap-[3px] text-left ${
                             on ? "text-white" : "text-white/40"
                           }`}
                         >
@@ -194,22 +194,23 @@ export default function Home() {
                     );
                   })}
                 </ul>
-                <p className="leading-snug line-clamp-6 overflow-hidden">
+                <p className="leading-snug line-clamp-6 overflow-hidden text-white">
                   {PRODUCTS[selected].description}
                 </p>
               </div>
             </div>
 
-            {/* STORY ── clouds video, text overlaid at bottom */}
+            {/* STORY ── clouds video fixed behind, text scrolls up from lower */}
             <div
-              className="h-full shrink-0 relative bg-black"
+              className="h-full shrink-0 relative bg-black overflow-hidden"
               style={{ width: `${pct}%` }}
             >
+              {/* Fixed video background */}
               <video
                 autoPlay
-                loop
                 muted
                 playsInline
+                onEnded={(e) => e.currentTarget.pause()}
                 className="absolute inset-0 w-full h-full object-cover"
               >
                 <source
@@ -217,32 +218,36 @@ export default function Home() {
                   type="video/mp4"
                 />
               </video>
+              {/* Gradient fades video into black at bottom */}
               <BottomGradient />
-              <div className="absolute inset-x-0 bottom-0 px-3 pb-3 z-10 text-body text-white leading-snug line-clamp-[10] overflow-hidden">
-                <p className="mb-2">
-                  We struggled and struggled to make everything work! Then we
-                  made it beautiful. Then we perfected it until it was in every
-                  blue jean pocket, so polished and universal it became
-                  invisible, which is the worst thing a beautiful thing can
-                  become.
-                </p>
-                <p className="mb-2">
-                  You cannot love what you cannot lose. You know this. You have
-                  always known this. But nothing broke for so long that you
-                  forgot. We track our sleep on the device that ruined it!
-                  Everything is efficient and nothing is yours and the distance
-                  between yourself and the world has never been wider.
-                </p>
-                <p className="mb-2">
-                  Our objects are irregular. You might hate one. Good. It
-                  wasn&apos;t for you. Your nerve endings know. Magic is the
-                  goal. Soon you will hold something alive and shy like a
-                  firefly.
-                </p>
-                <p>
-                  This is a story about what happens after everything works. Do
-                  you, like us, suspect that perfection might be the problem?
-                </p>
+              {/* Scrollable text — starts ~65% down, scrolls up over video */}
+              <div className="absolute inset-0 z-20 overflow-y-auto overscroll-contain">
+                <div className="pt-[65%] px-3 pb-4 text-body text-white leading-snug">
+                  <p className="mb-3">
+                    We struggled and struggled to make everything work! Then we
+                    made it beautiful. Then we perfected it until it was in every
+                    blue jean pocket, so polished and universal it became
+                    invisible, which is the worst thing a beautiful thing can
+                    become.
+                  </p>
+                  <p className="mb-3">
+                    You cannot love what you cannot lose. You know this. You have
+                    always known this. But nothing broke for so long that you
+                    forgot. We track our sleep on the device that ruined it!
+                    Everything is efficient and nothing is yours and the distance
+                    between yourself and the world has never been wider.
+                  </p>
+                  <p className="mb-3">
+                    Our objects are irregular. You might hate one. Good. It
+                    wasn&apos;t for you. Your nerve endings know. Magic is the
+                    goal. Soon you will hold something alive and shy like a
+                    firefly.
+                  </p>
+                  <p>
+                    This is a story about what happens after everything works. Do
+                    you, like us, suspect that perfection might be the problem?
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -254,9 +259,9 @@ export default function Home() {
               <div className="flex-1 relative overflow-hidden min-h-0">
                 <video
                   autoPlay
-                  loop
                   muted
                   playsInline
+                  onEnded={(e) => e.currentTarget.pause()}
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ objectPosition: "center 30%" }}
                 >
@@ -273,7 +278,7 @@ export default function Home() {
                   {CONTACT_ITEMS.map((label, i) => (
                     <li
                       key={label}
-                      className={`flex items-center gap-1.5 ${
+                      className={`flex items-center gap-[3px] ${
                         i === 0 ? "text-white" : "text-white/40"
                       }`}
                     >
