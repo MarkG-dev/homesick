@@ -1,66 +1,122 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-type Screen = "sheep" | "catalog" | "story" | "contact";
+type Screen = "follow" | "home" | "catalog" | "story";
 
-const offset = (s: Screen) =>
-  s === "contact" ? "0dvh" : s === "sheep" ? "-100dvh" : "-200dvh";
+const OFFSET: Record<Screen, string> = {
+  follow: "0dvh",
+  home: "-100dvh",
+  catalog: "-200dvh",
+  story: "-300dvh",
+};
 
 const SAFE_TOP = "max(env(safe-area-inset-top), 28px)";
 
+const IMG = {
+  atc: "/assets/magnifics_upscale-V3jRyWe7MMJjWWu6FHMo-image%208%202.png",
+  wandr: "/assets/freepik_make-the-led-twice-as-wid_2752466544%203.png",
+  sigh: "/assets/freepik__small-retru-device-with-soft-diffused-light-coming__23594%202.png",
+  parrot: "/assets/freepik__make-the-bird-parrot-colors-parakeet-colors-and-ma__23599%202.png",
+  stonecharge: "/assets/freepik__small-apple-mag-safe-wire-coming-out-of-the-right-__23598%202.png",
+  dreamcatcher: "/assets/freepik__make-the-rock-slightly-thinner-maybe-40-thinner-__23593%202.png",
+};
+
 const PRODUCTS = [
   {
-    name: "WANDR",
+    name: "ATC 1.0",
+    image: IMG.atc,
     description:
       "This tin can holds one message at a time, in one place. Modern phones are distracting and too accessible (social media, constant notifications, etc.). Constant access kills spontaneity and presence. This device brings both back.",
-    image: null as string | null,
+  },
+  {
+    name: "WANDR",
+    image: IMG.wandr,
+    description:
+      "A stone that counts every mile you've ever walked. Not steps today — miles, total, forever. Watch the number build and suddenly a Tuesday afternoon walk matters.",
   },
   {
     name: "SIGH",
+    image: IMG.sigh,
     description:
       "Breathwork guidance shrunk down to light and vibration in your pocket. It's a little ridiculous that the best way to calm down currently involves pulling out the same device that stresses us out!",
-    image: "/assets/freepik__small-retru-device-with-soft-diffused-light-coming__23594%202.png",
-  },
-  {
-    name: "ATC 1.0",
-    description:
-      "A stone that counts every mile you've ever walked. Not steps today — miles, total, forever. Watch the number build and suddenly a Tuesday afternoon walk matters.",
-    image: "/assets/freepik_make-the-led-twice-as-wid_2752466544%203.png",
   },
   {
     name: "PARROT",
+    image: IMG.parrot,
     description:
       "A robot parrot for your desk. It listens. It repeats things. It has opinions about your vocabulary. Wouldn't it be fun if we all had a parrot? I've always wanted one...",
-    image: "/assets/freepik__make-the-bird-parrot-colors-parakeet-colors-and-ma__23599%202.png",
   },
   {
-    name: "SCORE",
-    description:
-      "Turns on when your favorite team is playing and shows their score. Nothing else. Put your team in the room.",
-    image: null,
-  },
-  {
-    name: "AURA",
-    description:
-      "Remember mood rings? Same idea, room-sized. Reads the energy and glows accordingly. Nice for dinner dates.",
-    image: null,
-  },
-  {
-    name: "DREAMCATCH",
+    name: "STONECHARGE",
+    image: IMG.stonecharge,
     description:
       "Safe underneath a beautiful rock that hides your phone. You want it back? Lift the stone. Deliberately. Elevate your space.",
-    image: "/assets/freepik__small-apple-mag-safe-wire-coming-out-of-the-right-__23598%202.png",
   },
-  { name: "EVIL CLAUDE", description: "", image: null },
+  {
+    name: "DREAMCATCHER",
+    image: IMG.dreamcatcher,
+    description:
+      "Press this button in the dark to record your dreams. Receive them transcribed in the morning. If you're feeling brave, we'll analyze them too.",
+  },
 ];
 
-function Homesick({ dim }: { dim?: boolean }) {
+const CONTACT = [
+  { label: "PHONE", value: "347-920-7112" },
+  { label: "EMAIL", value: "SUBMIT" },
+  { label: "INSTAGRAM", value: "" },
+  { label: "TIKTOK", value: "" },
+  { label: "INQUIRIES?", value: "" },
+];
+
+/** Soft dark fade over the bottom of video/image blocks.
+ *  Transparent from top down to 85vh, then darkens toward black at the bottom. */
+function MediaFade() {
   return (
     <div
-      className={`shrink-0 px-3 pb-2 bg-black transition-opacity duration-500 ${
-        dim ? "opacity-30" : "opacity-100"
-      }`}
-    >
+      aria-hidden
+      className="absolute inset-x-0 bottom-0 pointer-events-none"
+      style={{
+        top: 0,
+        background:
+          "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 85%, rgba(0,0,0,0.85) 100%)",
+      }}
+    />
+  );
+}
+
+function BottomNav({
+  screen,
+  go,
+}: {
+  screen: Screen;
+  go: (s: Screen) => void;
+}) {
+  const Item = ({ label, target }: { label: string; target: Screen }) => {
+    const active = screen === target;
+    return (
+      <button
+        onClick={() => go(target)}
+        className={`flex items-center gap-2 text-body uppercase ${
+          active ? "text-white" : "text-white/40"
+        }`}
+      >
+        <span className="inline-block w-[0.9em]">{active ? "●" : "○"}</span>
+        {label}
+      </button>
+    );
+  };
+  return (
+    <nav className="shrink-0 px-3 pt-4 pb-3 flex items-center gap-6">
+      <Item label="MAGICAL OBJECTS" target="catalog" />
+      <Item label="STORY" target="story" />
+      <Item label="FOLLOW" target="follow" />
+    </nav>
+  );
+}
+
+function Homesick() {
+  return (
+    <div className="shrink-0 px-3 pb-2 bg-black">
       <img
         src="/assets/HOMESICK.png"
         alt="HOMESICK"
@@ -71,238 +127,251 @@ function Homesick({ dim }: { dim?: boolean }) {
   );
 }
 
+/** Product list (left) + description (right) for CATALOG. */
+function ProductBlock({
+  selected,
+  setSelected,
+}: {
+  selected: number;
+  setSelected: (i: number) => void;
+}) {
+  return (
+    <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-6 px-3 pb-2">
+      <ul className="text-body uppercase leading-tight flex flex-col gap-0.5 list-none m-0 p-0">
+        {PRODUCTS.map((p, i) => {
+          const active = i === selected;
+          return (
+            <li key={p.name}>
+              <button
+                onClick={() => setSelected(i)}
+                className={`flex items-center gap-2 text-left w-full ${
+                  active ? "text-white" : "text-white/40"
+                }`}
+              >
+                <span className="inline-block w-[0.9em]">
+                  {active ? "●" : "○"}
+                </span>
+                {p.name}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="text-body leading-snug">{PRODUCTS[selected].description}</p>
+    </div>
+  );
+}
+
+/** Contact list (left) + values (right) for FOLLOW. */
+function ContactBlock() {
+  return (
+    <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-6 px-3 pb-2">
+      <ul className="text-body uppercase leading-tight flex flex-col gap-0.5 list-none m-0 p-0">
+        {CONTACT.map((c, i) => {
+          const active = i === 0;
+          return (
+            <li key={c.label}>
+              <span
+                className={`flex items-center gap-2 ${
+                  active ? "text-white" : "text-white/40"
+                }`}
+              >
+                <span className="inline-block w-[0.9em]">
+                  {active ? "●" : "○"}
+                </span>
+                {c.label}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="text-body uppercase flex flex-col gap-0.5">
+        <a href="tel:3479207112" className="text-white">
+          347-920-7112
+        </a>
+        <button className="text-left text-white">SUBMIT</button>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
-  const [screen, setScreen] = useState<Screen>("sheep");
+  const [screen, setScreen] = useState<Screen>("home");
   const [selected, setSelected] = useState(0);
   const go = (s: Screen) => setScreen(s);
 
+  // Scroll-down on HOME transitions to CATALOG; video scrolls up, nav + HOMESICK stay locked.
+  useEffect(() => {
+    if (screen !== "home") return;
+    let acc = 0;
+    let lastTouchY: number | null = null;
+    const THRESHOLD = 80;
+    const trigger = () => {
+      setScreen("catalog");
+      acc = 0;
+    };
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY > 0) {
+        acc += e.deltaY;
+        if (acc >= THRESHOLD) trigger();
+      } else {
+        acc = Math.max(0, acc + e.deltaY);
+      }
+    };
+    const onTouchStart = (e: TouchEvent) => {
+      lastTouchY = e.touches[0].clientY;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (lastTouchY == null) return;
+      const y = e.touches[0].clientY;
+      const delta = lastTouchY - y;
+      lastTouchY = y;
+      if (delta > 0) {
+        acc += delta;
+        if (acc >= THRESHOLD) trigger();
+      } else {
+        acc = Math.max(0, acc + delta);
+      }
+    };
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+    };
+  }, [screen]);
+
   return (
-    <div className="fixed inset-0 overflow-hidden bg-black">
-      {/* Single container — all panels slide together */}
-      <div
-        className="flex flex-col w-full transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateY(${offset(screen)})` }}
-      >
-
-        {/* ══════ PANEL 1: CONTACT ══════ */}
-        <div className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
-          <div
-            className="shrink-0 flex justify-between items-center px-3 py-3 text-body uppercase"
-            style={{ paddingTop: SAFE_TOP }}
-          >
-            <span>[CELL PHONE HERE]</span>
-            <span>[EXCITED!]&nbsp;→</span>
-          </div>
-
-          <div className="flex-1 relative overflow-hidden min-h-0">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: "center 30%" }}
-            >
-              <source
-                src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
-
-          <nav className="shrink-0 px-3 pt-6 pb-4 text-body uppercase leading-tight flex flex-col gap-6">
-            <button className="text-left text-white/40" onClick={() => go("catalog")}>
-              MAGICAL<br />OBJECTS
-            </button>
-            <button className="text-left text-white/40" onClick={() => go("story")}>
-              SOME<br />STORY
-            </button>
-            <button className="text-left text-white">
-              PIRATE<br />SHIP
-            </button>
-          </nav>
-
-          <Homesick />
-        </div>
-
-        {/* ══════ PANEL 2: SHEEP ══════ */}
-        <div className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
-          <div className="flex-1 relative overflow-hidden min-h-0">
-            <video
-              autoPlay
-              muted
-              playsInline
-              onEnded={(e) => e.currentTarget.pause()}
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: "center 20%" }}
-            >
-              <source
-                src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
-
-          <nav className="shrink-0 px-3 pt-6 pb-4 text-body uppercase leading-tight flex flex-col gap-6">
-            <button className="text-left text-white" onClick={() => go("catalog")}>
-              MAGICAL<br />OBJECTS
-            </button>
-            <button className="text-left text-white/40" onClick={() => go("story")}>
-              SOME<br />STORY
-            </button>
-            <button className="text-left text-white/40" onClick={() => go("contact")}>
-              PIRATE<br />SHIP
-            </button>
-          </nav>
-
-          <Homesick />
-        </div>
-
-        {/* ══════ PANEL 3: CATALOG / STORY ══════ */}
-        <div className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
-
-          {/* — Catalog — */}
-          <div className={`flex-1 min-h-0 flex flex-col ${screen === "story" ? "hidden" : ""}`}>
+    // Desktop: center a phone-sized column on black; mobile unchanged.
+    <div className="fixed inset-0 overflow-hidden bg-black flex justify-center">
+      <div className="relative w-full max-w-[440px] h-full overflow-hidden">
+        <div
+          className="flex flex-col w-full transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateY(${OFFSET[screen]})` }}
+        >
+          {/* ══════ FOLLOW ══════ */}
+          <section className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
             <div
-              className="shrink-0 grid grid-cols-[1fr_1.3fr_2.2fr] gap-x-3 px-3 pb-4"
+              className="flex-1 relative overflow-hidden min-h-0"
               style={{ paddingTop: SAFE_TOP }}
             >
-              <nav className="text-body uppercase leading-tight flex flex-col gap-8">
-                <button className="text-left text-white">
-                  MAGICAL<br />OBJECTS
-                </button>
-                <button
-                  className="text-left text-white/40"
-                  onClick={() => go("story")}
-                >
-                  SOME<br />STORY
-                </button>
-                <button
-                  className="text-left text-white/40"
-                  onClick={() => go("contact")}
-                >
-                  PIRATE<br />SHIP
-                </button>
-              </nav>
-
-              <ul className="text-body uppercase leading-tight flex flex-col gap-0.5 list-none m-0 p-0 overflow-y-auto">
-                {PRODUCTS.map((p, i) => (
-                  <li key={i}>
-                    <button
-                      className={`text-left w-full ${
-                        i === selected ? "text-white" : "text-white/40"
-                      }`}
-                      onClick={() => setSelected(i)}
-                    >
-                      {p.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="text-body leading-snug">
-                {PRODUCTS[selected].description}
-              </p>
-            </div>
-
-            <Homesick />
-
-            <div className="flex-1 min-h-0 relative overflow-hidden">
-              {PRODUCTS[selected].image && (
-                <img
-                  src={PRODUCTS[selected].image as string}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover object-top"
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: "center 30%" }}
+              >
+                <source
+                  src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                  type="video/mp4"
                 />
-              )}
+              </video>
+              <MediaFade />
             </div>
-          </div>
+            <ContactBlock />
+            <BottomNav screen={screen} go={go} />
+            <Homesick />
+          </section>
 
-          {/* — Story — */}
-          <div
-            className={`flex-1 overflow-y-auto overscroll-contain min-h-0 ${
-              screen === "story" ? "" : "hidden"
-            }`}
-          >
-            <div className="relative" style={{ paddingTop: SAFE_TOP }}>
+          {/* ══════ HOME ══════ */}
+          <section className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
+            <div
+              className="flex-1 relative overflow-hidden min-h-0"
+              style={{ paddingTop: SAFE_TOP }}
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: "center 20%" }}
+              >
+                <source
+                  src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
+                  type="video/mp4"
+                />
+              </video>
+              <MediaFade />
+            </div>
+            <BottomNav screen={screen} go={go} />
+            <Homesick />
+          </section>
+
+          {/* ══════ CATALOG ══════ */}
+          <section className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
+            <div
+              className="flex-1 relative overflow-hidden min-h-0"
+              style={{ paddingTop: SAFE_TOP }}
+            >
               <img
-                src="/assets/HOMESICK.png"
-                aria-hidden
-                className="absolute inset-x-0 top-0 w-full z-0 pointer-events-none"
-                style={{ mixBlendMode: "screen", opacity: 0.9 }}
+                src={PRODUCTS[selected].image}
+                alt={PRODUCTS[selected].name}
+                className="absolute inset-0 w-full h-full object-contain"
               />
-              <div className="relative z-10 grid grid-cols-[auto_1fr] gap-6 px-3 pb-10">
-                <nav className="w-14 text-body uppercase leading-tight flex flex-col gap-8">
-                  <button
-                    className="text-left text-white/40"
-                    onClick={() => go("catalog")}
-                  >
-                    MAGICAL<br />OBJECTS
-                  </button>
-                  <button className="text-left text-white">
-                    SOME<br />STORY
-                  </button>
-                  <button
-                    className="text-left text-white/40"
-                    onClick={() => go("contact")}
-                  >
-                    PIRATE<br />SHIP
-                  </button>
-                </nav>
-                <p className="text-display leading-snug">
+              <MediaFade />
+            </div>
+            <ProductBlock selected={selected} setSelected={setSelected} />
+            <BottomNav screen={screen} go={go} />
+            <Homesick />
+          </section>
+
+          {/* ══════ STORY ══════ */}
+          <section className="h-[100dvh] shrink-0 flex flex-col bg-black text-white">
+            <div
+              className="flex-1 relative overflow-hidden min-h-0"
+              style={{ paddingTop: SAFE_TOP }}
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source
+                  src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                  type="video/mp4"
+                />
+              </video>
+              <MediaFade />
+              <div className="absolute inset-x-0 bottom-0 px-3 pb-3 text-body leading-snug max-h-[55%] overflow-y-auto">
+                <p className="mb-3">
                   We struggled and struggled to make everything work! Then we
                   made it beautiful. Then we perfected it until it was in every
                   blue jean pocket, so polished and universal it became
                   invisible, which is the worst thing a beautiful thing can
                   become.
                 </p>
-              </div>
-            </div>
-
-            <div className="pl-[92px] pr-3 pb-16">
-              <div className="relative mb-10">
-                <img
-                  src="/assets/crab.png"
-                  alt=""
-                  className="absolute left-0 w-[62%] z-20 pointer-events-none"
-                  style={{ top: "42%" }}
-                />
-                <p className="text-display leading-snug">
+                <p className="mb-3">
                   You cannot love what you cannot lose. You know this. You have
                   always known this. But nothing broke for so long that you
-                  forgot. We lost our sleep on the device that ruined it!
+                  forgot. We track our sleep on the device that ruined it!
                   Everything is efficient and nothing is yours and the distance
-                  between yourself and the world has never been wider
+                  between yourself and the world has never been wider.
                 </p>
-              </div>
-
-              <div className="relative mb-10">
-                <img
-                  src="/assets/jelly.png"
-                  alt=""
-                  className="absolute right-0 w-[38%] z-20 pointer-events-none"
-                  style={{ top: "55%" }}
-                />
-                <p className="text-display leading-snug">
+                <p className="mb-3">
                   Our objects are irregular. You might hate one. Good. It
                   wasn&apos;t for you. Seventy-two degrees is comfortable for
                   you but it makes your friend get sweaty and quiet until their
-                  silence makes you laugh. Freed from the multi-function look
-                  like them. Your nerve endings know. Magic is the goal. Soon
-                  you will hold something alive and shy like a firefly.
+                  silence makes you laugh. Your nerve endings know. Magic is the
+                  goal. Soon you will hold something alive and shy like a
+                  firefly.
+                </p>
+                <p>
+                  This is a story about what happens after everything works. Do
+                  you, like us, suspect that perfection might be the problem?
                 </p>
               </div>
-
-              <p className="text-display leading-snug">
-                This is a story about what happens after everything works. Do
-                you, like us, suspect that perfection might be the problem?
-              </p>
             </div>
-          </div>
-
-          {screen === "story" && <Homesick dim />}
+            <BottomNav screen={screen} go={go} />
+            <Homesick />
+          </section>
         </div>
-
       </div>
     </div>
   );
