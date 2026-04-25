@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 type Screen = "home" | "catalog" | "story";
 const SCREENS: Screen[] = ["home", "catalog", "story"];
@@ -141,7 +141,6 @@ function Homesick({ onClick }: { onClick: () => void }) {
   );
 }
 
-/** Shared white card shell — used by story reading area and follow popup */
 function Card({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-black rounded-t-[20px] px-6 pt-5 pb-6 text-white">
@@ -157,17 +156,30 @@ export default function Home() {
   const [followOpen, setFollowOpen] = useState(false);
   const [useEmail, setUseEmail] = useState(false);
 
+  const bottomBarRef = useRef<HTMLDivElement>(null);
+  const [bottomH, setBottomH] = useState(96);
+
+  useEffect(() => {
+    const update = () => {
+      if (bottomBarRef.current) setBottomH(bottomBarRef.current.offsetHeight);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   const go = (s: Screen) => setScreen(s);
   const idx = SCREENS.indexOf(screen);
-  const pct = 100 / SCREENS.length; // 33.33% per panel
-
+  const pct = 100 / SCREENS.length;
   const total = STORY_SENTENCES.length;
-  const advanceStory = () =>
-    setStoryPage((p) => Math.min(p + 1, total - 1));
+
+  // Slide up from just above the nav; hidden state pushes element below container bottom
+  const overlayTransform = (visible: boolean) =>
+    visible ? "translateY(0)" : `translateY(calc(100% + ${bottomH}px))`;
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
-      <div className="w-full max-w-[440px] h-full flex flex-col">
+      <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
 
         {/* ── Sliding content area ────────────────────────────────── */}
         <div className="flex-1 relative overflow-hidden min-h-0">
@@ -179,7 +191,7 @@ export default function Home() {
             }}
           >
 
-            {/* HOME ── sheep diorama, full bleed */}
+            {/* HOME */}
             <div className="h-full relative shrink-0" style={{ width: `${pct}%` }}>
               <video
                 autoPlay
@@ -197,7 +209,7 @@ export default function Home() {
               <BottomGradient />
             </div>
 
-            {/* CATALOG ── product image + list / description */}
+            {/* CATALOG */}
             <div
               className="h-full shrink-0 flex flex-col bg-black"
               style={{ width: `${pct}%` }}
@@ -235,49 +247,128 @@ export default function Home() {
               </div>
             </div>
 
-            {/* STORY ── clouds video + white reading card */}
+            {/* STORY ── full-bleed clouds video only; card is an overlay */}
             <div
-              className="h-full shrink-0 flex flex-col bg-black"
+              className="h-full shrink-0 relative bg-black"
               style={{ width: `${pct}%` }}
             >
-              <div className="flex-1 relative overflow-hidden min-h-0">
-                <video
-                  autoPlay
-                  muted
-                  playsInline
-                  onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover"
-                >
-                  <source
-                    src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
-                    type="video/mp4"
-                  />
-                </video>
-              </div>
-              {/* Same Card format as follow popup */}
-              <div className="shrink-0" onClick={advanceStory}>
-                <Card>
-                  <p className="text-body text-white/40 uppercase mb-4">
-                    ○ {String(storyPage + 1).padStart(2, "0")} /{" "}
-                    {String(total).padStart(2, "0")}
-                  </p>
-                  <p className="text-display leading-snug mb-6">
-                    {STORY_SENTENCES[storyPage]}
-                  </p>
-                  {storyPage < total - 1 && (
-                    <p className="text-body text-white/40 uppercase">
-                      SCROLL ↓
-                    </p>
-                  )}
-                </Card>
-              </div>
+              <video
+                autoPlay
+                muted
+                playsInline
+                onEnded={(e) => e.currentTarget.pause()}
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source
+                  src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                  type="video/mp4"
+                />
+              </video>
             </div>
 
           </div>
         </div>
 
-        {/* ── Locked bottom bar — never moves ─────────────────────── */}
-        <div className="shrink-0 bg-black">
+        {/* ── Backdrop (dims content when follow is open) ──────────── */}
+        <div
+          className={`absolute inset-0 z-20 bg-black/60 transition-opacity duration-500 ${
+            followOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          onClick={() => setFollowOpen(false)}
+        />
+
+        {/* ── Story card overlay ───────────────────────────────────── */}
+        <div
+          className="absolute inset-x-0 z-30 transition-transform duration-500 ease-out"
+          style={{ bottom: bottomH, transform: overlayTransform(screen === "story") }}
+        >
+          <Card>
+            <div className="grid grid-cols-[1fr_auto] gap-x-5 items-center">
+              <div className="min-w-0">
+                <p className="text-body text-white/40 uppercase mb-4">
+                  ○ {String(storyPage + 1).padStart(2, "0")} /{" "}
+                  {String(total).padStart(2, "0")}
+                </p>
+                <p
+                  key={storyPage}
+                  className="text-display leading-snug"
+                  style={{ animation: "slideInRight 0.3s ease-out" }}
+                >
+                  {STORY_SENTENCES[storyPage]}
+                </p>
+              </div>
+              <div className="flex flex-col gap-4 shrink-0">
+                <button
+                  onClick={() => setStoryPage((p) => Math.max(p - 1, 0))}
+                  className={`text-body leading-none ${
+                    storyPage === 0 ? "text-white/20 pointer-events-none" : "text-white/60"
+                  }`}
+                >
+                  ↑
+                </button>
+                <button
+                  onClick={() => setStoryPage((p) => Math.min(p + 1, total - 1))}
+                  className={`text-body leading-none ${
+                    storyPage === total - 1
+                      ? "text-white/20 pointer-events-none"
+                      : "text-white/60"
+                  }`}
+                >
+                  ↓
+                </button>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* ── Follow overlay ───────────────────────────────────────── */}
+        <div
+          className="absolute inset-x-0 z-40 transition-transform duration-500 ease-out"
+          style={{ bottom: bottomH, transform: overlayTransform(followOpen) }}
+        >
+          <Card>
+            <div className="flex justify-between items-start mb-5">
+              <p className="text-body text-white/60 italic leading-snug max-w-[75%]">
+                We make objects. We&apos;ll tell you when they&apos;re ready.
+              </p>
+              <button
+                onClick={() => setFollowOpen(false)}
+                className="text-white/40 text-body"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-body text-white/40 uppercase mb-1">
+                {useEmail ? "EMAIL" : "PHONE"}
+              </label>
+              <input
+                key={useEmail ? "email" : "phone"}
+                type={useEmail ? "email" : "tel"}
+                autoComplete={useEmail ? "email" : "tel"}
+                className="w-full border-b border-white/20 py-1 outline-none text-body bg-transparent"
+              />
+            </div>
+
+            <div className="flex justify-between items-center">
+              <button
+                onClick={() => setUseEmail((v) => !v)}
+                className="flex items-center gap-[3px] text-body text-white/40 uppercase"
+              >
+                <Bullet on={useEmail} />
+                OR {useEmail ? "PHONE" : "EMAIL"}
+              </button>
+              <button className="text-body uppercase font-medium underline underline-offset-2">
+                SUBMIT →
+              </button>
+            </div>
+          </Card>
+        </div>
+
+        {/* ── Locked bottom bar — always on top ───────────────────── */}
+        <div ref={bottomBarRef} className="shrink-0 bg-black relative z-50">
           <BottomNav
             screen={screen}
             go={go}
@@ -286,61 +377,7 @@ export default function Home() {
           />
           <Homesick onClick={() => go("home")} />
         </div>
-      </div>
 
-      {/* ── FOLLOW popup — overlays any screen ──────────────────────── */}
-      {/* Backdrop */}
-      <div
-        className={`fixed inset-0 z-40 bg-black/60 transition-opacity duration-500 ${
-          followOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        onClick={() => setFollowOpen(false)}
-      />
-      {/* Sheet */}
-      <div
-        className={`fixed inset-x-0 bottom-0 z-50 max-w-[440px] mx-auto transition-transform duration-500 ease-out ${
-          followOpen ? "translate-y-0" : "translate-y-full"
-        }`}
-      >
-        <Card>
-          <div className="flex justify-between items-start mb-5">
-            <p className="text-body text-white/60 italic leading-snug max-w-[75%]">
-              We make objects. We&apos;ll tell you when they&apos;re ready.
-            </p>
-            <button
-              onClick={() => setFollowOpen(false)}
-              className="text-white/40 text-body"
-              aria-label="Close"
-            >
-              ✕
-            </button>
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-body text-white/40 uppercase mb-1">
-              {useEmail ? "EMAIL" : "PHONE"}
-            </label>
-            <input
-              key={useEmail ? "email" : "phone"}
-              type={useEmail ? "email" : "tel"}
-              autoComplete={useEmail ? "email" : "tel"}
-              className="w-full border-b border-white/20 py-1 outline-none text-body bg-transparent"
-            />
-          </div>
-
-          <div className="flex justify-between items-center">
-            <button
-              onClick={() => setUseEmail((v) => !v)}
-              className="flex items-center gap-[3px] text-body text-white/40 uppercase"
-            >
-              <Bullet on={useEmail} />
-              OR {useEmail ? "PHONE" : "EMAIL"}
-            </button>
-            <button className="text-body uppercase font-medium underline underline-offset-2">
-              SUBMIT →
-            </button>
-          </div>
-        </Card>
       </div>
     </div>
   );

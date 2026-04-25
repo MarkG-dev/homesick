@@ -25,3 +25,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-pilat), Arial, Helvetica, sans-serif;
 }
+
+@keyframes slideInRight {
+  from { transform: translateX(14px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
