@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 type Screen = "home" | "catalog" | "story";
 const SCREENS: Screen[] = ["home", "catalog", "story"];
@@ -155,7 +155,9 @@ export default function Home() {
   const [storyPage, setStoryPage] = useState(0);
   const [followOpen, setFollowOpen] = useState(false);
   const [useEmail, setUseEmail] = useState(false);
+  const [muted, setMuted] = useState(true);
 
+  const audioRef = useRef<HTMLAudioElement>(null);
   const bottomBarRef = useRef<HTMLDivElement>(null);
   const [bottomH, setBottomH] = useState(96);
 
@@ -166,6 +168,17 @@ export default function Home() {
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const toggleMute = useCallback(() => {
+    setMuted((m) => {
+      const next = !m;
+      if (audioRef.current) {
+        audioRef.current.muted = next;
+        if (!next) audioRef.current.play().catch(() => {});
+      }
+      return next;
+    });
   }, []);
 
   const go = (s: Screen) => setScreen(s);
@@ -179,7 +192,19 @@ export default function Home() {
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
+      {/* Background audio — starts muted; user unmutes via button */}
+      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop muted preload="auto" />
+
       <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
+
+        {/* Mute / unmute button ── top-right corner */}
+        <button
+          onClick={toggleMute}
+          aria-label={muted ? "Unmute" : "Mute"}
+          className="absolute top-3 right-3 z-50 text-white/60 text-body uppercase leading-none"
+        >
+          {muted ? "♪ off" : "♪ on"}
+        </button>
 
         {/* ── Sliding content area ────────────────────────────────── */}
         <div className="flex-1 relative overflow-hidden min-h-0">
