@@ -54,8 +54,10 @@ const PRODUCTS = [
 
 const STORY_SENTENCES = [
   "We struggled and struggled to make everything work! Then we made it beautiful. Then we perfected it until it was in every blue jean pocket, so polished and universal it became invisible, which is the worst thing a beautiful thing can become.",
-  "You cannot love what you cannot lose.",
-  "Do you, like us, suspect that perfection might be the problem?",
+  "You cannot love what you cannot lose. You know this. You have always known this. But nothing broke for so long that you forgot. We track our sleep on the device that ruined it! Everything is efficient and nothing is yours and the distance between yourself and the world has never been wider.",
+  "Our objects are irregular. You might hate one. Good. It wasn't for you. Seventy-two degrees is comfortable for you but it makes your friend get sweaty and quiet until their silence makes you lonely.",
+  "Freed from the tyranny of multi-function, objects can look like themselves again. Your nerve endings know. Magic is the goal. Soon you will hold something alive and shy like a firefly.",
+  "This is a story about what happens after everything works. Do you, like us, suspect that perfection might be the problem?",
 ];
 
 const FOLLOW_CHANNELS = ["PHONE", "EMAIL", "INSTA", "TIKTOK"] as const;
@@ -186,9 +188,11 @@ export default function Home() {
   const [selected, setSelected] = useState(0);
   const [storyPage, setStoryPage] = useState(0);
   const [channel, setChannel] = useState<Channel>("PHONE");
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
+  const homeVideoRef = useRef<HTMLVideoElement>(null);
+  const storyVideoRef = useRef<HTMLVideoElement>(null);
 
   const toggleMute = useCallback(() => {
     setMuted((m) => {
@@ -236,12 +240,21 @@ export default function Home() {
               className="h-full shrink-0 flex flex-col bg-black"
               style={{ width: `${pct}%` }}
             >
-              <div className="flex-1 relative overflow-hidden min-h-0">
+              <div
+                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (homeVideoRef.current) {
+                    homeVideoRef.current.currentTime = 0;
+                    homeVideoRef.current.play();
+                  }
+                }}
+              >
                 <video
+                  ref={homeVideoRef}
                   autoPlay
-                  loop
                   muted
                   playsInline
+                  onEnded={(e) => e.currentTarget.pause()}
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{ objectPosition: "center 20%" }}
                 >
@@ -271,7 +284,7 @@ export default function Home() {
                 activeIndex={selected}
                 onSelect={setSelected}
               >
-                <p className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
+                <p className="leading-snug line-clamp-6 overflow-hidden text-white text-body lowercase">
                   {PRODUCTS[selected].description}
                 </p>
               </ContentBox>
@@ -282,8 +295,17 @@ export default function Home() {
               className="h-full shrink-0 flex flex-col bg-black"
               style={{ width: `${pct}%` }}
             >
-              <div className="flex-1 relative overflow-hidden min-h-0">
+              <div
+                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (storyVideoRef.current) {
+                    storyVideoRef.current.currentTime = 0;
+                    storyVideoRef.current.play();
+                  }
+                }}
+              >
                 <video
+                  ref={storyVideoRef}
                   autoPlay
                   muted
                   playsInline
