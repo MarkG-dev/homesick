@@ -284,7 +284,7 @@ export default function Home() {
                 activeIndex={selected}
                 onSelect={setSelected}
               >
-                <p className="leading-snug line-clamp-6 overflow-hidden text-white text-body lowercase">
+                <p className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
                   {PRODUCTS[selected].description}
                 </p>
               </ContentBox>
