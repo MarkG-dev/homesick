@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 type Screen = "home" | "catalog" | "story" | "follow";
 const SCREENS: Screen[] = ["home", "catalog", "story", "follow"];
@@ -84,7 +84,11 @@ function Bullet({ on }: { on: boolean }) {
 }
 
 /** Shared content box used by catalog, story, follow.
- *  Two columns: bulleted list on the left, content on the right. */
+ *  Two columns: bulleted list on the left, content on the right.
+ *  Always renders ROWS rows so the box stays the same height across pages —
+ *  pages with fewer items get invisible spacer rows below. */
+const ROWS = 6;
+
 function ContentBox({
   items,
   activeIndex,
@@ -96,12 +100,23 @@ function ContentBox({
   onSelect?: (i: number) => void;
   children: React.ReactNode;
 }) {
+  const interactive = !!onSelect;
   return (
     <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase bg-black">
       <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
-        {items.map((label, i) => {
+        {Array.from({ length: ROWS }).map((_, i) => {
+          const label = items[i];
+          if (!label) {
+            return (
+              <li key={`spacer-${i}`} aria-hidden className="invisible">
+                <span className="flex items-center gap-[3px]">
+                  <Bullet on={false} />
+                  &nbsp;
+                </span>
+              </li>
+            );
+          }
           const on = i === activeIndex;
-          const interactive = !!onSelect;
           return (
             <li key={label}>
               {interactive ? (
@@ -194,6 +209,16 @@ export default function Home() {
   const homeVideoRef = useRef<HTMLVideoElement>(null);
   const storyVideoRef = useRef<HTMLVideoElement>(null);
 
+  useEffect(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.muted = false;
+    a.play().catch(() => {
+      a.muted = true;
+      setMuted(true);
+    });
+  }, []);
+
   const toggleMute = useCallback(() => {
     setMuted((m) => {
       const next = !m;
@@ -212,7 +237,7 @@ export default function Home() {
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
-      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop muted preload="auto" />
+      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop autoPlay preload="auto" />
 
       <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
 
