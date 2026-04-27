@@ -16,11 +16,13 @@ const pilat = localFont({
   variable: "--font-pilat",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined)
+  ?? "https://homesick.dev";
 
 export const metadata: Metadata = {
-  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
+  metadataBase: new URL(siteUrl),
   title: "Homesick",
   description: "building magical objects",
   openGraph: {
