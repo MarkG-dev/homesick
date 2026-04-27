@@ -224,6 +224,19 @@ export default function Home() {
     });
   }, []);
 
+  useEffect(() => {
+    const refByScreen = {
+      home: homeVideoRef,
+      story: storyVideoRef,
+      follow: followVideoRef,
+    } as const;
+    const ref = (refByScreen as Record<string, typeof homeVideoRef | undefined>)[screen];
+    const el = ref?.current;
+    if (!el) return;
+    el.currentTime = 0;
+    el.play().catch(() => {});
+  }, [screen]);
+
   const toggleMute = useCallback(() => {
     setMuted((m) => {
       const next = !m;

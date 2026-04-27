@@ -11,9 +11,9 @@ export default async function Icon() {
   const sighBytes = await readFile(join(process.cwd(), SIGH_PATH));
   const sighSrc = `data:image/png;base64,${sighBytes.toString("base64")}`;
 
-  // The source PNG is 1042x1042 with the device in the upper-left ~50%.
-  // Render at 800x800 inside a 512x512 canvas and offset so the device
-  // (centered around 50%, 44% of the source) lands at the canvas center.
+  // The source PNG is 1042x1042; the device center sits at ~57% horizontal,
+  // ~50% vertical. Render at 760x760 so the device fills ~89% of the 512
+  // canvas, with offsets that land its center at canvas center.
   return new ImageResponse(
     (
       <div
@@ -28,12 +28,12 @@ export default async function Icon() {
         <img
           src={sighSrc}
           alt=""
-          width={650}
-          height={650}
+          width={760}
+          height={760}
           style={{
             position: "absolute",
-            left: -90,
-            top: -50,
+            left: -177,
+            top: -124,
           }}
         />
       </div>
