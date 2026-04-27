@@ -208,6 +208,7 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const homeVideoRef = useRef<HTMLVideoElement>(null);
   const storyVideoRef = useRef<HTMLVideoElement>(null);
+  const followVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const a = audioRef.current;
@@ -361,26 +362,34 @@ export default function Home() {
               </ContentBox>
             </div>
 
-            {/* FOLLOW ── jelly + crab on black, no gradient, content box with form */}
+            {/* FOLLOW ── eagles video + soft gradient, content box with form */}
             <div
               className="h-full shrink-0 flex flex-col bg-black"
               style={{ width: `${pct}%` }}
             >
-              <div className="flex-1 relative overflow-hidden min-h-0">
-                <img
-                  src="/assets/jelly.png"
-                  alt=""
-                  aria-hidden
-                  className="absolute"
-                  style={{ top: "10%", left: "-8%", width: "75%" }}
-                />
-                <img
-                  src="/assets/crab.png"
-                  alt=""
-                  aria-hidden
-                  className="absolute"
-                  style={{ top: "55%", right: "-4%", width: "45%" }}
-                />
+              <div
+                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (followVideoRef.current) {
+                    followVideoRef.current.currentTime = 0;
+                    followVideoRef.current.play();
+                  }
+                }}
+              >
+                <video
+                  ref={followVideoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  onEnded={(e) => e.currentTarget.pause()}
+                  className="absolute inset-0 w-full h-full object-cover"
+                >
+                  <source
+                    src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <SoftGradient />
               </div>
               <ContentBox
                 items={FOLLOW_CHANNELS}
