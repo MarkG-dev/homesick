@@ -64,7 +64,9 @@ const FOLLOW_CHANNELS = ["PHONE", "EMAIL", "INSTA", "TIKTOK"] as const;
 type Channel = (typeof FOLLOW_CHANNELS)[number];
 
 /** Softer 3-stop fade — black at bottom, 25% at midpoint, transparent at top.
- *  Used only on home + story to bridge the video into the black content box. */
+ *  Used only on home + story to bridge the video into the black content box.
+ *  translateZ(0) forces a GPU layer so it composites cleanly over the video
+ *  layer (without it the video can paint a frame before the gradient is up). */
 function SoftGradient() {
   return (
     <div
@@ -74,6 +76,8 @@ function SoftGradient() {
         height: "55%",
         background:
           "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 100%)",
+        transform: "translateZ(0)",
+        willChange: "opacity",
       }}
     />
   );
@@ -280,8 +284,9 @@ export default function Home() {
                   autoPlay
                   muted
                   playsInline
+                  preload="auto"
                   onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
                   style={{ objectPosition: "center 20%" }}
                 >
                   <source
@@ -335,8 +340,9 @@ export default function Home() {
                   autoPlay
                   muted
                   playsInline
+                  preload="auto"
                   onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
                 >
                   <source
                     src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
@@ -381,8 +387,9 @@ export default function Home() {
                   autoPlay
                   muted
                   playsInline
+                  preload="auto"
                   onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
                 >
                   <source
                     src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
