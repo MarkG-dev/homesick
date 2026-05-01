@@ -19,6 +19,19 @@ const pilat = localFont({
 export const metadata: Metadata = {
   title: "Homesick",
   description: "Homesick",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
+  openGraph: {
+    title: "Homesick",
+    description: "Homesick",
+    images: [{ url: "/og.png", width: 1600, height: 900 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og.png"],
+  },
 };
 
 export const viewport: Viewport = {
