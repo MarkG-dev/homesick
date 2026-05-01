@@ -1,8 +1,8 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
 
-type Screen = "home" | "catalog" | "story";
-const SCREENS: Screen[] = ["home", "catalog", "story"];
+type Screen = "home" | "catalog" | "story" | "follow";
+const SCREENS: Screen[] = ["home", "catalog", "story", "follow"];
 
 const IMG = {
   atc: "/assets/magnifics_upscale-V3jRyWe7MMJjWWu6FHMo-image%208%202.png",
@@ -53,23 +53,31 @@ const PRODUCTS = [
 ];
 
 const STORY_SENTENCES = [
-  "We struggled and struggled to make everything work!",
-  "Then we made it beautiful.",
-  "We perfected it until it was in every blue jean pocket — so polished and universal it became invisible.",
-  "Which is the worst thing a beautiful thing can become.",
-  "You cannot love what you cannot lose.",
-  "Do you, like us, suspect that perfection might be the problem?",
+  "We struggled and struggled to make everything work! Then we made it beautiful. Then we perfected it until it was in every blue jean pocket, so polished and universal it became invisible, which is the worst thing a beautiful thing can become.",
+  "You cannot love what you cannot lose. You know this. You have always known this. But nothing broke for so long that you forgot. We track our sleep on the device that ruined it! Everything is efficient and nothing is yours and the distance between yourself and the world has never been wider.",
+  "Our objects are irregular. You might hate one. Good. It wasn't for you. Seventy-two degrees is comfortable for you but it makes your friend get sweaty and quiet until their silence makes you lonely.",
+  "Freed from the tyranny of multi-function, objects can look like themselves again. Your nerve endings know. Magic is the goal. Soon you will hold something alive and shy like a firefly.",
+  "This is a story about what happens after everything works. Do you, like us, suspect that perfection might be the problem?",
 ];
 
-/** Black at bottom → transparent going up — fades video into nav */
-function BottomGradient() {
+const FOLLOW_CHANNELS = ["PHONE", "EMAIL", "INSTA", "TIKTOK"] as const;
+type Channel = (typeof FOLLOW_CHANNELS)[number];
+
+/** Softer 3-stop fade — black at bottom, 25% at midpoint, transparent at top.
+ *  Used only on home + story to bridge the video into the black content box.
+ *  translateZ(0) forces a GPU layer so it composites cleanly over the video
+ *  layer (without it the video can paint a frame before the gradient is up). */
+function SoftGradient() {
   return (
     <div
       aria-hidden
       className="absolute inset-x-0 bottom-0 pointer-events-none z-10"
       style={{
-        height: "40%",
-        background: "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)",
+        height: "55%",
+        background:
+          "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 100%)",
+        transform: "translateZ(0)",
+        willChange: "opacity",
       }}
     />
   );
@@ -79,16 +87,77 @@ function Bullet({ on }: { on: boolean }) {
   return <span className="inline-block w-[1em]">{on ? "●" : "○"}</span>;
 }
 
+/** Shared content box used by catalog, story, follow.
+ *  Two columns: bulleted list on the left, content on the right.
+ *  Always renders ROWS rows so the box stays the same height across pages —
+ *  pages with fewer items get invisible spacer rows below. */
+const ROWS = 6;
+
+function ContentBox({
+  items,
+  activeIndex,
+  onSelect,
+  children,
+}: {
+  items: readonly string[];
+  activeIndex: number;
+  onSelect?: (i: number) => void;
+  children: React.ReactNode;
+}) {
+  const interactive = !!onSelect;
+  return (
+    <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase bg-black">
+      <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
+        {Array.from({ length: ROWS }).map((_, i) => {
+          const label = items[i];
+          if (!label) {
+            return (
+              <li key={`spacer-${i}`} aria-hidden className="invisible">
+                <span className="flex items-center gap-[3px]">
+                  <Bullet on={false} />
+                  &nbsp;
+                </span>
+              </li>
+            );
+          }
+          const on = i === activeIndex;
+          return (
+            <li key={label}>
+              {interactive ? (
+                <button
+                  onClick={() => onSelect!(i)}
+                  className={`flex items-center gap-[3px] text-left ${
+                    on ? "text-white" : "text-white/40"
+                  }`}
+                >
+                  <Bullet on={on} />
+                  {label}
+                </button>
+              ) : (
+                <span
+                  className={`flex items-center gap-[3px] ${
+                    on ? "text-white" : "text-white/40"
+                  }`}
+                >
+                  <Bullet on={on} />
+                  {label}
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <div className="min-w-0 normal-case">{children}</div>
+    </div>
+  );
+}
+
 function BottomNav({
   screen,
   go,
-  followOpen,
-  onFollow,
 }: {
   screen: Screen;
   go: (s: Screen) => void;
-  followOpen: boolean;
-  onFollow: () => void;
 }) {
   return (
     <nav className="shrink-0 flex items-center gap-4 px-3 pt-3 pb-2 text-body uppercase">
@@ -96,6 +165,7 @@ function BottomNav({
         [
           ["catalog", "MAGICAL OBJECTS"],
           ["story", "STORY"],
+          ["follow", "FOLLOW"],
         ] as const
       ).map(([target, label]) => {
         const active = screen === target;
@@ -112,15 +182,6 @@ function BottomNav({
           </button>
         );
       })}
-      <button
-        onClick={onFollow}
-        className={`flex items-center gap-[3px] whitespace-nowrap ${
-          followOpen ? "text-white" : "text-white/40"
-        }`}
-      >
-        <Bullet on={followOpen} />
-        FOLLOW
-      </button>
     </nav>
   );
 }
@@ -141,34 +202,40 @@ function Homesick({ onClick }: { onClick: () => void }) {
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="bg-black rounded-t-[20px] px-6 pt-5 pb-6 text-white">
-      {children}
-    </div>
-  );
-}
-
 export default function Home() {
   const [screen, setScreen] = useState<Screen>("home");
   const [selected, setSelected] = useState(0);
   const [storyPage, setStoryPage] = useState(0);
-  const [followOpen, setFollowOpen] = useState(false);
-  const [useEmail, setUseEmail] = useState(false);
-  const [muted, setMuted] = useState(true);
+  const [channel, setChannel] = useState<Channel>("PHONE");
+  const [muted, setMuted] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
-  const bottomBarRef = useRef<HTMLDivElement>(null);
-  const [bottomH, setBottomH] = useState(96);
+  const homeVideoRef = useRef<HTMLVideoElement>(null);
+  const storyVideoRef = useRef<HTMLVideoElement>(null);
+  const followVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const update = () => {
-      if (bottomBarRef.current) setBottomH(bottomBarRef.current.offsetHeight);
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    const a = audioRef.current;
+    if (!a) return;
+    a.muted = false;
+    a.play().catch(() => {
+      a.muted = true;
+      setMuted(true);
+    });
   }, []);
+
+  useEffect(() => {
+    const refByScreen = {
+      home: homeVideoRef,
+      story: storyVideoRef,
+      follow: followVideoRef,
+    } as const;
+    const ref = (refByScreen as Record<string, typeof homeVideoRef | undefined>)[screen];
+    const el = ref?.current;
+    if (!el) return;
+    el.currentTime = 0;
+    el.play().catch(() => {});
+  }, [screen]);
 
   const toggleMute = useCallback(() => {
     setMuted((m) => {
@@ -184,16 +251,11 @@ export default function Home() {
   const go = (s: Screen) => setScreen(s);
   const idx = SCREENS.indexOf(screen);
   const pct = 100 / SCREENS.length;
-  const total = STORY_SENTENCES.length;
-
-  // Slide up from just above the nav; hidden state pushes element below container bottom
-  const overlayTransform = (visible: boolean) =>
-    visible ? "translateY(0)" : `translateY(calc(100% + ${bottomH}px))`;
+  const isContact = channel === "PHONE" || channel === "EMAIL";
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
-      {/* Background audio — starts muted; user unmutes via button */}
-      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop muted preload="auto" />
+      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop autoPlay preload="auto" />
 
       <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
 
@@ -216,25 +278,40 @@ export default function Home() {
             }}
           >
 
-            {/* HOME */}
-            <div className="h-full relative shrink-0" style={{ width: `${pct}%` }}>
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: "center 20%" }}
+            {/* HOME ── full-bleed sheep video, soft gradient bridging into black bar */}
+            <div
+              className="h-full shrink-0 flex flex-col bg-black"
+              style={{ width: `${pct}%` }}
+            >
+              <div
+                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (homeVideoRef.current) {
+                    homeVideoRef.current.currentTime = 0;
+                    homeVideoRef.current.play();
+                  }
+                }}
               >
-                <source
-                  src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
-                  type="video/mp4"
-                />
-              </video>
-              <BottomGradient />
+                <video
+                  ref={homeVideoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  onEnded={(e) => e.currentTarget.pause()}
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
+                  style={{ objectPosition: "center 20%" }}
+                >
+                  <source
+                    src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <SoftGradient />
+              </div>
             </div>
 
-            {/* CATALOG */}
+            {/* CATALOG ── product image + content box, no gradient */}
             <div
               className="h-full shrink-0 flex flex-col bg-black"
               style={{ width: `${pct}%` }}
@@ -245,161 +322,141 @@ export default function Home() {
                   alt={PRODUCTS[selected].name}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-                <BottomGradient />
               </div>
-              <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase">
-                <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
-                  {PRODUCTS.map((p, i) => {
-                    const on = i === selected;
-                    return (
-                      <li key={p.name}>
-                        <button
-                          onClick={() => setSelected(i)}
-                          className={`flex items-center gap-[3px] text-left ${
-                            on ? "text-white" : "text-white/40"
-                          }`}
-                        >
-                          <Bullet on={on} />
-                          {p.name}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-                <p className="leading-snug line-clamp-6 overflow-hidden text-white">
+              <ContentBox
+                items={PRODUCTS.map((p) => p.name)}
+                activeIndex={selected}
+                onSelect={setSelected}
+              >
+                <p className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
                   {PRODUCTS[selected].description}
                 </p>
-              </div>
+              </ContentBox>
             </div>
 
-            {/* STORY ── full-bleed clouds video only; card is an overlay */}
+            {/* STORY ── clouds video + soft gradient + paginated content box */}
             <div
-              className="h-full shrink-0 relative bg-black"
+              className="h-full shrink-0 flex flex-col bg-black"
               style={{ width: `${pct}%` }}
             >
-              <video
-                autoPlay
-                muted
-                playsInline
-                onEnded={(e) => e.currentTarget.pause()}
-                className="absolute inset-0 w-full h-full object-cover"
+              <div
+                className="flex-1 relative overflow-y-scroll min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (storyVideoRef.current) {
+                    storyVideoRef.current.currentTime = 0;
+                    storyVideoRef.current.play();
+                  }
+                }}
+                onWheel={(e) => {
+                  e.preventDefault();
+                  const direction = e.deltaY > 0 ? 1 : -1;
+                  setStoryPage((p) =>
+                    Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + direction))
+                  );
+                }}
               >
-                <source
-                  src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
-                  type="video/mp4"
-                />
-              </video>
+                <video
+                  ref={storyVideoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  onEnded={(e) => e.currentTarget.pause()}
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
+                >
+                  <source
+                    src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <SoftGradient />
+              </div>
+              <ContentBox
+                items={STORY_SENTENCES.map((_, i) =>
+                  String(i + 1).padStart(2, "0"),
+                )}
+                activeIndex={storyPage}
+                onSelect={setStoryPage}
+              >
+                <p
+                  key={storyPage}
+                  className="leading-snug text-white text-body normal-case"
+                  style={{ animation: "slideInRight 0.3s ease-out" }}
+                >
+                  {STORY_SENTENCES[storyPage]}
+                </p>
+              </ContentBox>
+            </div>
+
+            {/* FOLLOW ── eagles video + soft gradient, content box with form */}
+            <div
+              className="h-full shrink-0 flex flex-col bg-black"
+              style={{ width: `${pct}%` }}
+            >
+              <div
+                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (followVideoRef.current) {
+                    followVideoRef.current.currentTime = 0;
+                    followVideoRef.current.play();
+                  }
+                }}
+              >
+                <video
+                  ref={followVideoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  onEnded={(e) => e.currentTarget.pause()}
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
+                >
+                  <source
+                    src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <SoftGradient />
+              </div>
+              <ContentBox
+                items={FOLLOW_CHANNELS}
+                activeIndex={FOLLOW_CHANNELS.indexOf(channel)}
+                onSelect={(i) => setChannel(FOLLOW_CHANNELS[i])}
+              >
+                {isContact ? (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <input
+                        key={channel}
+                        type={channel === "EMAIL" ? "email" : "tel"}
+                        autoComplete={channel === "EMAIL" ? "email" : "tel"}
+                        className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
+                      />
+                      <button
+                        aria-label="Submit"
+                        className="text-white/80 text-body leading-none"
+                      >
+                        →
+                      </button>
+                    </div>
+                    <p className="text-body text-white/70 normal-case leading-snug">
+                      We make objects. We&apos;ll tell you when they&apos;re ready.
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-body text-white/70 normal-case leading-snug">
+                    {channel === "INSTA" ? "@homesick" : "@homesick"}
+                  </p>
+                )}
+              </ContentBox>
             </div>
 
           </div>
         </div>
 
-        {/* ── Backdrop (dims content when follow is open) ──────────── */}
-        <div
-          className={`absolute inset-0 z-20 bg-black/60 transition-opacity duration-500 ${
-            followOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
-          onClick={() => setFollowOpen(false)}
-        />
-
-        {/* ── Story card overlay ───────────────────────────────────── */}
-        <div
-          className="absolute inset-x-0 z-30 transition-transform duration-500 ease-out"
-          style={{ bottom: bottomH, transform: overlayTransform(screen === "story") }}
-        >
-          <Card>
-            <div className="grid grid-cols-[1fr_auto] gap-x-5 items-center">
-              <div className="min-w-0">
-                <p className="text-body text-white/40 uppercase mb-4">
-                  ○ {String(storyPage + 1).padStart(2, "0")} /{" "}
-                  {String(total).padStart(2, "0")}
-                </p>
-                <p
-                  key={storyPage}
-                  className="text-display leading-snug"
-                  style={{ animation: "slideInRight 0.3s ease-out" }}
-                >
-                  {STORY_SENTENCES[storyPage]}
-                </p>
-              </div>
-              <div className="flex flex-col gap-4 shrink-0">
-                <button
-                  onClick={() => setStoryPage((p) => Math.max(p - 1, 0))}
-                  className={`text-body leading-none ${
-                    storyPage === 0 ? "text-white/20 pointer-events-none" : "text-white/60"
-                  }`}
-                >
-                  ↑
-                </button>
-                <button
-                  onClick={() => setStoryPage((p) => Math.min(p + 1, total - 1))}
-                  className={`text-body leading-none ${
-                    storyPage === total - 1
-                      ? "text-white/20 pointer-events-none"
-                      : "text-white/60"
-                  }`}
-                >
-                  ↓
-                </button>
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        {/* ── Follow overlay ───────────────────────────────────────── */}
-        <div
-          className="absolute inset-x-0 z-40 transition-transform duration-500 ease-out"
-          style={{ bottom: bottomH, transform: overlayTransform(followOpen) }}
-        >
-          <Card>
-            <div className="flex justify-between items-start mb-5">
-              <p className="text-body text-white/60 italic leading-snug max-w-[75%]">
-                We make objects. We&apos;ll tell you when they&apos;re ready.
-              </p>
-              <button
-                onClick={() => setFollowOpen(false)}
-                className="text-white/40 text-body"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-body text-white/40 uppercase mb-1">
-                {useEmail ? "EMAIL" : "PHONE"}
-              </label>
-              <input
-                key={useEmail ? "email" : "phone"}
-                type={useEmail ? "email" : "tel"}
-                autoComplete={useEmail ? "email" : "tel"}
-                className="w-full border-b border-white/20 py-1 outline-none text-body bg-transparent"
-              />
-            </div>
-
-            <div className="flex justify-between items-center">
-              <button
-                onClick={() => setUseEmail((v) => !v)}
-                className="flex items-center gap-[3px] text-body text-white/40 uppercase"
-              >
-                <Bullet on={useEmail} />
-                OR {useEmail ? "PHONE" : "EMAIL"}
-              </button>
-              <button className="text-body uppercase font-medium underline underline-offset-2">
-                SUBMIT →
-              </button>
-            </div>
-          </Card>
-        </div>
-
         {/* ── Locked bottom bar — always on top ───────────────────── */}
-        <div ref={bottomBarRef} className="shrink-0 bg-black relative z-50">
-          <BottomNav
-            screen={screen}
-            go={go}
-            followOpen={followOpen}
-            onFollow={() => setFollowOpen(true)}
-          />
+        <div className="shrink-0 bg-black relative z-50">
+          <BottomNav screen={screen} go={go} />
           <Homesick onClick={() => go("home")} />
         </div>
 
