@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const pilat = localFont({
@@ -51,7 +52,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${pilat.variable} h-full overflow-hidden bg-black antialiased`}>
-      <body className="h-full overflow-hidden overscroll-none bg-black flex flex-col">{children}</body>
+      <body className="h-full overflow-hidden overscroll-none bg-black flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
