@@ -15,10 +15,10 @@ const IMG = {
 
 const PRODUCTS = [
   {
-    name: "ATC 1.0",
+    name: "PLEASE HOLD",
     image: IMG.atc,
     description:
-      "This tin can holds one message at a time, in one place. Modern phones are distracting and too accessible. Constant access kills spontaneity and presence. This device brings both back.",
+      "This phone holds one message at a time. Play the game of telephone with friends! Messages save to a digital map so you can co-create funny stories.",
   },
   {
     name: "WANDR",
