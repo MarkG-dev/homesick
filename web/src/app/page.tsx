@@ -340,12 +340,19 @@ export default function Home() {
               style={{ width: `${pct}%` }}
             >
               <div
-                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                className="flex-1 relative overflow-y-scroll min-h-0 cursor-pointer"
                 onClick={() => {
                   if (storyVideoRef.current) {
                     storyVideoRef.current.currentTime = 0;
                     storyVideoRef.current.play();
                   }
+                }}
+                onWheel={(e) => {
+                  e.preventDefault();
+                  const direction = e.deltaY > 0 ? 1 : -1;
+                  setStoryPage((p) =>
+                    Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + direction))
+                  );
                 }}
               >
                 <video
