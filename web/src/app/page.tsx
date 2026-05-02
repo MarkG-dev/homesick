@@ -207,6 +207,9 @@ export default function Home() {
   const [selected, setSelected] = useState(0);
   const [storyPage, setStoryPage] = useState(0);
   const [channel, setChannel] = useState<Channel>("PHONE");
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [muted, setMuted] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -252,6 +255,22 @@ export default function Home() {
   const idx = SCREENS.indexOf(screen);
   const pct = 100 / SCREENS.length;
   const isContact = channel === "PHONE" || channel === "EMAIL";
+
+  const handleSubmit = async () => {
+    const value = inputRef.current?.value?.trim();
+    if (!value || submitting) return;
+    setSubmitting(true);
+    try {
+      await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: channel, value }),
+      });
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
@@ -421,28 +440,38 @@ export default function Home() {
               <ContentBox
                 items={FOLLOW_CHANNELS}
                 activeIndex={FOLLOW_CHANNELS.indexOf(channel)}
-                onSelect={(i) => setChannel(FOLLOW_CHANNELS[i])}
+                onSelect={(i) => { setChannel(FOLLOW_CHANNELS[i]); setSubmitted(false); }}
               >
                 {isContact ? (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <input
-                        key={channel}
-                        type={channel === "EMAIL" ? "email" : "tel"}
-                        autoComplete={channel === "EMAIL" ? "email" : "tel"}
-                        className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
-                      />
-                      <button
-                        aria-label="Submit"
-                        className="text-white/80 text-body leading-none"
-                      >
-                        →
-                      </button>
-                    </div>
+                  submitted ? (
                     <p className="text-body text-white/70 normal-case leading-snug">
-                      We make objects. We&apos;ll tell you when they&apos;re ready.
+                      Thanks so much. We&apos;ll be in touch.
                     </p>
-                  </div>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-2">
+                        <input
+                          ref={inputRef}
+                          key={channel}
+                          type={channel === "EMAIL" ? "email" : "tel"}
+                          autoComplete={channel === "EMAIL" ? "email" : "tel"}
+                          onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+                          className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
+                        />
+                        <button
+                          onClick={handleSubmit}
+                          disabled={submitting}
+                          aria-label="Submit"
+                          className="text-white/80 text-body leading-none disabled:opacity-40"
+                        >
+                          →
+                        </button>
+                      </div>
+                      <p className="text-body text-white/70 normal-case leading-snug">
+                        We make objects. We&apos;ll tell you when they&apos;re ready.
+                      </p>
+                    </div>
+                  )
                 ) : (
                   <p className="text-body text-white/70 normal-case leading-snug">
                     {channel === "INSTA" ? "@homesick" : "@homesick"}
