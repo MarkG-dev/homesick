@@ -207,12 +207,24 @@ export default function Home() {
   const [selected, setSelected] = useState(0);
   const [storyPage, setStoryPage] = useState(0);
   const [channel, setChannel] = useState<Channel>("PHONE");
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const homeVideoRef = useRef<HTMLVideoElement>(null);
   const storyVideoRef = useRef<HTMLVideoElement>(null);
   const followVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    setIsDesktop(mq.matches);
+    const h = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", h);
+    return () => mq.removeEventListener("change", h);
+  }, []);
 
   useEffect(() => {
     const a = audioRef.current;
@@ -253,214 +265,449 @@ export default function Home() {
   const pct = 100 / SCREENS.length;
   const isContact = channel === "PHONE" || channel === "EMAIL";
 
+  const handleSubmit = async () => {
+    const value = inputRef.current?.value?.trim();
+    if (!value || submitting) return;
+    setSubmitting(true);
+    try {
+      await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: channel, value }),
+      });
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const followForm = (
+    <ContentBox
+      items={FOLLOW_CHANNELS}
+      activeIndex={FOLLOW_CHANNELS.indexOf(channel)}
+      onSelect={(i) => { setChannel(FOLLOW_CHANNELS[i]); setSubmitted(false); }}
+    >
+      {isContact ? (
+        submitted ? (
+          <p className="text-body text-white/70 normal-case leading-snug">
+            Thanks so much. We&apos;ll be in touch.
+          </p>
+        ) : (
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <input
+                ref={inputRef}
+                key={channel}
+                type={channel === "EMAIL" ? "email" : "tel"}
+                autoComplete={channel === "EMAIL" ? "email" : "tel"}
+                onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+                className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
+              />
+              <button
+                onClick={handleSubmit}
+                disabled={submitting}
+                aria-label="Submit"
+                className="text-white/80 text-body leading-none disabled:opacity-40"
+              >
+                →
+              </button>
+            </div>
+            <p className="text-body text-white/70 normal-case leading-snug">
+              We make objects. We&apos;ll tell you when they&apos;re ready.
+            </p>
+          </div>
+        )
+      ) : (
+        <p className="text-body text-white/70 normal-case leading-snug">
+          {channel === "INSTA" ? "@homesick" : "@homesick"}
+        </p>
+      )}
+    </ContentBox>
+  );
+
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
       <audio ref={audioRef} src="/assets/fretle$$.m4a" loop autoPlay preload="auto" />
 
-      <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
+      {/* Mute button — positioned relative to the fixed viewport */}
+      <button
+        onClick={toggleMute}
+        aria-label={muted ? "Unmute" : "Mute"}
+        className="absolute top-3 right-3 z-50 text-white/60 text-body uppercase leading-none"
+      >
+        {muted ? "♪ off" : "♪ on"}
+      </button>
 
-        {/* Mute / unmute button ── top-right corner */}
-        <button
-          onClick={toggleMute}
-          aria-label={muted ? "Unmute" : "Mute"}
-          className="absolute top-3 right-3 z-50 text-white/60 text-body uppercase leading-none"
-        >
-          {muted ? "♪ off" : "♪ on"}
-        </button>
+      {/* ── MOBILE layout (< 768px) ──────────────────────────────── */}
+      {!isDesktop && (
+        <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
 
-        {/* ── Sliding content area ────────────────────────────────── */}
-        <div className="flex-1 relative overflow-hidden min-h-0">
-          <div
-            className="flex h-full transition-transform duration-700 ease-in-out"
-            style={{
-              width: `${SCREENS.length * 100}%`,
-              transform: `translateX(-${idx * pct}%)`,
-            }}
-          >
-
-            {/* HOME ── full-bleed sheep video, soft gradient bridging into black bar */}
+          {/* Sliding content area */}
+          <div className="flex-1 relative overflow-hidden min-h-0">
             <div
-              className="h-full shrink-0 flex flex-col bg-black"
-              style={{ width: `${pct}%` }}
+              className="flex h-full transition-transform duration-700 ease-in-out"
+              style={{
+                width: `${SCREENS.length * 100}%`,
+                transform: `translateX(-${idx * pct}%)`,
+              }}
             >
+
+              {/* HOME — full-bleed sheep video */}
               <div
-                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                onClick={() => {
-                  if (homeVideoRef.current) {
-                    homeVideoRef.current.currentTime = 0;
-                    homeVideoRef.current.play();
-                  }
-                }}
+                className="h-full shrink-0 flex flex-col bg-black"
+                style={{ width: `${pct}%` }}
               >
-                <video
-                  ref={homeVideoRef}
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="auto"
-                  onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover bg-black"
-                  style={{ objectPosition: "center 20%" }}
+                <div
+                  className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                  onClick={() => {
+                    if (homeVideoRef.current) {
+                      homeVideoRef.current.currentTime = 0;
+                      homeVideoRef.current.play();
+                    }
+                  }}
                 >
-                  <source
-                    src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
-                    type="video/mp4"
-                  />
-                </video>
-                <SoftGradient />
+                  <video
+                    ref={homeVideoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    onEnded={(e) => e.currentTarget.pause()}
+                    className="absolute inset-0 w-full h-full object-cover bg-black"
+                    style={{ objectPosition: "center 20%" }}
+                  >
+                    <source
+                      src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <SoftGradient />
+                </div>
               </div>
-            </div>
 
-            {/* CATALOG ── product image + content box, no gradient */}
-            <div
-              className="h-full shrink-0 flex flex-col bg-black"
-              style={{ width: `${pct}%` }}
-            >
-              <div className="flex-1 relative overflow-hidden min-h-0">
-                <img
-                  src={PRODUCTS[selected].image}
-                  alt={PRODUCTS[selected].name}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <ContentBox
-                items={PRODUCTS.map((p) => p.name)}
-                activeIndex={selected}
-                onSelect={setSelected}
+              {/* CATALOG — product image + content box */}
+              <div
+                className="h-full shrink-0 flex flex-col bg-black"
+                style={{ width: `${pct}%` }}
               >
-                <p className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
+                <div className="flex-1 relative overflow-hidden min-h-0">
+                  <img
+                    src={PRODUCTS[selected].image}
+                    alt={PRODUCTS[selected].name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+                <ContentBox
+                  items={PRODUCTS.map((p) => p.name)}
+                  activeIndex={selected}
+                  onSelect={setSelected}
+                >
+                  <p
+                    key={selected}
+                    className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case"
+                    style={{ animation: "typewriter 0.6s steps(60) forwards" }}
+                  >
+                    {PRODUCTS[selected].description}
+                  </p>
+                </ContentBox>
+              </div>
+
+              {/* STORY — clouds video + paginated content box */}
+              <div
+                className="h-full shrink-0 flex flex-col bg-black"
+                style={{ width: `${pct}%` }}
+              >
+                <div
+                  className="flex-1 relative overflow-y-scroll min-h-0 cursor-pointer"
+                  onClick={() => {
+                    if (storyVideoRef.current) {
+                      storyVideoRef.current.currentTime = 0;
+                      storyVideoRef.current.play();
+                    }
+                  }}
+                  onWheel={(e) => {
+                    e.preventDefault();
+                    const direction = e.deltaY > 0 ? 1 : -1;
+                    setStoryPage((p) =>
+                      Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + direction))
+                    );
+                  }}
+                >
+                  <video
+                    ref={storyVideoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    onEnded={(e) => e.currentTarget.pause()}
+                    className="absolute inset-0 w-full h-full object-cover bg-black"
+                  >
+                    <source
+                      src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <SoftGradient />
+                </div>
+                <ContentBox
+                  items={STORY_SENTENCES.map((_, i) =>
+                    String(i + 1).padStart(2, "0"),
+                  )}
+                  activeIndex={storyPage}
+                  onSelect={setStoryPage}
+                >
+                  <p
+                    key={storyPage}
+                    className="leading-snug text-white text-body normal-case"
+                    style={{ animation: "slideInRight 0.3s ease-out" }}
+                  >
+                    {STORY_SENTENCES[storyPage]}
+                  </p>
+                </ContentBox>
+              </div>
+
+              {/* FOLLOW — eagles video + form */}
+              <div
+                className="h-full shrink-0 flex flex-col bg-black"
+                style={{ width: `${pct}%` }}
+              >
+                <div
+                  className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                  onClick={() => {
+                    if (followVideoRef.current) {
+                      followVideoRef.current.currentTime = 0;
+                      followVideoRef.current.play();
+                    }
+                  }}
+                >
+                  <video
+                    ref={followVideoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    onEnded={(e) => e.currentTarget.pause()}
+                    className="absolute inset-0 w-full h-full object-cover bg-black"
+                  >
+                    <source
+                      src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <SoftGradient />
+                </div>
+                {followForm}
+              </div>
+
+            </div>
+          </div>
+
+          {/* Locked bottom bar */}
+          <div className="shrink-0 bg-black relative z-50">
+            <BottomNav screen={screen} go={go} />
+            <Homesick onClick={() => go("home")} />
+          </div>
+
+        </div>
+      )}
+
+      {/* ── DESKTOP layout (≥ 768px) ─────────────────────────────── */}
+      {isDesktop && (
+        <div className="w-full h-full flex flex-col">
+
+          {/* Two-column area */}
+          <div className="flex-1 flex min-h-0">
+
+            {/* LEFT RAIL */}
+            <div className="w-[260px] shrink-0 flex flex-col bg-black border-r border-white/10 overflow-y-auto p-4">
+
+              {/* Logo */}
+              <img
+                src="/assets/HOMESICK.png"
+                alt="HOMESICK"
+                className="w-full block cursor-pointer mb-1"
+                style={{ mixBlendMode: "screen" }}
+                onClick={() => go("home")}
+              />
+
+              {/* Tagline */}
+              <p className="text-body text-white/50 normal-case leading-snug mb-6">
+                Objects for the home you remember
+              </p>
+
+              {/* Objects list */}
+              <p className="text-body uppercase text-white/30 mb-1">Objects</p>
+              <ul className="list-none m-0 p-0 flex flex-col gap-0.5 mb-4">
+                {PRODUCTS.map((p, i) => {
+                  const on = screen !== "story" && screen !== "follow" && selected === i;
+                  return (
+                    <li key={p.name}>
+                      <button
+                        onClick={() => { setSelected(i); go("catalog"); }}
+                        className={`flex items-center gap-[3px] text-body uppercase text-left w-full ${
+                          on ? "text-white" : "text-white/40"
+                        }`}
+                      >
+                        <Bullet on={on} />
+                        {p.name}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {/* Divider */}
+              <div className="border-t border-white/10 mb-4" />
+
+              {/* Product info */}
+              <div className="mb-4">
+                <p className="text-body uppercase text-white/40 mb-1">● Shipping Now</p>
+                <p className="text-display italic text-white mb-2">
+                  {PRODUCTS[selected].name}
+                </p>
+                <p
+                  key={selected}
+                  className="text-body text-white/60 normal-case leading-snug"
+                  style={{ animation: "typewriter 0.6s steps(60) forwards" }}
+                >
                   {PRODUCTS[selected].description}
                 </p>
-              </ContentBox>
+              </div>
+
+              {/* Spacer */}
+              <div className="flex-1" />
+
+              {/* Nav */}
+              <div className="flex flex-col gap-1">
+                <button
+                  onClick={() => go("story")}
+                  className={`flex items-center gap-[3px] text-body uppercase ${
+                    screen === "story" ? "text-white" : "text-white/40"
+                  }`}
+                >
+                  <Bullet on={screen === "story"} />
+                  Story
+                </button>
+                <button
+                  onClick={() => go("follow")}
+                  className={`flex items-center gap-[3px] text-body uppercase ${
+                    screen === "follow" ? "text-white" : "text-white/40"
+                  }`}
+                >
+                  <Bullet on={screen === "follow"} />
+                  Follow
+                </button>
+              </div>
             </div>
 
-            {/* STORY ── clouds video + soft gradient + paginated content box */}
-            <div
-              className="h-full shrink-0 flex flex-col bg-black"
-              style={{ width: `${pct}%` }}
-            >
-              <div
-                className="flex-1 relative overflow-y-scroll min-h-0 cursor-pointer"
-                onClick={() => {
-                  if (storyVideoRef.current) {
-                    storyVideoRef.current.currentTime = 0;
-                    storyVideoRef.current.play();
-                  }
-                }}
-                onWheel={(e) => {
-                  e.preventDefault();
-                  const direction = e.deltaY > 0 ? 1 : -1;
-                  setStoryPage((p) =>
-                    Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + direction))
-                  );
-                }}
-              >
-                <video
-                  ref={storyVideoRef}
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="auto"
-                  onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover bg-black"
-                >
-                  <source
-                    src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
-                    type="video/mp4"
-                  />
-                </video>
-                <SoftGradient />
-              </div>
-              <ContentBox
-                items={STORY_SENTENCES.map((_, i) =>
-                  String(i + 1).padStart(2, "0"),
-                )}
-                activeIndex={storyPage}
-                onSelect={setStoryPage}
-              >
-                <p
-                  key={storyPage}
-                  className="leading-snug text-white text-body normal-case"
-                  style={{ animation: "slideInRight 0.3s ease-out" }}
-                >
-                  {STORY_SENTENCES[storyPage]}
-                </p>
-              </ContentBox>
-            </div>
-
-            {/* FOLLOW ── eagles video + soft gradient, content box with form */}
-            <div
-              className="h-full shrink-0 flex flex-col bg-black"
-              style={{ width: `${pct}%` }}
-            >
-              <div
-                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                onClick={() => {
-                  if (followVideoRef.current) {
-                    followVideoRef.current.currentTime = 0;
-                    followVideoRef.current.play();
-                  }
-                }}
-              >
-                <video
-                  ref={followVideoRef}
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="auto"
-                  onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover bg-black"
-                >
-                  <source
-                    src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
-                    type="video/mp4"
-                  />
-                </video>
-                <SoftGradient />
-              </div>
-              <ContentBox
-                items={FOLLOW_CHANNELS}
-                activeIndex={FOLLOW_CHANNELS.indexOf(channel)}
-                onSelect={(i) => setChannel(FOLLOW_CHANNELS[i])}
-              >
-                {isContact ? (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <input
-                        key={channel}
-                        type={channel === "EMAIL" ? "email" : "tel"}
-                        autoComplete={channel === "EMAIL" ? "email" : "tel"}
-                        className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
+            {/* RIGHT PANE */}
+            <div className="flex-1 flex flex-col bg-black overflow-hidden">
+              {screen === "story" ? (
+                <>
+                  <div
+                    className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                    onClick={() => {
+                      if (storyVideoRef.current) {
+                        storyVideoRef.current.currentTime = 0;
+                        storyVideoRef.current.play();
+                      }
+                    }}
+                    onWheel={(e) => {
+                      e.preventDefault();
+                      setStoryPage((p) =>
+                        Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + (e.deltaY > 0 ? 1 : -1)))
+                      );
+                    }}
+                  >
+                    <video
+                      ref={storyVideoRef}
+                      autoPlay
+                      muted
+                      playsInline
+                      preload="auto"
+                      onEnded={(e) => e.currentTarget.pause()}
+                      className="absolute inset-0 w-full h-full object-cover bg-black"
+                    >
+                      <source
+                        src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                        type="video/mp4"
                       />
-                      <button
-                        aria-label="Submit"
-                        className="text-white/80 text-body leading-none"
-                      >
-                        →
-                      </button>
-                    </div>
-                    <p className="text-body text-white/70 normal-case leading-snug">
-                      We make objects. We&apos;ll tell you when they&apos;re ready.
-                    </p>
+                    </video>
+                    <SoftGradient />
                   </div>
-                ) : (
-                  <p className="text-body text-white/70 normal-case leading-snug">
-                    {channel === "INSTA" ? "@homesick" : "@homesick"}
-                  </p>
-                )}
-              </ContentBox>
+                  <ContentBox
+                    items={STORY_SENTENCES.map((_, i) => String(i + 1).padStart(2, "0"))}
+                    activeIndex={storyPage}
+                    onSelect={setStoryPage}
+                  >
+                    <p
+                      key={storyPage}
+                      className="leading-snug text-white text-body normal-case"
+                      style={{ animation: "slideInRight 0.3s ease-out" }}
+                    >
+                      {STORY_SENTENCES[storyPage]}
+                    </p>
+                  </ContentBox>
+                </>
+              ) : screen === "follow" ? (
+                <>
+                  <div
+                    className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                    onClick={() => {
+                      if (followVideoRef.current) {
+                        followVideoRef.current.currentTime = 0;
+                        followVideoRef.current.play();
+                      }
+                    }}
+                  >
+                    <video
+                      ref={followVideoRef}
+                      autoPlay
+                      muted
+                      playsInline
+                      preload="auto"
+                      onEnded={(e) => e.currentTarget.pause()}
+                      className="absolute inset-0 w-full h-full object-cover bg-black"
+                    >
+                      <source
+                        src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                        type="video/mp4"
+                      />
+                    </video>
+                    <SoftGradient />
+                  </div>
+                  {followForm}
+                </>
+              ) : (
+                /* home / catalog: big product image */
+                <div className="flex-1 relative overflow-hidden">
+                  <img
+                    src={PRODUCTS[selected].image}
+                    alt={PRODUCTS[selected].name}
+                    className="absolute inset-0 w-full h-full object-contain"
+                  />
+                </div>
+              )}
             </div>
 
           </div>
-        </div>
 
-        {/* ── Locked bottom bar — always on top ───────────────────── */}
-        <div className="shrink-0 bg-black relative z-50">
-          <BottomNav screen={screen} go={go} />
-          <Homesick onClick={() => go("home")} />
-        </div>
+          {/* Full-width HOMESICK wordmark */}
+          <div
+            className="shrink-0 bg-black cursor-pointer"
+            onClick={() => go("home")}
+          >
+            <img
+              src="/assets/HOMESICK.png"
+              alt="HOMESICK"
+              className="w-full block"
+              style={{ mixBlendMode: "screen" }}
+            />
+          </div>
 
-      </div>
+        </div>
+      )}
+
     </div>
   );
 }

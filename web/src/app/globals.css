@@ -30,3 +30,8 @@ body {
   from { transform: translateX(14px); opacity: 0; }
   to   { transform: translateX(0);    opacity: 1; }
 }
+
+@keyframes typewriter {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
