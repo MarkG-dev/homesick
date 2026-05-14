@@ -63,10 +63,6 @@ const STORY_SENTENCES = [
 const FOLLOW_CHANNELS = ["PHONE", "EMAIL", "INSTA", "TIKTOK"] as const;
 type Channel = (typeof FOLLOW_CHANNELS)[number];
 
-/** Softer 3-stop fade — black at bottom, 25% at midpoint, transparent at top.
- *  Used only on home + story to bridge the video into the black content box.
- *  translateZ(0) forces a GPU layer so it composites cleanly over the video
- *  layer (without it the video can paint a frame before the gradient is up). */
 function SoftGradient() {
   return (
     <div
@@ -87,10 +83,25 @@ function Bullet({ on }: { on: boolean }) {
   return <span className="inline-block w-[1em]">{on ? "●" : "○"}</span>;
 }
 
-/** Shared content box used by catalog, story, follow.
- *  Two columns: bulleted list on the left, content on the right.
- *  Always renders ROWS rows so the box stays the same height across pages —
- *  pages with fewer items get invisible spacer rows below. */
+function TypewriterText({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(" ").map((word, i) => (
+        <span
+          key={i}
+          style={{
+            display: "inline",
+            opacity: 0,
+            animation: `wordIn 0.15s ease-out ${i * 0.03}s forwards`,
+          }}
+        >
+          {word}{" "}
+        </span>
+      ))}
+    </>
+  );
+}
+
 const ROWS = 6;
 
 function ContentBox({
@@ -168,7 +179,7 @@ function BottomNav({
           ["follow", "FOLLOW"],
         ] as const
       ).map(([target, label]) => {
-        const active = screen === target;
+        const active = screen === target || (target === "catalog" && screen === "home");
         return (
           <button
             key={target}
@@ -218,6 +229,20 @@ export default function Home() {
   const storyVideoRef = useRef<HTMLVideoElement>(null);
   const followVideoRef = useRef<HTMLVideoElement>(null);
 
+  // Mobile swipe tracking
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+
+  // Desktop scroll tracking — refs shadow state so the wheel handler stays stable
+  const screenRef = useRef<Screen>("home");
+  const selectedRef = useRef(0);
+  const storyPageRef = useRef(0);
+  const scrollCooldown = useRef(false);
+
+  useEffect(() => { screenRef.current = screen; }, [screen]);
+  useEffect(() => { selectedRef.current = selected; }, [selected]);
+  useEffect(() => { storyPageRef.current = storyPage; }, [storyPage]);
+
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
     setIsDesktop(mq.matches);
@@ -249,6 +274,30 @@ export default function Home() {
     el.play().catch(() => {});
   }, [screen]);
 
+  // Desktop wheel → linear scroll through home → products → story → follow
+  useEffect(() => {
+    if (!isDesktop) return;
+    const getIdx = () => {
+      if (screenRef.current === "home")    return 0;
+      if (screenRef.current === "catalog") return 1 + selectedRef.current;
+      if (screenRef.current === "story")   return 7 + storyPageRef.current;
+      return 12;
+    };
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      if (scrollCooldown.current) return;
+      scrollCooldown.current = true;
+      setTimeout(() => { scrollCooldown.current = false; }, 550);
+      const next = Math.max(0, Math.min(12, getIdx() + (e.deltaY > 0 ? 1 : -1)));
+      if (next === 0)       { setScreen("home"); }
+      else if (next <= 6)   { setScreen("catalog"); setSelected(next - 1); }
+      else if (next <= 11)  { setScreen("story");   setStoryPage(next - 7); }
+      else                  { setScreen("follow"); }
+    };
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [isDesktop]);
+
   const toggleMute = useCallback(() => {
     setMuted((m) => {
       const next = !m;
@@ -264,6 +313,7 @@ export default function Home() {
   const idx = SCREENS.indexOf(screen);
   const pct = 100 / SCREENS.length;
   const isContact = channel === "PHONE" || channel === "EMAIL";
+  const isCatalogOrHome = screen === "home" || screen === "catalog";
 
   const handleSubmit = async () => {
     const value = inputRef.current?.value?.trim();
@@ -325,6 +375,41 @@ export default function Home() {
     </ContentBox>
   );
 
+  // Inline follow form for desktop left rail (no ContentBox wrapper)
+  const followFormInline = isContact ? (
+    submitted ? (
+      <p className="text-body text-white/70 normal-case leading-snug">
+        Thanks so much. We&apos;ll be in touch.
+      </p>
+    ) : (
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <input
+            ref={inputRef}
+            key={channel}
+            type={channel === "EMAIL" ? "email" : "tel"}
+            autoComplete={channel === "EMAIL" ? "email" : "tel"}
+            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+            className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
+          />
+          <button
+            onClick={handleSubmit}
+            disabled={submitting}
+            aria-label="Submit"
+            className="text-white/80 text-body leading-none disabled:opacity-40"
+          >
+            →
+          </button>
+        </div>
+        <p className="text-body text-white/70 normal-case leading-snug">
+          We make objects. We&apos;ll tell you when they&apos;re ready.
+        </p>
+      </div>
+    )
+  ) : (
+    <p className="text-body text-white/70 normal-case leading-snug">@homesick</p>
+  );
+
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
       <audio ref={audioRef} src="/assets/fretle$$.m4a" loop autoPlay preload="auto" />
@@ -342,8 +427,35 @@ export default function Home() {
       {!isDesktop && (
         <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
 
-          {/* Sliding content area */}
-          <div className="flex-1 relative overflow-hidden min-h-0">
+          {/* Sliding content area — touch handlers here for swipe nav */}
+          <div
+            className="flex-1 relative overflow-hidden min-h-0"
+            onTouchStart={(e) => {
+              touchStartX.current = e.touches[0].clientX;
+              touchStartY.current = e.touches[0].clientY;
+            }}
+            onTouchEnd={(e) => {
+              const dx = e.changedTouches[0].clientX - touchStartX.current;
+              const dy = e.changedTouches[0].clientY - touchStartY.current;
+              if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+                const dir = dx < 0 ? 1 : -1;
+                const cur = SCREENS.indexOf(screen);
+                go(SCREENS[Math.max(0, Math.min(SCREENS.length - 1, cur + dir))]);
+              } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+                const dir = dy < 0 ? 1 : -1;
+                if (screen === "catalog")
+                  setSelected((s) => Math.max(0, Math.min(PRODUCTS.length - 1, s + dir)));
+                else if (screen === "story")
+                  setStoryPage((p) => Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + dir)));
+                else if (screen === "follow")
+                  setChannel(
+                    FOLLOW_CHANNELS[
+                      Math.max(0, Math.min(FOLLOW_CHANNELS.length - 1, FOLLOW_CHANNELS.indexOf(channel) + dir))
+                    ]
+                  );
+              }
+            }}
+          >
             <div
               className="flex h-full transition-transform duration-700 ease-in-out"
               style={{
@@ -402,12 +514,8 @@ export default function Home() {
                   activeIndex={selected}
                   onSelect={setSelected}
                 >
-                  <p
-                    key={selected}
-                    className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case"
-                    style={{ animation: "typewriter 0.6s steps(60) forwards" }}
-                  >
-                    {PRODUCTS[selected].description}
+                  <p key={selected} className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
+                    <TypewriterText text={PRODUCTS[selected].description} />
                   </p>
                 </ContentBox>
               </div>
@@ -418,19 +526,12 @@ export default function Home() {
                 style={{ width: `${pct}%` }}
               >
                 <div
-                  className="flex-1 relative overflow-y-scroll min-h-0 cursor-pointer"
+                  className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
                   onClick={() => {
                     if (storyVideoRef.current) {
                       storyVideoRef.current.currentTime = 0;
                       storyVideoRef.current.play();
                     }
-                  }}
-                  onWheel={(e) => {
-                    e.preventDefault();
-                    const direction = e.deltaY > 0 ? 1 : -1;
-                    setStoryPage((p) =>
-                      Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + direction))
-                    );
                   }}
                 >
                   <video
@@ -450,18 +551,12 @@ export default function Home() {
                   <SoftGradient />
                 </div>
                 <ContentBox
-                  items={STORY_SENTENCES.map((_, i) =>
-                    String(i + 1).padStart(2, "0"),
-                  )}
+                  items={STORY_SENTENCES.map((_, i) => String(i + 1).padStart(2, "0"))}
                   activeIndex={storyPage}
                   onSelect={setStoryPage}
                 >
-                  <p
-                    key={storyPage}
-                    className="leading-snug text-white text-body normal-case"
-                    style={{ animation: "slideInRight 0.3s ease-out" }}
-                  >
-                    {STORY_SENTENCES[storyPage]}
+                  <p key={storyPage} className="leading-snug text-white text-body normal-case">
+                    <TypewriterText text={STORY_SENTENCES[storyPage]} />
                   </p>
                 </ContentBox>
               </div>
@@ -513,196 +608,219 @@ export default function Home() {
 
       {/* ── DESKTOP layout (≥ 768px) ─────────────────────────────── */}
       {isDesktop && (
-        <div className="w-full h-full flex flex-col">
+        <div className="w-full h-full flex">
 
-          {/* Two-column area */}
-          <div className="flex-1 flex min-h-0">
+          {/* LEFT RAIL */}
+          <div className="w-[260px] shrink-0 flex flex-col bg-black border-r border-white/10 p-4 overflow-hidden">
 
-            {/* LEFT RAIL */}
-            <div className="w-[260px] shrink-0 flex flex-col bg-black border-r border-white/10 overflow-y-auto p-4">
+            {/* Logo → home (sheep video) */}
+            <img
+              src="/assets/HOMESICK.png"
+              alt="HOMESICK"
+              className="w-full block cursor-pointer mb-4"
+              style={{ mixBlendMode: "screen" }}
+              onClick={() => go("home")}
+            />
 
-              {/* Logo */}
-              <img
-                src="/assets/HOMESICK.png"
-                alt="HOMESICK"
-                className="w-full block cursor-pointer mb-1"
-                style={{ mixBlendMode: "screen" }}
-                onClick={() => go("home")}
-              />
+            {/* Top nav: MAGICAL OBJECTS / STORY / FOLLOW */}
+            <nav className="flex flex-col gap-0.5 mb-3 text-body uppercase shrink-0">
+              <button
+                onClick={() => go("catalog")}
+                className={`flex items-center gap-[3px] text-left ${
+                  isCatalogOrHome ? "text-white" : "text-white/40"
+                }`}
+              >
+                <Bullet on={isCatalogOrHome} />
+                Magical Objects
+              </button>
+              <button
+                onClick={() => go("story")}
+                className={`flex items-center gap-[3px] text-left ${
+                  screen === "story" ? "text-white" : "text-white/40"
+                }`}
+              >
+                <Bullet on={screen === "story"} />
+                Story
+              </button>
+              <button
+                onClick={() => go("follow")}
+                className={`flex items-center gap-[3px] text-left ${
+                  screen === "follow" ? "text-white" : "text-white/40"
+                }`}
+              >
+                <Bullet on={screen === "follow"} />
+                Follow
+              </button>
+            </nav>
 
-              {/* Tagline */}
-              <p className="text-body text-white/50 normal-case leading-snug mb-6">
-                Objects for the home you remember
-              </p>
+            {/* Dynamic sub-list */}
+            <ul className="list-none m-0 p-0 flex flex-col gap-0.5 text-body uppercase shrink-0">
+              {isCatalogOrHome
+                ? PRODUCTS.map((p, i) => {
+                    const on = screen === "catalog" && selected === i;
+                    return (
+                      <li key={p.name}>
+                        <button
+                          onClick={() => { setSelected(i); go("catalog"); }}
+                          className={`flex items-center gap-[3px] text-left w-full ${
+                            on ? "text-white" : "text-white/40"
+                          }`}
+                        >
+                          <Bullet on={on} />
+                          {p.name}
+                        </button>
+                      </li>
+                    );
+                  })
+                : screen === "story"
+                ? STORY_SENTENCES.map((_, i) => {
+                    const on = storyPage === i;
+                    return (
+                      <li key={i}>
+                        <button
+                          onClick={() => setStoryPage(i)}
+                          className={`flex items-center gap-[3px] ${
+                            on ? "text-white" : "text-white/40"
+                          }`}
+                        >
+                          <Bullet on={on} />
+                          {String(i + 1).padStart(2, "0")}
+                        </button>
+                      </li>
+                    );
+                  })
+                : FOLLOW_CHANNELS.map((ch) => {
+                    const on = channel === ch;
+                    return (
+                      <li key={ch}>
+                        <button
+                          onClick={() => { setChannel(ch); setSubmitted(false); }}
+                          className={`flex items-center gap-[3px] ${
+                            on ? "text-white" : "text-white/40"
+                          }`}
+                        >
+                          <Bullet on={on} />
+                          {ch}
+                        </button>
+                      </li>
+                    );
+                  })}
+            </ul>
 
-              {/* Objects list */}
-              <p className="text-body uppercase text-white/30 mb-1">Objects</p>
-              <ul className="list-none m-0 p-0 flex flex-col gap-0.5 mb-4">
-                {PRODUCTS.map((p, i) => {
-                  const on = screen !== "story" && screen !== "follow" && selected === i;
-                  return (
-                    <li key={p.name}>
-                      <button
-                        onClick={() => { setSelected(i); go("catalog"); }}
-                        className={`flex items-center gap-[3px] text-body uppercase text-left w-full ${
-                          on ? "text-white" : "text-white/40"
-                        }`}
-                      >
-                        <Bullet on={on} />
-                        {p.name}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
+            {/* Spacer */}
+            <div className="flex-1" />
 
-              {/* Divider */}
-              <div className="border-t border-white/10 mb-4" />
-
-              {/* Product info */}
-              <div className="mb-4">
-                <p className="text-body uppercase text-white/40 mb-1">● Shipping Now</p>
-                <p className="text-display italic text-white mb-2">
-                  {PRODUCTS[selected].name}
+            {/* Description / text area at bottom */}
+            <div className="shrink-0 text-body normal-case text-white/70 leading-snug">
+              {isCatalogOrHome ? (
+                <p key={selected}>
+                  <TypewriterText text={PRODUCTS[selected].description} />
                 </p>
-                <p
-                  key={selected}
-                  className="text-body text-white/60 normal-case leading-snug"
-                  style={{ animation: "typewriter 0.6s steps(60) forwards" }}
-                >
-                  {PRODUCTS[selected].description}
+              ) : screen === "story" ? (
+                <p key={storyPage}>
+                  <TypewriterText text={STORY_SENTENCES[storyPage]} />
                 </p>
-              </div>
-
-              {/* Spacer */}
-              <div className="flex-1" />
-
-              {/* Nav */}
-              <div className="flex flex-col gap-1">
-                <button
-                  onClick={() => go("story")}
-                  className={`flex items-center gap-[3px] text-body uppercase ${
-                    screen === "story" ? "text-white" : "text-white/40"
-                  }`}
-                >
-                  <Bullet on={screen === "story"} />
-                  Story
-                </button>
-                <button
-                  onClick={() => go("follow")}
-                  className={`flex items-center gap-[3px] text-body uppercase ${
-                    screen === "follow" ? "text-white" : "text-white/40"
-                  }`}
-                >
-                  <Bullet on={screen === "follow"} />
-                  Follow
-                </button>
-              </div>
-            </div>
-
-            {/* RIGHT PANE */}
-            <div className="flex-1 flex flex-col bg-black overflow-hidden">
-              {screen === "story" ? (
-                <>
-                  <div
-                    className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                    onClick={() => {
-                      if (storyVideoRef.current) {
-                        storyVideoRef.current.currentTime = 0;
-                        storyVideoRef.current.play();
-                      }
-                    }}
-                    onWheel={(e) => {
-                      e.preventDefault();
-                      setStoryPage((p) =>
-                        Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + (e.deltaY > 0 ? 1 : -1)))
-                      );
-                    }}
-                  >
-                    <video
-                      ref={storyVideoRef}
-                      autoPlay
-                      muted
-                      playsInline
-                      preload="auto"
-                      onEnded={(e) => e.currentTarget.pause()}
-                      className="absolute inset-0 w-full h-full object-cover bg-black"
-                    >
-                      <source
-                        src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
-                        type="video/mp4"
-                      />
-                    </video>
-                    <SoftGradient />
-                  </div>
-                  <ContentBox
-                    items={STORY_SENTENCES.map((_, i) => String(i + 1).padStart(2, "0"))}
-                    activeIndex={storyPage}
-                    onSelect={setStoryPage}
-                  >
-                    <p
-                      key={storyPage}
-                      className="leading-snug text-white text-body normal-case"
-                      style={{ animation: "slideInRight 0.3s ease-out" }}
-                    >
-                      {STORY_SENTENCES[storyPage]}
-                    </p>
-                  </ContentBox>
-                </>
-              ) : screen === "follow" ? (
-                <>
-                  <div
-                    className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                    onClick={() => {
-                      if (followVideoRef.current) {
-                        followVideoRef.current.currentTime = 0;
-                        followVideoRef.current.play();
-                      }
-                    }}
-                  >
-                    <video
-                      ref={followVideoRef}
-                      autoPlay
-                      muted
-                      playsInline
-                      preload="auto"
-                      onEnded={(e) => e.currentTarget.pause()}
-                      className="absolute inset-0 w-full h-full object-cover bg-black"
-                    >
-                      <source
-                        src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
-                        type="video/mp4"
-                      />
-                    </video>
-                    <SoftGradient />
-                  </div>
-                  {followForm}
-                </>
               ) : (
-                /* home / catalog: big product image */
-                <div className="flex-1 relative overflow-hidden">
-                  <img
-                    src={PRODUCTS[selected].image}
-                    alt={PRODUCTS[selected].name}
-                    className="absolute inset-0 w-full h-full object-contain"
-                  />
-                </div>
+                followFormInline
               )}
             </div>
 
           </div>
 
-          {/* Full-width HOMESICK wordmark */}
-          <div
-            className="shrink-0 bg-black cursor-pointer"
-            onClick={() => go("home")}
-          >
-            <img
-              src="/assets/HOMESICK.png"
-              alt="HOMESICK"
-              className="w-full block"
-              style={{ mixBlendMode: "screen" }}
-            />
+          {/* RIGHT PANE */}
+          <div className="flex-1 flex flex-col bg-black overflow-hidden">
+            {screen === "home" ? (
+              <div
+                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (homeVideoRef.current) {
+                    homeVideoRef.current.currentTime = 0;
+                    homeVideoRef.current.play();
+                  }
+                }}
+              >
+                <video
+                  ref={homeVideoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  onEnded={(e) => e.currentTarget.pause()}
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
+                  style={{ objectPosition: "center 20%" }}
+                >
+                  <source
+                    src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <SoftGradient />
+              </div>
+            ) : screen === "catalog" ? (
+              <div className="flex-1 relative overflow-hidden">
+                <img
+                  src={PRODUCTS[selected].image}
+                  alt={PRODUCTS[selected].name}
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
+              </div>
+            ) : screen === "story" ? (
+              <>
+                <div
+                  className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                  onClick={() => {
+                    if (storyVideoRef.current) {
+                      storyVideoRef.current.currentTime = 0;
+                      storyVideoRef.current.play();
+                    }
+                  }}
+                >
+                  <video
+                    ref={storyVideoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    onEnded={(e) => e.currentTarget.pause()}
+                    className="absolute inset-0 w-full h-full object-cover bg-black"
+                  >
+                    <source
+                      src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <SoftGradient />
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                  onClick={() => {
+                    if (followVideoRef.current) {
+                      followVideoRef.current.currentTime = 0;
+                      followVideoRef.current.play();
+                    }
+                  }}
+                >
+                  <video
+                    ref={followVideoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    onEnded={(e) => e.currentTarget.pause()}
+                    className="absolute inset-0 w-full h-full object-cover bg-black"
+                  >
+                    <source
+                      src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                      type="video/mp4"
+                    />
+                  </video>
+                  <SoftGradient />
+                </div>
+              </>
+            )}
           </div>
 
         </div>
