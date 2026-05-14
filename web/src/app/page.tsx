@@ -60,6 +60,14 @@ const STORY_SENTENCES = [
   "This is a story about what happens after everything works. Do you, like us, suspect that perfection might be the problem?",
 ];
 
+const STORY_TITLES = [
+  "MADE INVISIBLE",
+  "WHAT YOU LOSE",
+  "NOT FOR YOU",
+  "ALIVE AND SHY",
+  "AFTER IT WORKS",
+] as const;
+
 const FOLLOW_CHANNELS = ["PHONE", "EMAIL", "INSTA", "TIKTOK"] as const;
 type Channel = (typeof FOLLOW_CHANNELS)[number];
 
@@ -74,6 +82,20 @@ function SoftGradient() {
           "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 100%)",
         transform: "translateZ(0)",
         willChange: "opacity",
+      }}
+    />
+  );
+}
+
+function SideGradient() {
+  return (
+    <div
+      aria-hidden
+      className="absolute inset-y-0 left-0 pointer-events-none z-10"
+      style={{
+        width: "25%",
+        background: "linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)",
+        transform: "translateZ(0)",
       }}
     />
   );
@@ -179,7 +201,7 @@ function BottomNav({
           ["follow", "FOLLOW"],
         ] as const
       ).map(([target, label]) => {
-        const active = screen === target || (target === "catalog" && screen === "home");
+        const active = screen === target;
         return (
           <button
             key={target}
@@ -551,7 +573,7 @@ export default function Home() {
                   <SoftGradient />
                 </div>
                 <ContentBox
-                  items={STORY_SENTENCES.map((_, i) => String(i + 1).padStart(2, "0"))}
+                  items={STORY_TITLES}
                   activeIndex={storyPage}
                   onSelect={setStoryPage}
                 >
@@ -627,11 +649,11 @@ export default function Home() {
               <button
                 onClick={() => go("catalog")}
                 className={`flex items-center gap-[3px] text-left ${
-                  isCatalogOrHome ? "text-white" : "text-white/40"
+                  screen === "catalog" ? "text-white" : "text-white/40"
                 }`}
               >
-                <Bullet on={isCatalogOrHome} />
-                Magical Objects
+                <Bullet on={screen === "catalog"} />
+                MAGICAL OBJECTS
               </button>
               <button
                 onClick={() => go("story")}
@@ -640,7 +662,7 @@ export default function Home() {
                 }`}
               >
                 <Bullet on={screen === "story"} />
-                Story
+                STORY
               </button>
               <button
                 onClick={() => go("follow")}
@@ -649,15 +671,15 @@ export default function Home() {
                 }`}
               >
                 <Bullet on={screen === "follow"} />
-                Follow
+                FOLLOW
               </button>
             </nav>
 
-            {/* Dynamic sub-list */}
-            <ul className="list-none m-0 p-0 flex flex-col gap-0.5 text-body uppercase shrink-0">
-              {isCatalogOrHome
+            {/* Dynamic sub-list — hidden on home */}
+            <ul className="list-none m-0 p-0 flex flex-col gap-0.5 text-body uppercase shrink-0 mt-4">
+              {screen === "catalog"
                 ? PRODUCTS.map((p, i) => {
-                    const on = screen === "catalog" && selected === i;
+                    const on = selected === i;
                     return (
                       <li key={p.name}>
                         <button
@@ -673,10 +695,10 @@ export default function Home() {
                     );
                   })
                 : screen === "story"
-                ? STORY_SENTENCES.map((_, i) => {
+                ? STORY_TITLES.map((title, i) => {
                     const on = storyPage === i;
                     return (
-                      <li key={i}>
+                      <li key={title}>
                         <button
                           onClick={() => setStoryPage(i)}
                           className={`flex items-center gap-[3px] ${
@@ -684,12 +706,13 @@ export default function Home() {
                           }`}
                         >
                           <Bullet on={on} />
-                          {String(i + 1).padStart(2, "0")}
+                          {title}
                         </button>
                       </li>
                     );
                   })
-                : FOLLOW_CHANNELS.map((ch) => {
+                : screen === "follow"
+                ? FOLLOW_CHANNELS.map((ch) => {
                     const on = channel === ch;
                     return (
                       <li key={ch}>
@@ -704,26 +727,32 @@ export default function Home() {
                         </button>
                       </li>
                     );
-                  })}
+                  })
+                : null}
             </ul>
 
-            {/* Spacer */}
+            {/* Upper spacer — pushes description to midway */}
             <div className="flex-1" />
 
-            {/* Description / text area at bottom */}
-            <div className="shrink-0 text-body normal-case text-white/70 leading-snug">
-              {isCatalogOrHome ? (
-                <p key={selected}>
-                  <TypewriterText text={PRODUCTS[selected].description} />
-                </p>
-              ) : screen === "story" ? (
-                <p key={storyPage}>
-                  <TypewriterText text={STORY_SENTENCES[storyPage]} />
-                </p>
-              ) : (
-                followFormInline
-              )}
-            </div>
+            {/* Description / text area — hidden on home */}
+            {screen !== "home" && (
+              <div className="shrink-0 text-body normal-case text-white/70 leading-snug">
+                {screen === "catalog" ? (
+                  <p key={selected}>
+                    <TypewriterText text={PRODUCTS[selected].description} />
+                  </p>
+                ) : screen === "story" ? (
+                  <p key={storyPage}>
+                    <TypewriterText text={STORY_SENTENCES[storyPage]} />
+                  </p>
+                ) : (
+                  followFormInline
+                )}
+              </div>
+            )}
+
+            {/* Lower spacer */}
+            <div className="flex-1" />
 
           </div>
 
@@ -755,6 +784,7 @@ export default function Home() {
                   />
                 </video>
                 <SoftGradient />
+                <SideGradient />
               </div>
             ) : screen === "catalog" ? (
               <div className="flex-1 relative overflow-hidden">
@@ -763,6 +793,7 @@ export default function Home() {
                   alt={PRODUCTS[selected].name}
                   className="absolute inset-0 w-full h-full object-contain"
                 />
+                <SideGradient />
               </div>
             ) : screen === "story" ? (
               <>
@@ -790,6 +821,7 @@ export default function Home() {
                     />
                   </video>
                   <SoftGradient />
+                  <SideGradient />
                 </div>
               </>
             ) : (
@@ -818,6 +850,7 @@ export default function Home() {
                     />
                   </video>
                   <SoftGradient />
+                  <SideGradient />
                 </div>
               </>
             )}
