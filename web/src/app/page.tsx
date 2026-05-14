@@ -260,6 +260,7 @@ export default function Home() {
   const selectedRef = useRef(0);
   const storyPageRef = useRef(0);
   const scrollCooldown = useRef(false);
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => { screenRef.current = screen; }, [screen]);
   useEffect(() => { selectedRef.current = selected; }, [selected]);
@@ -307,9 +308,12 @@ export default function Home() {
     };
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
+      // Extend unlock timer on every event — only unlocks after scroll truly stops
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => { scrollCooldown.current = false; }, 600);
+      // Navigate only on leading edge of each gesture cluster
       if (scrollCooldown.current) return;
       scrollCooldown.current = true;
-      setTimeout(() => { scrollCooldown.current = false; }, 550);
       const next = Math.max(0, Math.min(12, getIdx() + (e.deltaY > 0 ? 1 : -1)));
       if (next === 0)       { setScreen("home"); }
       else if (next <= 6)   { setScreen("catalog"); setSelected(next - 1); }
@@ -633,7 +637,7 @@ export default function Home() {
         <div className="w-full h-full flex">
 
           {/* LEFT RAIL */}
-          <div className="w-[260px] shrink-0 flex flex-col bg-black border-r border-white/10 p-4 overflow-hidden">
+          <div className="w-[22vw] shrink-0 flex flex-col bg-black border-r border-white/10 p-4 overflow-hidden">
 
             {/* Logo → home (sheep video) */}
             <img
@@ -731,12 +735,9 @@ export default function Home() {
                 : null}
             </ul>
 
-            {/* Upper spacer — pushes description to midway */}
-            <div className="flex-1" />
-
-            {/* Description / text area — hidden on home */}
+            {/* Description / text area — hidden on home, fixed gap below sub-list */}
             {screen !== "home" && (
-              <div className="shrink-0 text-body normal-case text-white/70 leading-snug">
+              <div className="mt-7 shrink-0 text-body normal-case text-white/70 leading-snug">
                 {screen === "catalog" ? (
                   <p key={selected}>
                     <TypewriterText text={PRODUCTS[selected].description} />
@@ -783,7 +784,6 @@ export default function Home() {
                     type="video/mp4"
                   />
                 </video>
-                <SoftGradient />
                 <SideGradient />
               </div>
             ) : screen === "catalog" ? (
@@ -820,7 +820,6 @@ export default function Home() {
                       type="video/mp4"
                     />
                   </video>
-                  <SoftGradient />
                   <SideGradient />
                 </div>
               </>
@@ -849,7 +848,6 @@ export default function Home() {
                       type="video/mp4"
                     />
                   </video>
-                  <SoftGradient />
                   <SideGradient />
                 </div>
               </>
