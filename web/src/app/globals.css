@@ -31,7 +31,7 @@ body {
   to   { transform: translateX(0);    opacity: 1; }
 }
 
-@keyframes typewriter {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0% 0 0); }
+@keyframes wordIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
