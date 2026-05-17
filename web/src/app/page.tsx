@@ -68,8 +68,6 @@ const STORY_TITLES = [
   "AFTER IT WORKS",
 ] as const;
 
-const FOLLOW_CHANNELS = ["PHONE", "EMAIL", "INSTA", "TIKTOK"] as const;
-type Channel = (typeof FOLLOW_CHANNELS)[number];
 
 function SoftGradient() {
   return (
@@ -255,8 +253,7 @@ export default function Home() {
   const [screen, setScreen] = useState<Screen>("home");
   const [selected, setSelected] = useState(0);
   const [storyPage, setStoryPage] = useState(0);
-  const [channel, setChannel] = useState<Channel>("EMAIL");
-  const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe");
+const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -504,12 +501,11 @@ export default function Home() {
                   setSelected((s) => Math.max(0, Math.min(PRODUCTS.length - 1, s + dir)));
                 else if (screen === "story")
                   setStoryPage((p) => Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + dir)));
-                else if (screen === "follow")
-                  setChannel(
-                    FOLLOW_CHANNELS[
-                      Math.max(0, Math.min(FOLLOW_CHANNELS.length - 1, FOLLOW_CHANNELS.indexOf(channel) + dir))
-                    ]
-                  );
+                else if (screen === "follow") {
+                  const modes: Array<"subscribe" | "contact"> = ["subscribe", "contact"];
+                  setFollowMode((m) => modes[Math.max(0, Math.min(modes.length - 1, modes.indexOf(m) + dir))]);
+                  setSubmitted(false);
+                }
               }
             }}
           >
@@ -746,23 +742,6 @@ export default function Home() {
                         >
                           <Bullet on={on} />
                           {title}
-                        </button>
-                      </li>
-                    );
-                  })
-                : screen === "follow"
-                ? FOLLOW_CHANNELS.map((ch) => {
-                    const on = channel === ch;
-                    return (
-                      <li key={ch}>
-                        <button
-                          onClick={() => { setChannel(ch); setSubmitted(false); }}
-                          className={`flex items-center gap-[3px] ${
-                            on ? "text-white" : "text-white/40"
-                          }`}
-                        >
-                          <Bullet on={on} />
-                          {ch}
                         </button>
                       </li>
                     );
