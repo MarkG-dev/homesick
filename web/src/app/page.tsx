@@ -256,8 +256,11 @@ export default function Home() {
   const [selected, setSelected] = useState(0);
   const [storyPage, setStoryPage] = useState(0);
   const [channel, setChannel] = useState<Channel>("EMAIL");
+  const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
   const [muted, setMuted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -364,7 +367,11 @@ export default function Home() {
       await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ value }),
+        body: JSON.stringify({
+          type: followMode,
+          value,
+          message: messageRef.current?.value?.trim(),
+        }),
       });
       setSubmitted(true);
     } finally {
@@ -372,11 +379,15 @@ export default function Home() {
     }
   };
 
-  const emailForm = submitted ? (
+  const FOLLOW_MODES = ["FOLLOW ALONG", "REACH OUT"] as const;
+
+  const followContent = submitted ? (
     <p className="text-body text-white/70 normal-case leading-snug">
-      Thanks so much — confirm your inbox.
+      {followMode === "subscribe"
+        ? "Thanks so much — confirm your inbox."
+        : "Sent. We'll write back."}
     </p>
-  ) : (
+  ) : followMode === "subscribe" ? (
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <input
@@ -399,15 +410,63 @@ export default function Home() {
         We make objects. We&apos;ll tell you when they&apos;re ready.
       </p>
     </div>
-  );
-
-  const followForm = (
-    <div className="shrink-0 px-3 pt-3 pb-2 bg-black">
-      {emailForm}
+  ) : (
+    <div className="flex flex-col gap-2">
+      <input
+        ref={inputRef}
+        type="email"
+        autoComplete="email"
+        placeholder="your email"
+        className="border-b border-white/40 py-1 outline-none text-body bg-transparent text-white placeholder:text-white/30"
+      />
+      <div className="flex items-start gap-2 mt-1">
+        <textarea
+          ref={messageRef}
+          rows={3}
+          placeholder="your message"
+          className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white placeholder:text-white/30 resize-none leading-snug"
+        />
+        <button
+          onClick={handleSubmit}
+          disabled={submitting}
+          aria-label="Submit"
+          className="text-white/80 text-body leading-none disabled:opacity-40 mt-1"
+        >
+          →
+        </button>
+      </div>
     </div>
   );
 
-  const followFormInline = emailForm;
+  const followForm = (
+    <ContentBox
+      items={FOLLOW_MODES}
+      activeIndex={followMode === "subscribe" ? 0 : 1}
+      onSelect={(i) => { setFollowMode(i === 0 ? "subscribe" : "contact"); setSubmitted(false); }}
+    >
+      {followContent}
+    </ContentBox>
+  );
+
+  const followFormInline = (
+    <div className="flex flex-col gap-3">
+      <div className="flex gap-3 text-body uppercase">
+        {FOLLOW_MODES.map((label, i) => {
+          const active = followMode === (i === 0 ? "subscribe" : "contact");
+          return (
+            <button
+              key={label}
+              onClick={() => { setFollowMode(i === 0 ? "subscribe" : "contact"); setSubmitted(false); }}
+              className={`flex items-center gap-[3px] ${active ? "text-white" : "text-white/40"}`}
+            >
+              <Bullet on={active} />{label}
+            </button>
+          );
+        })}
+      </div>
+      {followContent}
+    </div>
+  );
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
