@@ -54,7 +54,7 @@ const PRODUCTS = [
 
 const STORY_SENTENCES = [
   "We struggled and struggled to make everything work! Then we made it beautiful. Then we perfected it until it was in every blue jean pocket, so polished and universal it became invisible, which is the worst thing a beautiful thing can become.",
-  "You cannot love what you cannot lose. You know this. You have always known this. But nothing broke for so long that you forgot. We track our sleep on the device that ruined it! Everything is efficient and nothing is yours and the distance between yourself and the world has never been wider.",
+  "You cannot love what you cannot lose. But nothing broke for so long that you forgot. We track our sleep on the device that ruined it! Everything is efficient and nothing is yours and the distance between yourself and the world has never been wider.",
   "Our objects are irregular. You might hate one. Good. It wasn't for you. Seventy-two degrees is comfortable for you but it makes your friend get sweaty and quiet until their silence makes you lonely.",
   "Freed from the tyranny of multi-function, objects can look like themselves again. Your nerve endings know. Magic is the goal. Soon you will hold something alive and shy like a firefly.",
   "This is a story about what happens after everything works. Do you, like us, suspect that perfection might be the problem?",
@@ -255,7 +255,7 @@ export default function Home() {
   const [screen, setScreen] = useState<Screen>("home");
   const [selected, setSelected] = useState(0);
   const [storyPage, setStoryPage] = useState(0);
-  const [channel, setChannel] = useState<Channel>("PHONE");
+  const [channel, setChannel] = useState<Channel>("EMAIL");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -354,7 +354,6 @@ export default function Home() {
   const go = (s: Screen) => setScreen(s);
   const idx = SCREENS.indexOf(screen);
   const pct = 100 / SCREENS.length;
-  const isContact = channel === "PHONE" || channel === "EMAIL";
   const isCatalogOrHome = screen === "home" || screen === "catalog";
 
   const handleSubmit = async () => {
@@ -365,7 +364,7 @@ export default function Home() {
       await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: channel, value }),
+        body: JSON.stringify({ value }),
       });
       setSubmitted(true);
     } finally {
@@ -373,84 +372,42 @@ export default function Home() {
     }
   };
 
-  const followForm = (
-    <ContentBox
-      items={FOLLOW_CHANNELS}
-      activeIndex={FOLLOW_CHANNELS.indexOf(channel)}
-      onSelect={(i) => { setChannel(FOLLOW_CHANNELS[i]); setSubmitted(false); }}
-    >
-      {isContact ? (
-        submitted ? (
-          <p className="text-body text-white/70 normal-case leading-snug">
-            Thanks so much. We&apos;ll be in touch.
-          </p>
-        ) : (
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <input
-                ref={inputRef}
-                key={channel}
-                type={channel === "EMAIL" ? "email" : "tel"}
-                autoComplete={channel === "EMAIL" ? "email" : "tel"}
-                onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-                className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
-              />
-              <button
-                onClick={handleSubmit}
-                disabled={submitting}
-                aria-label="Submit"
-                className="text-white/80 text-body leading-none disabled:opacity-40"
-              >
-                →
-              </button>
-            </div>
-            <p className="text-body text-white/70 normal-case leading-snug">
-              We make objects. We&apos;ll tell you when they&apos;re ready.
-            </p>
-          </div>
-        )
-      ) : (
-        <p className="text-body text-white/70 normal-case leading-snug">
-          {channel === "INSTA" ? "@homesick" : "@homesick"}
-        </p>
-      )}
-    </ContentBox>
+  const emailForm = submitted ? (
+    <p className="text-body text-white/70 normal-case leading-snug">
+      Thanks so much — confirm your inbox.
+    </p>
+  ) : (
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-2">
+        <input
+          ref={inputRef}
+          type="email"
+          autoComplete="email"
+          onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+          className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
+        />
+        <button
+          onClick={handleSubmit}
+          disabled={submitting}
+          aria-label="Submit"
+          className="text-white/80 text-body leading-none disabled:opacity-40"
+        >
+          →
+        </button>
+      </div>
+      <p className="text-body text-white/70 normal-case leading-snug">
+        We make objects. We&apos;ll tell you when they&apos;re ready.
+      </p>
+    </div>
   );
 
-  // Inline follow form for desktop left rail (no ContentBox wrapper)
-  const followFormInline = isContact ? (
-    submitted ? (
-      <p className="text-body text-white/70 normal-case leading-snug">
-        Thanks so much. We&apos;ll be in touch.
-      </p>
-    ) : (
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2">
-          <input
-            ref={inputRef}
-            key={channel}
-            type={channel === "EMAIL" ? "email" : "tel"}
-            autoComplete={channel === "EMAIL" ? "email" : "tel"}
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-            className="flex-1 border-b border-white/40 py-1 outline-none text-body bg-transparent text-white"
-          />
-          <button
-            onClick={handleSubmit}
-            disabled={submitting}
-            aria-label="Submit"
-            className="text-white/80 text-body leading-none disabled:opacity-40"
-          >
-            →
-          </button>
-        </div>
-        <p className="text-body text-white/70 normal-case leading-snug">
-          We make objects. We&apos;ll tell you when they&apos;re ready.
-        </p>
-      </div>
-    )
-  ) : (
-    <p className="text-body text-white/70 normal-case leading-snug">@homesick</p>
+  const followForm = (
+    <div className="shrink-0 px-3 pt-3 pb-2 bg-black">
+      {emailForm}
+    </div>
   );
+
+  const followFormInline = emailForm;
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
