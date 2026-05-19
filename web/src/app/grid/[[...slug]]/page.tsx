@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 
 /* ───────────────────────────────────────────────────────────────────
@@ -47,7 +48,7 @@ const TILES: Tile[] = [
     description:
       "Press this button in the dark to record your dreams. Receive them transcribed in the morning. If you're feeling brave, we'll analyze them too.",
   },
-  { kind: "teaser", id: "t1", twoWords: ["SOFT", "ECHO"], color: "#E8DCC8", ink: "dark" },
+  { kind: "teaser", id: "soft-echo", twoWords: ["SOFT", "ECHO"], color: "#E8DCC8", ink: "dark" },
   {
     kind: "product",
     id: "wandr",
@@ -59,12 +60,12 @@ const TILES: Tile[] = [
     description:
       "A stone that counts every mile you've ever walked. Not steps today — miles, total, forever. Watch the number build and suddenly a Tuesday afternoon walk matters.",
   },
-  { kind: "teaser", id: "t2", twoWords: ["TINY", "WEATHER"], color: "#CFD8D2", ink: "dark" },
+  { kind: "teaser", id: "tiny-weather", twoWords: ["TINY", "WEATHER"], color: "#CFD8D2", ink: "dark" },
 
-  { kind: "teaser", id: "t3", twoWords: ["SLOW", "MAIL"], color: "#D9C7B0", ink: "dark" },
+  { kind: "teaser", id: "slow-mail", twoWords: ["SLOW", "MAIL"], color: "#D9C7B0", ink: "dark" },
   {
     kind: "product",
-    id: "atc",
+    id: "please-hold",
     name: "PLEASE HOLD",
     twoWords: ["PASS", "MESSAGES"],
     image: IMG.atc,
@@ -73,7 +74,7 @@ const TILES: Tile[] = [
     description:
       "This phone holds one message at a time. Play the game of telephone with friends! Messages save to a digital map so you can co-create funny stories.",
   },
-  { kind: "teaser", id: "t4", twoWords: ["WARM", "ROCK"], color: "#C9A87C", ink: "dark" },
+  { kind: "teaser", id: "warm-rock", twoWords: ["WARM", "ROCK"], color: "#C9A87C", ink: "dark" },
   {
     kind: "product",
     id: "sigh",
@@ -97,8 +98,8 @@ const TILES: Tile[] = [
     description:
       "A robot parrot for your desk. It listens. It repeats things. It has opinions about your vocabulary. Wouldn't it be fun if we all had a parrot? I've always wanted one...",
   },
-  { kind: "teaser", id: "t5", twoWords: ["LITTLE", "MOON"], color: "#1E2742", ink: "light" },
-  { kind: "teaser", id: "t6", twoWords: ["HUMMING", "BIRD"], color: "#E6B8C4", ink: "dark" },
+  { kind: "teaser", id: "little-moon", twoWords: ["LITTLE", "MOON"], color: "#1E2742", ink: "light" },
+  { kind: "teaser", id: "humming-bird", twoWords: ["HUMMING", "BIRD"], color: "#E6B8C4", ink: "dark" },
   {
     kind: "product",
     id: "stonecharge",
@@ -111,11 +112,13 @@ const TILES: Tile[] = [
       "Safe underneath a beautiful rock that hides your phone. You want it back? Lift the stone. Deliberately. Elevate your space.",
   },
 
-  { kind: "teaser", id: "t7", twoWords: ["FIRE", "FLY"], color: "#F0E04A", ink: "dark" },
-  { kind: "teaser", id: "t8", twoWords: ["QUIET", "DOOR"], color: "#8B7355", ink: "light" },
-  { kind: "teaser", id: "t9", twoWords: ["SALT", "AIR"], color: "#B8D4D4", ink: "dark" },
-  { kind: "teaser", id: "t10", twoWords: ["GOOD", "OMEN"], color: "#D44C3A", ink: "light" },
+  { kind: "teaser", id: "fire-fly", twoWords: ["FIRE", "FLY"], color: "#F0E04A", ink: "dark" },
+  { kind: "teaser", id: "quiet-door", twoWords: ["QUIET", "DOOR"], color: "#8B7355", ink: "light" },
+  { kind: "teaser", id: "salt-air", twoWords: ["SALT", "AIR"], color: "#B8D4D4", ink: "dark" },
+  { kind: "teaser", id: "good-omen", twoWords: ["GOOD", "OMEN"], color: "#D44C3A", ink: "light" },
 ];
+
+const TILE_BY_SLUG: Record<string, Tile> = Object.fromEntries(TILES.map((t) => [t.id, t]));
 
 /* ─── grain overlay (matches the existing site) ─── */
 function GrainOverlay({ opacity = 0.045 }: { opacity?: number }) {
@@ -151,14 +154,19 @@ function FloatingProduct({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-export default function WallPage() {
-  const [opened, setOpened] = useState<Tile | null>(null);
-  const [closing, setClosing] = useState(false);
-  // origin for the circular wipe — set on tile click in viewport coords
-  const [origin, setOrigin] = useState<{ x: number; y: number }>({ x: 50, y: 50 });
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+export default function GridPage() {
+  const params = useParams<{ slug?: string[] }>();
+  const initialSlug = params?.slug?.[0];
 
-  const gridRef = useRef<HTMLDivElement>(null);
+  // Hydrate already-open room from the URL (deep link or refresh).
+  const initialTile = initialSlug ? TILE_BY_SLUG[initialSlug] ?? null : null;
+
+  const [opened, setOpened] = useState<Tile | null>(initialTile);
+  const [closing, setClosing] = useState(false);
+  // origin for the circular wipe — set on tile click in viewport coords.
+  // `null` means "no click origin" (deep-link / back-button) → use a soft fade instead.
+  const [origin, setOrigin] = useState<{ x: number; y: number } | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   /* lock body scroll while a room is open */
   useEffect(() => {
@@ -175,13 +183,39 @@ export default function WallPage() {
     });
     setOpened(tile);
     setClosing(false);
+    // Update URL without a Next route change so the wipe isn't interrupted.
+    window.history.pushState({ slug: tile.id }, "", `/grid/${tile.id}`);
   };
 
   const handleClose = () => {
     setClosing(true);
     // matches the css timing below
-    window.setTimeout(() => { setOpened(null); setClosing(false); }, 480);
+    window.setTimeout(() => {
+      setOpened(null);
+      setClosing(false);
+      setOrigin(null);
+    }, 480);
+    if (window.history.state?.slug) {
+      window.history.back();
+    } else {
+      window.history.replaceState(null, "", "/grid");
+    }
   };
+
+  /* keep state in sync with browser back/forward */
+  useEffect(() => {
+    const onPop = () => {
+      const path = window.location.pathname;
+      const m = path.match(/^\/grid\/([^/]+)/);
+      const slug = m?.[1];
+      const tile = slug ? TILE_BY_SLUG[slug] ?? null : null;
+      setOrigin(null);
+      setClosing(false);
+      setOpened(tile);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   /* escape closes the room */
   useEffect(() => {
@@ -206,6 +240,10 @@ export default function WallPage() {
         @keyframes wipeOut {
           from { clip-path: circle(150% at var(--ox) var(--oy)); }
           to   { clip-path: circle(0% at var(--ox) var(--oy)); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
         @keyframes roomIn {
           from { opacity: 0; transform: translateY(8px); }
@@ -242,7 +280,6 @@ export default function WallPage() {
 
       {/* ─── GRID ─── */}
       <div
-        ref={gridRef}
         className="relative z-10 px-5 md:px-8 pb-10 grid grid-cols-2 md:grid-cols-4 gap-[2px] md:gap-[3px]"
         style={{ maxWidth: 1400, marginInline: "auto" }}
       >
@@ -346,7 +383,7 @@ export default function WallPage() {
 
       {/* ─── FOOTER ─── */}
       <footer className="relative z-10 px-5 md:px-8 pb-10 text-[11px] uppercase tracking-wider text-white/35">
-        HOMESICK · WALL · PROTOTYPE
+        HOMESICK · GRID · PROTOTYPE
       </footer>
 
       {/* ─── ROOM (full-screen color expansion) ─── */}
@@ -355,8 +392,8 @@ export default function WallPage() {
           className="fixed inset-0 z-50"
           style={{
             // these CSS vars drive the clip-path origin in the keyframes
-            ["--ox" as string]: `${origin.x}%`,
-            ["--oy" as string]: `${origin.y}%`,
+            ["--ox" as string]: origin ? `${origin.x}%` : "50%",
+            ["--oy" as string]: origin ? `${origin.y}%` : "50%",
           }}
         >
           <div
@@ -365,7 +402,9 @@ export default function WallPage() {
               background: opened.color,
               animation: closing
                 ? "wipeOut 0.45s cubic-bezier(0.7, 0, 0.3, 1) forwards"
-                : "wipeIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards",
+                : origin
+                ? "wipeIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards"
+                : "fadeIn 0.35s ease-out forwards",
             }}
           >
             <GrainOverlay opacity={0.07} />
