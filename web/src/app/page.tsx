@@ -492,14 +492,14 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
       {/* Sheep buffers first (alone); clouds + eagles join once sheep is ready */}
       <div aria-hidden className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
         <video
-          src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
+          src="/assets/hero-video.mp4"
           preload="auto" muted playsInline
           onCanPlayThrough={() => setSheepReady(true)}
         />
         {sheepReady && (
           <>
-            <video src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4" preload="auto" muted playsInline />
-            <video src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4" preload="auto" muted playsInline />
+            <video src="/assets/story-video.mp4" preload="auto" muted playsInline />
+            <video src="/assets/follow-video.mp4" preload="auto" muted playsInline />
           </>
         )}
       </div>
@@ -579,7 +579,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                     style={{ objectPosition: "center 20%" }}
                   >
                     <source
-                      src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
+                      src="/assets/hero-video.mp4"
                       type="video/mp4"
                     />
                   </video>
@@ -636,7 +636,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                     className="absolute inset-0 w-full h-full object-cover bg-black"
                   >
                     <source
-                      src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                      src="/assets/story-video.mp4"
                       type="video/mp4"
                     />
                   </video>
@@ -678,7 +678,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                     className="absolute inset-0 w-full h-full object-cover bg-black"
                   >
                     <source
-                      src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                      src="/assets/follow-video.mp4"
                       type="video/mp4"
                     />
                   </video>
@@ -831,7 +831,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                   style={{ objectPosition: "center 20%" }}
                 >
                   <source
-                    src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
+                    src="/assets/hero-video.mp4"
                     type="video/mp4"
                   />
                 </video>
@@ -869,7 +869,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                   className="absolute inset-0 w-full h-full object-cover bg-black"
                 >
                   <source
-                    src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                    src="/assets/story-video.mp4"
                     type="video/mp4"
                   />
                 </video>
@@ -897,7 +897,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                   className="absolute inset-0 w-full h-full object-cover bg-black"
                 >
                   <source
-                    src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                    src="/assets/follow-video.mp4"
                     type="video/mp4"
                   />
                 </video>
