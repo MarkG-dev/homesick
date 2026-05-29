@@ -13,13 +13,6 @@ const IMG = {
   dreamcatcher: "/assets/freepik__make-the-rock-slightly-thinner-maybe-40-thinner-__23593%202.png",
 };
 
-// Every video on the site — warmed up behind the landing screen
-const VIDEOS = [
-  "/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4",
-  "/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4",
-  "/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4",
-];
-
 const PRODUCTS = [
   {
     name: "PLEASE HOLD",
@@ -370,14 +363,10 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
 
   const go = (s: Screen) => { startAudio(); setScreen(s); };
 
-  // Leave the landing screen: unlock audio, restart the home video, fade out
+  // Leave the landing screen: mount the site, unlock audio, fade out the mask
   const enter = () => {
-    startAudio();
-    if (homeVideoRef.current) {
-      homeVideoRef.current.currentTime = 0;
-      homeVideoRef.current.play().catch(() => {});
-    }
     setEntered(true);
+    startAudio();
     setTimeout(() => setPreloaderGone(true), 600);
   };
 
@@ -496,7 +485,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
-      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop preload="auto" />
+      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop preload="none" />
 
       {/* Mute button — positioned relative to the fixed viewport */}
       <button
@@ -508,7 +497,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
       </button>
 
       {/* ── MOBILE layout (< 768px) ──────────────────────────────── */}
-      {!isDesktop && (
+      {entered && !isDesktop && (
         <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
 
           {/* Sliding content area — touch handlers here for swipe nav */}
@@ -695,7 +684,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
       )}
 
       {/* ── DESKTOP layout (≥ 768px) ─────────────────────────────── */}
-      {isDesktop && (
+      {entered && isDesktop && (
         <div className="w-full h-full flex">
 
           {/* LEFT RAIL */}
@@ -916,25 +905,12 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
             src="/maskbig.png"
             alt="Homesick"
             className="w-[45%] max-w-[220px] select-none"
-            style={{ animation: "float 5s ease-in-out infinite" }}
+            fetchPriority="high"
             draggable={false}
           />
-          <span
-            className="mt-10 text-body uppercase tracking-[0.3em] text-white"
-            style={{ animation: "softPulse 1.8s ease-in-out infinite" }}
-          >
+          <span className="mt-10 text-body uppercase tracking-[0.3em] text-white">
             Go Home
           </span>
-
-          {/* Warm the browser cache while the visitor reads the mask */}
-          <div aria-hidden className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
-            {VIDEOS.map((src) => (
-              <video key={src} src={src} preload="auto" muted playsInline />
-            ))}
-            {PRODUCTS.map((p) => (
-              <img key={p.image} src={p.image} alt="" />
-            ))}
-          </div>
         </div>
       )}
 

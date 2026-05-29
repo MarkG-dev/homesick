@@ -48,6 +48,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${pilat.variable} h-full overflow-hidden bg-black antialiased`}>
+      <head>
+        {/* Landing mask must paint before anything else loads */}
+        <link rel="preload" as="image" href="/maskbig.png" fetchPriority="high" />
+      </head>
       <body className="h-full overflow-hidden overscroll-none bg-black flex flex-col">{children}</body>
     </html>
   );
