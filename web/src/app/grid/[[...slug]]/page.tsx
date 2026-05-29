@@ -45,9 +45,9 @@ const ROWS: { label: string; order: number[] }[] = [
 ];
 
 const VIDEOS = [
-  { id: "field", label: "FIELD", src: "/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4" },
-  { id: "sky",   label: "SKY",   src: "/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4" },
-  { id: "nest",  label: "NEST",  src: "/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4" },
+  { id: "field", label: "FIELD", src: "/assets/hero-video.mp4" },
+  { id: "sky",   label: "SKY",   src: "/assets/story-video.mp4" },
+  { id: "nest",  label: "NEST",  src: "/assets/follow-video.mp4" },
 ];
 
 /* ─── paper background (warm cream + fuzzy fibers) ─── */
