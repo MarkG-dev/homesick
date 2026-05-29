@@ -13,6 +13,13 @@ const IMG = {
   dreamcatcher: "/assets/freepik__make-the-rock-slightly-thinner-maybe-40-thinner-__23593%202.png",
 };
 
+// Every video on the site — warmed up behind the landing screen
+const VIDEOS = [
+  "/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4",
+  "/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4",
+  "/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4",
+];
+
 const PRODUCTS = [
   {
     name: "PLEASE HOLD",
@@ -266,6 +273,8 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const [muted, setMuted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [entered, setEntered] = useState(false);
+  const [preloaderGone, setPreloaderGone] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const homeVideoRef = useRef<HTMLVideoElement>(null);
@@ -282,10 +291,12 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
   const storyPageRef = useRef(0);
   const scrollCooldown = useRef(false);
   const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const enteredRef = useRef(false);
 
   useEffect(() => { screenRef.current = screen; }, [screen]);
   useEffect(() => { selectedRef.current = selected; }, [selected]);
   useEffect(() => { storyPageRef.current = storyPage; }, [storyPage]);
+  useEffect(() => { enteredRef.current = entered; }, [entered]);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -328,6 +339,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     };
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
+      if (!enteredRef.current) return; // landing screen still up
       // Extend unlock timer on every event — only unlocks after scroll truly stops
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => { scrollCooldown.current = false; }, 600);
@@ -357,6 +369,18 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
   }, []);
 
   const go = (s: Screen) => { startAudio(); setScreen(s); };
+
+  // Leave the landing screen: unlock audio, restart the home video, fade out
+  const enter = () => {
+    startAudio();
+    if (homeVideoRef.current) {
+      homeVideoRef.current.currentTime = 0;
+      homeVideoRef.current.play().catch(() => {});
+    }
+    setEntered(true);
+    setTimeout(() => setPreloaderGone(true), 600);
+  };
+
   const idx = SCREENS.indexOf(screen);
   const pct = 100 / SCREENS.length;
   const isCatalogOrHome = screen === "home" || screen === "catalog";
@@ -877,6 +901,40 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
             )}
           </div>
 
+        </div>
+      )}
+
+      {/* ── LANDING / PRELOADER ──────────────────────────────────── */}
+      {!preloaderGone && (
+        <div
+          onClick={enter}
+          className={`fixed inset-0 z-[60] bg-black flex flex-col items-center justify-center cursor-pointer transition-opacity duration-500 ${
+            entered ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <img
+            src="/maskbig.png"
+            alt="Homesick"
+            className="w-[45%] max-w-[220px] select-none"
+            style={{ animation: "float 5s ease-in-out infinite" }}
+            draggable={false}
+          />
+          <span
+            className="mt-10 text-body uppercase tracking-[0.3em] text-white"
+            style={{ animation: "softPulse 1.8s ease-in-out infinite" }}
+          >
+            Go Home
+          </span>
+
+          {/* Warm the browser cache while the visitor reads the mask */}
+          <div aria-hidden className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
+            {VIDEOS.map((src) => (
+              <video key={src} src={src} preload="auto" muted playsInline />
+            ))}
+            {PRODUCTS.map((p) => (
+              <img key={p.image} src={p.image} alt="" />
+            ))}
+          </div>
         </div>
       )}
 
