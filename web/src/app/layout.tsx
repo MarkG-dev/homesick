@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   title: "Homesick",
   description: "Homesick",
   icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "/mask.png",
+    apple: "/mask.png",
   },
   openGraph: {
     title: "Homesick",
