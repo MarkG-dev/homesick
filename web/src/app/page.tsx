@@ -69,6 +69,12 @@ const STORY_TITLES = [
 ] as const;
 
 
+const SUN = "/assets/freepik_sun-logo-out-of-cardboardbrbrpaper-cutout-diorama-with-layered-cardstock-construction-visible-paper-fiber-texture-and-soft-dimensional-shadows-cast-between-each-layer-handpainted-matte-go_0001%201.png";
+
+function SunSpinner() {
+  return <img src={SUN} alt="" aria-hidden className="w-[1em] h-[1em] inline-block" style={{ animation: "spin 1s linear infinite" }} />;
+}
+
 function SoftGradient() {
   return (
     <div
@@ -289,14 +295,13 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     return () => mq.removeEventListener("change", h);
   }, []);
 
-  useEffect(() => {
+  const audioStarted = useRef(false);
+  const startAudio = useCallback(() => {
+    if (audioStarted.current) return;
     const a = audioRef.current;
     if (!a) return;
-    a.muted = false;
-    a.play().catch(() => {
-      a.muted = true;
-      setMuted(true);
-    });
+    audioStarted.current = true;
+    a.play().catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -329,6 +334,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
       // Navigate only on leading edge of each gesture cluster
       if (scrollCooldown.current) return;
       scrollCooldown.current = true;
+      startAudio();
       const next = Math.max(0, Math.min(12, getIdx() + (e.deltaY > 0 ? 1 : -1)));
       if (next === 0)       { setScreen("home"); }
       else if (next <= 6)   { setScreen("catalog"); setSelected(next - 1); }
@@ -350,7 +356,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     });
   }, []);
 
-  const go = (s: Screen) => setScreen(s);
+  const go = (s: Screen) => { startAudio(); setScreen(s); };
   const idx = SCREENS.indexOf(screen);
   const pct = 100 / SCREENS.length;
   const isCatalogOrHome = screen === "home" || screen === "catalog";
@@ -399,7 +405,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
           aria-label="Submit"
           className="text-white/80 text-body leading-none disabled:opacity-40"
         >
-          →
+          {submitting ? <SunSpinner /> : "→"}
         </button>
       </div>
       <p className="text-body text-white/70 normal-case leading-snug">
@@ -428,7 +434,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
           aria-label="Submit"
           className="text-white/80 text-body leading-none disabled:opacity-40 mt-1"
         >
-          →
+          {submitting ? <SunSpinner /> : "→"}
         </button>
       </div>
     </div>
@@ -446,7 +452,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
 
   const followFormInline = (
     <div className="flex flex-col gap-3">
-      <div className="flex gap-3 text-body uppercase">
+      <div className="flex flex-col gap-0.5 text-body uppercase">
         {FOLLOW_MODES.map((label, i) => {
           const active = followMode === (i === 0 ? "subscribe" : "contact");
           return (
@@ -466,7 +472,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
-      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop autoPlay preload="auto" />
+      <audio ref={audioRef} src="/assets/fretle$$.m4a" loop preload="auto" />
 
       {/* Mute button — positioned relative to the fixed viewport */}
       <button
@@ -489,6 +495,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
               touchStartY.current = e.touches[0].clientY;
             }}
             onTouchEnd={(e) => {
+              startAudio();
               const dx = e.changedTouches[0].clientX - touchStartX.current;
               const dy = e.changedTouches[0].clientY - touchStartY.current;
               if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
@@ -812,63 +819,61 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                 <GrainOverlay />
               </div>
             ) : screen === "story" ? (
-              <>
-                <div
-                  className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                  onClick={() => {
-                    if (storyVideoRef.current) {
-                      storyVideoRef.current.currentTime = 0;
-                      storyVideoRef.current.play();
-                    }
-                  }}
+              <div
+                key="story"
+                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (storyVideoRef.current) {
+                    storyVideoRef.current.currentTime = 0;
+                    storyVideoRef.current.play();
+                  }
+                }}
+              >
+                <video
+                  ref={storyVideoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  onEnded={(e) => e.currentTarget.pause()}
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
                 >
-                  <video
-                    ref={storyVideoRef}
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="auto"
-                    onEnded={(e) => e.currentTarget.pause()}
-                    className="absolute inset-0 w-full h-full object-cover bg-black"
-                  >
-                    <source
-                      src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
-                      type="video/mp4"
-                    />
-                  </video>
-                  <SideGradient />
-                  <GrainOverlay />
-                </div>
-              </>
+                  <source
+                    src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <SideGradient />
+                <GrainOverlay />
+              </div>
             ) : (
-              <>
-                <div
-                  className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                  onClick={() => {
-                    if (followVideoRef.current) {
-                      followVideoRef.current.currentTime = 0;
-                      followVideoRef.current.play();
-                    }
-                  }}
+              <div
+                key="follow"
+                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
+                onClick={() => {
+                  if (followVideoRef.current) {
+                    followVideoRef.current.currentTime = 0;
+                    followVideoRef.current.play();
+                  }
+                }}
+              >
+                <video
+                  ref={followVideoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  onEnded={(e) => e.currentTarget.pause()}
+                  className="absolute inset-0 w-full h-full object-cover bg-black"
                 >
-                  <video
-                    ref={followVideoRef}
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="auto"
-                    onEnded={(e) => e.currentTarget.pause()}
-                    className="absolute inset-0 w-full h-full object-cover bg-black"
-                  >
-                    <source
-                      src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
-                      type="video/mp4"
-                    />
-                  </video>
-                  <SideGradient />
-                  <GrainOverlay />
-                </div>
-              </>
+                  <source
+                    src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <SideGradient />
+                <GrainOverlay />
+              </div>
             )}
           </div>
 
