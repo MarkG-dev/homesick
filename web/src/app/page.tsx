@@ -268,6 +268,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
   const [isDesktop, setIsDesktop] = useState(false);
   const [entered, setEntered] = useState(false);
   const [preloaderGone, setPreloaderGone] = useState(false);
+  const [sheepReady, setSheepReady] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -488,11 +489,19 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
       <audio ref={audioRef} src="/assets/fretle$$.m4a" loop preload="auto" />
 
-      {/* Background media buffer — starts fetching while mask is showing */}
+      {/* Sheep buffers first (alone); clouds + eagles join once sheep is ready */}
       <div aria-hidden className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
-        <video src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4" preload="auto" muted playsInline />
-        <video src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4" preload="auto" muted playsInline />
-        <video src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4" preload="auto" muted playsInline />
+        <video
+          src="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4"
+          preload="auto" muted playsInline
+          onCanPlayThrough={() => setSheepReady(true)}
+        />
+        {sheepReady && (
+          <>
+            <video src="/assets/freepik_steadfy-frame-just-the-clouds-moving-across-horizo_veo3_1_1080p_9-16_24fps_23601.mp4" preload="auto" muted playsInline />
+            <video src="/assets/freepik_the-two-baby-eagles-yap-their-beaks-then-the-mothe_veo3_1_1080p_9-16_24fps_23600.mp4" preload="auto" muted playsInline />
+          </>
+        )}
       </div>
 
       {/* Mute button — positioned relative to the fixed viewport */}
