@@ -49,8 +49,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pilat.variable} h-full overflow-hidden bg-black antialiased`}>
       <head>
-        {/* Landing mask must paint before anything else loads */}
+        {/* Landing mask first — fires before any JS */}
         <link rel="preload" as="image" href="/maskbig.png" fetchPriority="high" />
+        {/* Sheep video second — home screen plays immediately after Go Home */}
+        <link rel="preload" as="video" href="/assets/freepik_have-the-sheep-move-aroun_2647120165.mp4" fetchPriority="high" />
       </head>
       <body className="h-full overflow-hidden overscroll-none bg-black flex flex-col">{children}</body>
     </html>
