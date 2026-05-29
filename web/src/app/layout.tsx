@@ -26,6 +26,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Homesick",
   description: "building magical objects",
+  icons: {
+    icon: "/mask.png",
+    apple: "/mask.png",
+  },
   openGraph: {
     title: "Homesick",
     description: "building magical objects",
