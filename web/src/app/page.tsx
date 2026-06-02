@@ -500,6 +500,9 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
           <>
             <video src="/assets/story-video.mp4" preload="auto" muted playsInline />
             <video src="/assets/follow-video.mp4" preload="auto" muted playsInline />
+            {Object.values(IMG).map((src) => (
+              <img key={src} src={src} alt="" />
+            ))}
           </>
         )}
       </div>
@@ -528,22 +531,13 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
               startAudio();
               const dx = e.changedTouches[0].clientX - touchStartX.current;
               const dy = e.changedTouches[0].clientY - touchStartY.current;
-              if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-                const dir = dx < 0 ? 1 : -1;
-                const cur = SCREENS.indexOf(screen);
-                go(SCREENS[Math.max(0, Math.min(SCREENS.length - 1, cur + dir))]);
-              } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
-                const dir = dy < 0 ? 1 : -1;
-                if (screen === "catalog")
-                  setSelected((s) => Math.max(0, Math.min(PRODUCTS.length - 1, s + dir)));
-                else if (screen === "story")
-                  setStoryPage((p) => Math.max(0, Math.min(STORY_SENTENCES.length - 1, p + dir)));
-                else if (screen === "follow") {
-                  const modes: Array<"subscribe" | "contact"> = ["subscribe", "contact"];
-                  setFollowMode((m) => modes[Math.max(0, Math.min(modes.length - 1, modes.indexOf(m) + dir))]);
-                  setSubmitted(false);
-                }
-              }
+              const absDx = Math.abs(dx);
+              const absDy = Math.abs(dy);
+              if (Math.max(absDx, absDy) < 40) return;
+              // right/down = next (+1), left/up = previous (−1)
+              const dir = absDx >= absDy ? (dx > 0 ? 1 : -1) : (dy > 0 ? 1 : -1);
+              const cur = SCREENS.indexOf(screen);
+              go(SCREENS[Math.max(0, Math.min(SCREENS.length - 1, cur + dir))]);
             }}
           >
             <div
@@ -570,6 +564,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                 >
                   <video
                     ref={homeVideoRef}
+                    src="/assets/hero-video.mp4"
                     autoPlay
                     muted
                     playsInline
@@ -577,12 +572,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                     onEnded={(e) => e.currentTarget.pause()}
                     className="absolute inset-0 w-full h-full object-cover bg-black"
                     style={{ objectPosition: "center 20%" }}
-                  >
-                    <source
-                      src="/assets/hero-video.mp4"
-                      type="video/mp4"
-                    />
-                  </video>
+                  />
                   <SoftGradient />
                   <GrainOverlay />
                 </div>
@@ -628,18 +618,14 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                 >
                   <video
                     ref={storyVideoRef}
+                    src="/assets/story-video.mp4"
                     autoPlay
                     muted
                     playsInline
                     preload="auto"
                     onEnded={(e) => e.currentTarget.pause()}
                     className="absolute inset-0 w-full h-full object-cover bg-black"
-                  >
-                    <source
-                      src="/assets/story-video.mp4"
-                      type="video/mp4"
-                    />
-                  </video>
+                  />
                   <SoftGradient />
                   <GrainOverlay />
                 </div>
@@ -670,18 +656,14 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                 >
                   <video
                     ref={followVideoRef}
+                    src="/assets/follow-video.mp4"
                     autoPlay
                     muted
                     playsInline
                     preload="auto"
                     onEnded={(e) => e.currentTarget.pause()}
                     className="absolute inset-0 w-full h-full object-cover bg-black"
-                  >
-                    <source
-                      src="/assets/follow-video.mp4"
-                      type="video/mp4"
-                    />
-                  </video>
+                  />
                   <SoftGradient />
                   <GrainOverlay />
                 </div>
