@@ -8,24 +8,34 @@ interface GhostPost {
   published_at: string;
 }
 
-const GHOST_URL = process.env.GHOST_API_URL;
-const GHOST_KEY = process.env.GHOST_CONTENT_API_KEY;
-
 async function getPost(slug: string): Promise<GhostPost | null> {
-  const url = `${GHOST_URL}/ghost/api/content/posts/slug/${slug}/?key=${GHOST_KEY}&fields=title,html,feature_image,published_at,slug`;
-  const res = await fetch(url, { next: { revalidate: 3600 } });
-  if (!res.ok) return null;
-  const data = await res.json();
-  return data.posts?.[0] ?? null;
+  const base = process.env.GHOST_API_URL;
+  const key = process.env.GHOST_CONTENT_API_KEY;
+  if (!base || !key) return null;
+  try {
+    const res = await fetch(
+      `${base}/ghost/api/content/posts/slug/${slug}/?key=${key}&fields=title,html,feature_image,published_at,slug`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.posts?.[0] ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
+  const base = process.env.GHOST_API_URL;
+  const key = process.env.GHOST_CONTENT_API_KEY;
+  if (!base || !key) return [];
   try {
-    if (!GHOST_URL || !GHOST_KEY) return [];
-    const url = `${GHOST_URL}/ghost/api/content/posts/?key=${GHOST_KEY}&limit=all&fields=slug`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(
+      `${base}/ghost/api/content/posts/?key=${key}&limit=all&fields=slug`,
+      { next: { revalidate: 3600 } }
+    );
     if (!res.ok) return [];
     const data = await res.json();
     return (data.posts ?? []).map((p: { slug: string }) => ({ slug: p.slug }));
@@ -46,6 +56,12 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   return (
     <article className="p-6 max-w-prose">
+      <a
+        href="/writing"
+        className="inline-block text-body uppercase text-white/40 hover:text-white transition-colors mb-6"
+      >
+        ← Writing
+      </a>
       {post.feature_image && (
         <img
           src={post.feature_image}
