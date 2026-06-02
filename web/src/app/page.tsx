@@ -335,12 +335,14 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       if (!enteredRef.current) return; // landing screen still up
-      // Extend unlock timer on every event — only unlocks after scroll truly stops
-      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-      scrollTimeout.current = setTimeout(() => { scrollCooldown.current = false; }, 600);
-      // Navigate only on leading edge of each gesture cluster
+      // Ignore micro-scroll jitter
+      if (Math.abs(e.deltaY) < 8) return;
+      // Throttle: navigate once, then lock for a fixed window so continuous
+      // scrolling advances one step at a time instead of stalling.
       if (scrollCooldown.current) return;
       scrollCooldown.current = true;
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      scrollTimeout.current = setTimeout(() => { scrollCooldown.current = false; }, 450);
       startAudio();
       const next = Math.max(0, Math.min(12, getIdx() + (e.deltaY > 0 ? 1 : -1)));
       if (next === 0)       { setScreen("home"); }
