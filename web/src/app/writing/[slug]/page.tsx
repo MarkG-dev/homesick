@@ -19,12 +19,19 @@ async function getPost(slug: string): Promise<GhostPost | null> {
   return data.posts?.[0] ?? null;
 }
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  const url = `${GHOST_URL}/ghost/api/content/posts/?key=${GHOST_KEY}&limit=all&fields=slug`;
-  const res = await fetch(url, { next: { revalidate: 3600 } });
-  if (!res.ok) return [];
-  const data = await res.json();
-  return (data.posts ?? []).map((p: { slug: string }) => ({ slug: p.slug }));
+  try {
+    if (!GHOST_URL || !GHOST_KEY) return [];
+    const url = `${GHOST_URL}/ghost/api/content/posts/?key=${GHOST_KEY}&limit=all&fields=slug`;
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.posts ?? []).map((p: { slug: string }) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
