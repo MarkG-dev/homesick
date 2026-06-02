@@ -803,6 +803,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
               >
                 <video
                   ref={homeVideoRef}
+                  src="/assets/hero-video.mp4"
                   autoPlay
                   muted
                   playsInline
@@ -810,12 +811,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                   onEnded={(e) => e.currentTarget.pause()}
                   className="absolute inset-0 w-full h-full object-cover bg-black"
                   style={{ objectPosition: "center 20%" }}
-                >
-                  <source
-                    src="/assets/hero-video.mp4"
-                    type="video/mp4"
-                  />
-                </video>
+                />
                 <SideGradient />
                 <GrainOverlay />
               </div>
@@ -842,18 +838,14 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
               >
                 <video
                   ref={storyVideoRef}
+                  src="/assets/story-video.mp4"
                   autoPlay
                   muted
                   playsInline
                   preload="auto"
                   onEnded={(e) => e.currentTarget.pause()}
                   className="absolute inset-0 w-full h-full object-cover bg-black"
-                >
-                  <source
-                    src="/assets/story-video.mp4"
-                    type="video/mp4"
-                  />
-                </video>
+                />
                 <SideGradient />
                 <GrainOverlay />
               </div>
@@ -870,18 +862,14 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
               >
                 <video
                   ref={followVideoRef}
+                  src="/assets/follow-video.mp4"
                   autoPlay
                   muted
                   playsInline
                   preload="auto"
                   onEnded={(e) => e.currentTarget.pause()}
                   className="absolute inset-0 w-full h-full object-cover bg-black"
-                >
-                  <source
-                    src="/assets/follow-video.mp4"
-                    type="video/mp4"
-                  />
-                </video>
+                />
                 <SideGradient />
                 <GrainOverlay />
               </div>
