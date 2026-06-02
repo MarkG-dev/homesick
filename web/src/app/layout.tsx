@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const pilat = localFont({
@@ -54,7 +55,10 @@ export default function RootLayout({
         {/* Sheep video second — home screen plays immediately after Go Home */}
         <link rel="preload" as="video" href="/assets/hero-video.mp4" fetchPriority="high" />
       </head>
-      <body className="h-full overflow-hidden overscroll-none bg-black flex flex-col">{children}</body>
+      <body className="h-full overflow-hidden overscroll-none bg-black flex flex-col">
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
