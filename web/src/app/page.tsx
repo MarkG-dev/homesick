@@ -55,7 +55,7 @@ const PRODUCTS = [
 const STORY_SENTENCES = [
   "We struggled and struggled to make everything work! Then we made it beautiful. Then we perfected it until it was in every blue jean pocket, so polished and universal it became invisible, which is the worst thing a beautiful thing can become.",
   "You cannot love what you cannot lose. But nothing broke for so long that you forgot. We track our sleep on the device that ruined it! Everything is efficient and nothing is yours and the distance between yourself and the world has never been wider.",
-  "Our objects are irregular. You might hate one. Good. It wasn't for you. Seventy-two degrees is comfortable for you but it makes your friend get sweaty and quiet until their silence makes you lonely.",
+  "Our objects are irregular. You might hate one. Good. It wasn't for you. A summer day is comfortable for you but makes me hot and annoyed and hungrier than usual.",
   "Freed from the tyranny of multi-function, objects can look like themselves again. Your nerve endings know. Magic is the goal. Soon you will hold something alive and shy like a firefly.",
   "This is a story about what happens after everything works. Do you, like us, suspect that perfection might be the problem?",
 ];
