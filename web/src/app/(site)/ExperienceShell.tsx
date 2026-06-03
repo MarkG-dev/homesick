@@ -1,78 +1,23 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { PRODUCTS, STORY } from "./products";
 
-type Screen = "home" | "catalog" | "story" | "follow";
-const SCREENS: Screen[] = ["home", "catalog", "story", "follow"];
+// ─── Tiny UI helpers ────────────────────────────────────────────────────────
 
-const IMG = {
-  atc: "/assets/magnifics_upscale-V3jRyWe7MMJjWWu6FHMo-image%208%202.png",
-  wandr: "/assets/freepik_make-the-led-twice-as-wid_2752466544%203.png",
-  sigh: "/assets/freepik__small-retru-device-with-soft-diffused-light-coming__23594%202.png",
-  parrot: "/assets/freepik__make-the-bird-parrot-colors-parakeet-colors-and-ma__23599%202.png",
-  stonecharge: "/assets/freepik__small-apple-mag-safe-wire-coming-out-of-the-right-__23598%202.png",
-  dreamcatcher: "/assets/freepik__make-the-rock-slightly-thinner-maybe-40-thinner-__23593%202.png",
-};
-
-const PRODUCTS = [
-  {
-    name: "ATC 1.0",
-    image: IMG.atc,
-    description:
-      "This tin can holds one message at a time, in one place. Modern phones are distracting and too accessible. Constant access kills spontaneity and presence. This device brings both back.",
-  },
-  {
-    name: "WANDR",
-    image: IMG.wandr,
-    description:
-      "A stone that counts every mile you've ever walked. Not steps today — miles, total, forever. Watch the number build and suddenly a Tuesday afternoon walk matters.",
-  },
-  {
-    name: "SIGH",
-    image: IMG.sigh,
-    description:
-      "Breathwork guidance shrunk down to light and vibration in your pocket. It's a little ridiculous that the best way to calm down involves pulling out the same device that stresses us out!",
-  },
-  {
-    name: "PARROT",
-    image: IMG.parrot,
-    description:
-      "A robot parrot for your desk. It listens. It repeats things. It has opinions about your vocabulary. Wouldn't it be fun if we all had a parrot? I've always wanted one...",
-  },
-  {
-    name: "STONECHARGE",
-    image: IMG.stonecharge,
-    description:
-      "Safe underneath a beautiful rock that hides your phone. You want it back? Lift the stone. Deliberately. Elevate your space.",
-  },
-  {
-    name: "DREAMCATCHER",
-    image: IMG.dreamcatcher,
-    description:
-      "Press this button in the dark to record your dreams. Receive them transcribed in the morning. If you're feeling brave, we'll analyze them too.",
-  },
-];
-
-const STORY_SENTENCES = [
-  "We struggled and struggled to make everything work! Then we made it beautiful. Then we perfected it until it was in every blue jean pocket, so polished and universal it became invisible, which is the worst thing a beautiful thing can become.",
-  "You cannot love what you cannot lose. But nothing broke for so long that you forgot. We track our sleep on the device that ruined it! Everything is efficient and nothing is yours and the distance between yourself and the world has never been wider.",
-  "Our objects are irregular. You might hate one. Good. It wasn't for you. A summer day is comfortable for you but makes me hot and annoyed and hungrier than usual.",
-  "Freed from the tyranny of multi-function, objects can look like themselves again. Your nerve endings know. Magic is the goal. Soon you will hold something alive and shy like a firefly.",
-  "This is a story about what happens after everything works. Do you, like us, suspect that perfection might be the problem?",
-];
-
-const STORY_TITLES = [
-  "MADE INVISIBLE",
-  "WHAT YOU LOSE",
-  "NOT FOR YOU",
-  "ALIVE AND SHY",
-  "AFTER IT WORKS",
-] as const;
-
-
-const SUN = "/assets/freepik_sun-logo-out-of-cardboardbrbrpaper-cutout-diorama-with-layered-cardstock-construction-visible-paper-fiber-texture-and-soft-dimensional-shadows-cast-between-each-layer-handpainted-matte-go_0001%201.png";
+const SUN =
+  "/assets/freepik_sun-logo-out-of-cardboardbrbrpaper-cutout-diorama-with-layered-cardstock-construction-visible-paper-fiber-texture-and-soft-dimensional-shadows-cast-between-each-layer-handpainted-matte-go_0001%201.png";
 
 function SunSpinner() {
-  return <img src={SUN} alt="" aria-hidden className="w-[1em] h-[1em] inline-block" style={{ animation: "spin 1s linear infinite" }} />;
+  return (
+    <img
+      src={SUN}
+      alt=""
+      aria-hidden
+      className="w-[1em] h-[1em] inline-block"
+      style={{ animation: "spin 1s linear infinite" }}
+    />
+  );
 }
 
 function SoftGradient() {
@@ -125,12 +70,12 @@ function Bullet({ on }: { on: boolean }) {
   return <span className="inline-block w-[1em]">{on ? "●" : "○"}</span>;
 }
 
-function TypewriterText({ text }: { text: string }) {
+function TypewriterText({ text, animKey }: { text: string; animKey: string | number }) {
   return (
     <>
       {text.split(" ").map((word, i) => (
         <span
-          key={i}
+          key={`${animKey}-${i}`}
           style={{
             display: "inline",
             opacity: 0,
@@ -144,130 +89,63 @@ function TypewriterText({ text }: { text: string }) {
   );
 }
 
-const ROWS = 6;
+// ─── Route helpers ──────────────────────────────────────────────────────────
 
-function ContentBox({
-  items,
-  activeIndex,
-  onSelect,
-  children,
-}: {
-  items: readonly string[];
-  activeIndex: number;
-  onSelect?: (i: number) => void;
-  children: React.ReactNode;
-}) {
-  const interactive = !!onSelect;
-  return (
-    <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase bg-black">
-      <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
-        {Array.from({ length: ROWS }).map((_, i) => {
-          const label = items[i];
-          if (!label) {
-            return (
-              <li key={`spacer-${i}`} aria-hidden className="invisible">
-                <span className="flex items-center gap-[3px]">
-                  <Bullet on={false} />
-                  &nbsp;
-                </span>
-              </li>
-            );
-          }
-          const on = i === activeIndex;
-          return (
-            <li key={label}>
-              {interactive ? (
-                <button
-                  onClick={() => onSelect!(i)}
-                  className={`flex items-center gap-[3px] text-left ${
-                    on ? "text-white" : "text-white/40"
-                  }`}
-                >
-                  <Bullet on={on} />
-                  {label}
-                </button>
-              ) : (
-                <span
-                  className={`flex items-center gap-[3px] ${
-                    on ? "text-white" : "text-white/40"
-                  }`}
-                >
-                  <Bullet on={on} />
-                  {label}
-                </span>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-      <div className="min-w-0 normal-case">{children}</div>
-    </div>
-  );
+// Linear wheel index: 0=home, 1-6=products, 7=story, 8=follow
+function pathnameToIdx(p: string): number {
+  if (p === "/") return 0;
+  if (p.startsWith("/objects/")) {
+    const slug = p.split("/")[2];
+    const i = PRODUCTS.findIndex((pr) => pr.slug === slug);
+    return 1 + (i >= 0 ? i : 0);
+  }
+  if (p === "/objects") return 1;
+  if (p === "/story") return 7;
+  return 8;
 }
 
-function BottomNav({
-  screen,
-  go,
-}: {
-  screen: Screen;
-  go: (s: Screen) => void;
-}) {
-  return (
-    <nav className="shrink-0 flex items-center gap-4 px-3 pt-3 pb-2 text-body uppercase">
-      {(
-        [
-          ["catalog", "MAGICAL OBJECTS"],
-          ["story", "STORY"],
-          ["follow", "FOLLOW"],
-        ] as const
-      ).map(([target, label]) => {
-        const active = screen === target;
-        return (
-          <button
-            key={target}
-            onClick={() => go(target)}
-            className={`flex items-center gap-[3px] whitespace-nowrap ${
-              active ? "text-white" : "text-white/40"
-            }`}
-          >
-            <Bullet on={active} />
-            {label}
-          </button>
-        );
-      })}
-    </nav>
-  );
+function idxToPath(idx: number): string {
+  if (idx === 0) return "/";
+  if (idx >= 1 && idx <= 6) return `/objects/${PRODUCTS[idx - 1].slug}`;
+  if (idx === 7) return "/story";
+  return "/follow";
 }
 
-function Homesick({ onClick }: { onClick: () => void }) {
-  return (
-    <div
-      onClick={onClick}
-      className="shrink-0 px-3 pb-[max(env(safe-area-inset-bottom),8px)] bg-black cursor-pointer"
-    >
-      <img
-        src="/assets/HOMESICK.png"
-        alt="HOMESICK"
-        className="w-full block"
-        style={{ mixBlendMode: "screen" }}
-      />
-    </div>
-  );
-}
+// ─── Shell ──────────────────────────────────────────────────────────────────
 
-export default function Home() {
-  const [screen, setScreen] = useState<Screen>("home");
-  const [selected, setSelected] = useState(0);
-  const [storyPage, setStoryPage] = useState(0);
-const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe");
+export default function ExperienceShell({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Derive display state from URL
+  const isHome = pathname === "/";
+  const isCatalog = pathname.startsWith("/objects");
+  const isStory = pathname === "/story";
+  const isFollow = pathname === "/follow";
+
+  const currentProduct = isCatalog
+    ? (PRODUCTS.find((p) => `/objects/${p.slug}` === pathname) ?? PRODUCTS[0])
+    : PRODUCTS[0];
+  const selectedIdx = PRODUCTS.findIndex((p) => p === currentProduct);
+
+  // Preloader: show only on "/" when not yet entered; skip entirely on deep links
+  const [entered, setEntered] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return pathname !== "/" || !!sessionStorage.getItem("hs-entered");
+  });
+  const [preloaderGone, setPreloaderGone] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return pathname !== "/" || !!sessionStorage.getItem("hs-entered");
+  });
+
+  const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+
   const [muted, setMuted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [entered, setEntered] = useState(false);
-  const [preloaderGone, setPreloaderGone] = useState(false);
   const [sheepReady, setSheepReady] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -279,18 +157,14 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
-  // Desktop scroll tracking — refs shadow state so the wheel handler stays stable
-  const screenRef = useRef<Screen>("home");
-  const selectedRef = useRef(0);
-  const storyPageRef = useRef(0);
+  // Wheel throttle — refs to survive without re-creating the listener
   const scrollCooldown = useRef(false);
   const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const enteredRef = useRef(false);
+  const enteredRef = useRef(entered);
+  const pathnameRef = useRef(pathname);
 
-  useEffect(() => { screenRef.current = screen; }, [screen]);
-  useEffect(() => { selectedRef.current = selected; }, [selected]);
-  useEffect(() => { storyPageRef.current = storyPage; }, [storyPage]);
   useEffect(() => { enteredRef.current = entered; }, [entered]);
+  useEffect(() => { pathnameRef.current = pathname; }, [pathname]);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -309,49 +183,43 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     a.play().catch(() => {});
   }, []);
 
+  // Restart the appropriate video when section changes
   useEffect(() => {
-    const refByScreen = {
-      home: homeVideoRef,
-      story: storyVideoRef,
-      follow: followVideoRef,
-    } as const;
-    const ref = (refByScreen as Record<string, typeof homeVideoRef | undefined>)[screen];
-    const el = ref?.current;
-    if (!el) return;
-    el.currentTime = 0;
-    el.play().catch(() => {});
-  }, [screen]);
+    if (isHome && homeVideoRef.current) {
+      homeVideoRef.current.currentTime = 0;
+      homeVideoRef.current.play().catch(() => {});
+    } else if (isStory && storyVideoRef.current) {
+      storyVideoRef.current.currentTime = 0;
+      storyVideoRef.current.play().catch(() => {});
+    } else if (isFollow && followVideoRef.current) {
+      followVideoRef.current.currentTime = 0;
+      followVideoRef.current.play().catch(() => {});
+    }
+  }, [pathname]);  // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Desktop wheel → linear scroll through home → products → story → follow
+  const navigate = useCallback((delta: number) => {
+    const next = Math.max(0, Math.min(8, pathnameToIdx(pathnameRef.current) + delta));
+    const target = idxToPath(next);
+    if (target !== pathnameRef.current) router.push(target);
+  }, [router]);
+
+  // Desktop wheel → linear scroll
   useEffect(() => {
     if (!isDesktop) return;
-    const getIdx = () => {
-      if (screenRef.current === "home")    return 0;
-      if (screenRef.current === "catalog") return 1 + selectedRef.current;
-      if (screenRef.current === "story")   return 7 + storyPageRef.current;
-      return 12;
-    };
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
-      if (!enteredRef.current) return; // landing screen still up
-      // Ignore micro-scroll jitter
+      if (!enteredRef.current) return;
       if (Math.abs(e.deltaY) < 8) return;
-      // Throttle: navigate once, then lock for a fixed window so continuous
-      // scrolling advances one step at a time instead of stalling.
       if (scrollCooldown.current) return;
       scrollCooldown.current = true;
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => { scrollCooldown.current = false; }, 450);
       startAudio();
-      const next = Math.max(0, Math.min(12, getIdx() + (e.deltaY > 0 ? 1 : -1)));
-      if (next === 0)       { setScreen("home"); }
-      else if (next <= 6)   { setScreen("catalog"); setSelected(next - 1); }
-      else if (next <= 11)  { setScreen("story");   setStoryPage(next - 7); }
-      else                  { setScreen("follow"); }
+      navigate(e.deltaY > 0 ? 1 : -1);
     };
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isDesktop]);
+  }, [isDesktop, navigate, startAudio]);
 
   const toggleMute = useCallback(() => {
     setMuted((m) => {
@@ -364,18 +232,19 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     });
   }, []);
 
-  const go = (s: Screen) => { startAudio(); setScreen(s); };
+  const go = useCallback((path: string) => {
+    startAudio();
+    router.push(path);
+  }, [router, startAudio]);
 
-  // Leave the landing screen: mount the site, unlock audio, fade out the mask
   const enter = () => {
     setEntered(true);
     startAudio();
+    sessionStorage.setItem("hs-entered", "1");
     setTimeout(() => setPreloaderGone(true), 600);
   };
 
-  const idx = SCREENS.indexOf(screen);
-  const pct = 100 / SCREENS.length;
-  const isCatalogOrHome = screen === "home" || screen === "catalog";
+  // ── Follow form ──────────────────────────────────────────────────────────
 
   const handleSubmit = async () => {
     const value = inputRef.current?.value?.trim();
@@ -401,9 +270,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
 
   const followContent = submitted ? (
     <p className="text-body text-white/70 normal-case leading-snug">
-      {followMode === "subscribe"
-        ? "Thanks so much — confirm your inbox."
-        : "Sent. We'll write back."}
+      {followMode === "subscribe" ? "Thanks so much — confirm your inbox." : "Sent. We'll write back."}
     </p>
   ) : followMode === "subscribe" ? (
     <div className="flex flex-col gap-2">
@@ -456,16 +323,6 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     </div>
   );
 
-  const followForm = (
-    <ContentBox
-      items={FOLLOW_MODES}
-      activeIndex={followMode === "subscribe" ? 0 : 1}
-      onSelect={(i) => { setFollowMode(i === 0 ? "subscribe" : "contact"); setSubmitted(false); }}
-    >
-      {followContent}
-    </ContentBox>
-  );
-
   const followFormInline = (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col gap-0.5 text-body uppercase">
@@ -486,29 +343,98 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
     </div>
   );
 
+  // ── Mobile content box (product list) ────────────────────────────────────
+
+  const ROWS = 6;
+
+  const mobileContentBox = isCatalog ? (
+    <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase bg-black">
+      <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
+        {Array.from({ length: ROWS }).map((_, i) => {
+          const p = PRODUCTS[i];
+          if (!p) return <li key={i} aria-hidden className="invisible"><span className="flex items-center gap-[3px]"><Bullet on={false} />&nbsp;</span></li>;
+          const on = i === selectedIdx;
+          return (
+            <li key={p.slug}>
+              <button
+                onClick={() => go(`/objects/${p.slug}`)}
+                className={`flex items-center gap-[3px] text-left ${on ? "text-white" : "text-white/40"}`}
+              >
+                <Bullet on={on} />{p.name}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="min-w-0 normal-case">
+        <p key={currentProduct.slug} className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
+          <TypewriterText text={currentProduct.description} animKey={currentProduct.slug} />
+        </p>
+      </div>
+    </div>
+  ) : isStory ? (
+    <div className="shrink-0 px-3 pt-3 pb-2 overflow-y-auto max-h-[45vh] flex flex-col gap-4 bg-black">
+      {STORY.map((s) => (
+        <div key={s.id}>
+          <p className="text-body uppercase text-white/40 mb-1">{s.title}</p>
+          <p className="text-body normal-case text-white/80 leading-snug">{s.text}</p>
+        </div>
+      ))}
+    </div>
+  ) : isFollow ? (
+    <div className="shrink-0 px-3 pt-3 pb-2 bg-black">
+      <div className="flex flex-col gap-0.5 text-body uppercase mb-2">
+        {FOLLOW_MODES.map((label, i) => {
+          const active = followMode === (i === 0 ? "subscribe" : "contact");
+          return (
+            <button
+              key={label}
+              onClick={() => { setFollowMode(i === 0 ? "subscribe" : "contact"); setSubmitted(false); }}
+              className={`flex items-center gap-[3px] ${active ? "text-white" : "text-white/40"}`}
+            >
+              <Bullet on={active} />{label}
+            </button>
+          );
+        })}
+      </div>
+      {followContent}
+    </div>
+  ) : null;
+
+  // ── Screens ───────────────────────────────────────────────────────────────
+
+  const SCREEN_ORDER = ["home", "catalog", "story", "follow"] as const;
+  type ScreenKey = typeof SCREEN_ORDER[number];
+  const currentScreen: ScreenKey = isHome ? "home" : isCatalog ? "catalog" : isStory ? "story" : "follow";
+  const screenIdx = SCREEN_ORDER.indexOf(currentScreen);
+  const pct = 100 / SCREEN_ORDER.length;
+
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
+      {/* Persistent audio — never unmounts with the layout */}
       <audio ref={audioRef} src="/assets/fretle$$.m4a" loop preload="auto" />
 
-      {/* Sheep buffers first (alone); clouds + eagles join once sheep is ready */}
+      {/* Hidden media preloader */}
       <div aria-hidden className="absolute w-0 h-0 overflow-hidden opacity-0 pointer-events-none">
         <video
           src="/assets/hero-video.mp4"
-          preload="auto" muted playsInline
+          preload="auto"
+          muted
+          playsInline
           onCanPlayThrough={() => setSheepReady(true)}
         />
         {sheepReady && (
           <>
             <video src="/assets/story-video.mp4" preload="auto" muted playsInline />
             <video src="/assets/follow-video.mp4" preload="auto" muted playsInline />
-            {Object.values(IMG).map((src) => (
-              <img key={src} src={src} alt="" />
+            {PRODUCTS.map((p) => (
+              <img key={p.slug} src={p.image} alt="" />
             ))}
           </>
         )}
       </div>
 
-      {/* Mute button — positioned relative to the fixed viewport */}
+      {/* Mute button */}
       <button
         onClick={toggleMute}
         aria-label={muted ? "Unmute" : "Mute"}
@@ -517,11 +443,11 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
         {muted ? "♪ off" : "♪ on"}
       </button>
 
-      {/* ── MOBILE layout (< 768px) ──────────────────────────────── */}
+      {/* ── MOBILE layout (< 768px) ─────────────────────────────── */}
       {entered && !isDesktop && (
         <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
 
-          {/* Sliding content area — touch handlers here for swipe nav */}
+          {/* Sliding content area */}
           <div
             className="flex-1 relative overflow-hidden min-h-0"
             onTouchStart={(e) => {
@@ -534,33 +460,25 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
               const dy = e.changedTouches[0].clientY - touchStartY.current;
               const absDx = Math.abs(dx);
               const absDy = Math.abs(dy);
-              if (Math.max(absDx, absDy) < 40) return;
-              // right/down = next (+1), left/up = previous (−1)
-              const dir = absDx >= absDy ? (dx > 0 ? 1 : -1) : (dy > 0 ? 1 : -1);
-              const cur = SCREENS.indexOf(screen);
-              go(SCREENS[Math.max(0, Math.min(SCREENS.length - 1, cur + dir))]);
+              if (absDx < 40 || absDy > absDx) return; // only horizontal swipe navigates
+              navigate(dx > 0 ? 1 : -1);
             }}
           >
+            {/* Film strip translates to show the current screen */}
             <div
               className="flex h-full transition-transform duration-700 ease-in-out"
               style={{
-                width: `${SCREENS.length * 100}%`,
-                transform: `translateX(-${idx * pct}%)`,
+                width: `${SCREEN_ORDER.length * 100}%`,
+                transform: `translateX(-${screenIdx * pct}%)`,
               }}
             >
 
-              {/* HOME — full-bleed sheep video */}
-              <div
-                className="h-full shrink-0 flex flex-col bg-black"
-                style={{ width: `${pct}%` }}
-              >
+              {/* HOME */}
+              <div className="h-full shrink-0 flex flex-col bg-black" style={{ width: `${pct}%` }}>
                 <div
                   className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
                   onClick={() => {
-                    if (homeVideoRef.current) {
-                      homeVideoRef.current.currentTime = 0;
-                      homeVideoRef.current.play();
-                    }
+                    homeVideoRef.current?.play();
                   }}
                 >
                   <video
@@ -579,35 +497,21 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                 </div>
               </div>
 
-              {/* CATALOG — product image + content box */}
-              <div
-                className="h-full shrink-0 flex flex-col bg-black"
-                style={{ width: `${pct}%` }}
-              >
+              {/* CATALOG */}
+              <div className="h-full shrink-0 flex flex-col bg-black" style={{ width: `${pct}%` }}>
                 <div className="flex-1 relative overflow-hidden min-h-0">
                   <img
-                    src={PRODUCTS[selected].image}
-                    alt={PRODUCTS[selected].name}
+                    src={currentProduct.image}
+                    alt={currentProduct.name}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <GrainOverlay />
                 </div>
-                <ContentBox
-                  items={PRODUCTS.map((p) => p.name)}
-                  activeIndex={selected}
-                  onSelect={setSelected}
-                >
-                  <p key={selected} className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
-                    <TypewriterText text={PRODUCTS[selected].description} />
-                  </p>
-                </ContentBox>
+                {mobileContentBox}
               </div>
 
-              {/* STORY — clouds video + paginated content box */}
-              <div
-                className="h-full shrink-0 flex flex-col bg-black"
-                style={{ width: `${pct}%` }}
-              >
+              {/* STORY */}
+              <div className="h-full shrink-0 flex flex-col bg-black" style={{ width: `${pct}%` }}>
                 <div
                   className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
                   onClick={() => {
@@ -630,22 +534,11 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                   <SoftGradient />
                   <GrainOverlay />
                 </div>
-                <ContentBox
-                  items={STORY_TITLES}
-                  activeIndex={storyPage}
-                  onSelect={setStoryPage}
-                >
-                  <p key={storyPage} className="leading-snug text-white text-body normal-case">
-                    <TypewriterText text={STORY_SENTENCES[storyPage]} />
-                  </p>
-                </ContentBox>
+                {mobileContentBox}
               </div>
 
-              {/* FOLLOW — eagles video + form */}
-              <div
-                className="h-full shrink-0 flex flex-col bg-black"
-                style={{ width: `${pct}%` }}
-              >
+              {/* FOLLOW */}
+              <div className="h-full shrink-0 flex flex-col bg-black" style={{ width: `${pct}%` }}>
                 <div
                   className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
                   onClick={() => {
@@ -668,7 +561,7 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                   <SoftGradient />
                   <GrainOverlay />
                 </div>
-                {followForm}
+                {mobileContentBox}
               </div>
 
             </div>
@@ -676,8 +569,35 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
 
           {/* Locked bottom bar */}
           <div className="shrink-0 bg-black relative z-50">
-            <BottomNav screen={screen} go={go} />
-            <Homesick onClick={() => go("home")} />
+            <nav className="shrink-0 flex items-center gap-4 px-3 pt-3 pb-2 text-body uppercase">
+              {([
+                ["/objects/please-hold", "MAGICAL OBJECTS"],
+                ["/story", "STORY"],
+                ["/follow", "FOLLOW"],
+              ] as const).map(([target, label]) => {
+                const active = pathname.startsWith(target.split("/")[1] === "objects" ? "/objects" : target);
+                return (
+                  <button
+                    key={target}
+                    onClick={() => go(target)}
+                    className={`flex items-center gap-[3px] whitespace-nowrap ${active ? "text-white" : "text-white/40"}`}
+                  >
+                    <Bullet on={active} />{label}
+                  </button>
+                );
+              })}
+            </nav>
+            <div
+              onClick={() => go("/")}
+              className="shrink-0 px-3 pb-[max(env(safe-area-inset-bottom),8px)] bg-black cursor-pointer"
+            >
+              <img
+                src="/assets/HOMESICK.png"
+                alt="HOMESICK"
+                className="w-full block"
+                style={{ mixBlendMode: "screen" }}
+              />
+            </div>
           </div>
 
         </div>
@@ -690,110 +610,81 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
           {/* LEFT RAIL */}
           <div className="w-[22vw] shrink-0 flex flex-col bg-black border-r border-white/10 p-4 overflow-hidden">
 
-            {/* Logo → home (sheep video) */}
             <img
               src="/assets/HOMESICK.png"
               alt="HOMESICK"
               className="w-full block cursor-pointer mb-4"
               style={{ mixBlendMode: "screen" }}
-              onClick={() => go("home")}
+              onClick={() => go("/")}
             />
 
-            {/* Top nav: MAGICAL OBJECTS / STORY / FOLLOW */}
             <nav className="flex flex-col gap-0.5 mb-3 text-body uppercase shrink-0">
               <button
-                onClick={() => go("catalog")}
-                className={`flex items-center gap-[3px] text-left ${
-                  screen === "catalog" ? "text-white" : "text-white/40"
-                }`}
+                onClick={() => go("/objects/please-hold")}
+                className={`flex items-center gap-[3px] text-left ${isCatalog ? "text-white" : "text-white/40"}`}
               >
-                <Bullet on={screen === "catalog"} />
-                MAGICAL OBJECTS
+                <Bullet on={isCatalog} />MAGICAL OBJECTS
               </button>
               <button
-                onClick={() => go("story")}
-                className={`flex items-center gap-[3px] text-left ${
-                  screen === "story" ? "text-white" : "text-white/40"
-                }`}
+                onClick={() => go("/story")}
+                className={`flex items-center gap-[3px] text-left ${isStory ? "text-white" : "text-white/40"}`}
               >
-                <Bullet on={screen === "story"} />
-                STORY
+                <Bullet on={isStory} />STORY
               </button>
               <button
-                onClick={() => go("follow")}
-                className={`flex items-center gap-[3px] text-left ${
-                  screen === "follow" ? "text-white" : "text-white/40"
-                }`}
+                onClick={() => go("/follow")}
+                className={`flex items-center gap-[3px] text-left ${isFollow ? "text-white" : "text-white/40"}`}
               >
-                <Bullet on={screen === "follow"} />
-                FOLLOW
+                <Bullet on={isFollow} />FOLLOW
               </button>
             </nav>
 
-            {/* Dynamic sub-list — hidden on home */}
+            {/* Sub-list */}
             <ul className="list-none m-0 p-0 flex flex-col gap-0.5 text-body uppercase shrink-0 mt-4">
-              {screen === "catalog"
-                ? PRODUCTS.map((p, i) => {
-                    const on = selected === i;
-                    return (
-                      <li key={p.name}>
-                        <button
-                          onClick={() => { setSelected(i); go("catalog"); }}
-                          className={`flex items-center gap-[3px] text-left w-full ${
-                            on ? "text-white" : "text-white/40"
-                          }`}
-                        >
-                          <Bullet on={on} />
-                          {p.name}
-                        </button>
-                      </li>
-                    );
-                  })
-                : screen === "story"
-                ? STORY_TITLES.map((title, i) => {
-                    const on = storyPage === i;
-                    return (
-                      <li key={title}>
-                        <button
-                          onClick={() => setStoryPage(i)}
-                          className={`flex items-center gap-[3px] ${
-                            on ? "text-white" : "text-white/40"
-                          }`}
-                        >
-                          <Bullet on={on} />
-                          {title}
-                        </button>
-                      </li>
-                    );
-                  })
-                : null}
+              {isCatalog && PRODUCTS.map((p, i) => {
+                const on = i === selectedIdx;
+                return (
+                  <li key={p.slug}>
+                    <button
+                      onClick={() => go(`/objects/${p.slug}`)}
+                      className={`flex items-center gap-[3px] text-left w-full ${on ? "text-white" : "text-white/40"}`}
+                    >
+                      <Bullet on={on} />{p.name}
+                    </button>
+                  </li>
+                );
+              })}
+              {isStory && STORY.map((s) => (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    className="flex items-center gap-[3px] text-white/40 hover:text-white/70 transition-colors"
+                  >
+                    <Bullet on={false} />{s.title}
+                  </a>
+                </li>
+              ))}
             </ul>
 
-            {/* Description / text area — hidden on home, fixed gap below sub-list */}
-            {screen !== "home" && (
+            {/* Description area */}
+            {!isHome && (
               <div className="mt-7 shrink-0 text-body normal-case text-white/70 leading-snug">
-                {screen === "catalog" ? (
-                  <p key={selected}>
-                    <TypewriterText text={PRODUCTS[selected].description} />
+                {isCatalog ? (
+                  <p key={currentProduct.slug}>
+                    <TypewriterText text={currentProduct.description} animKey={currentProduct.slug} />
                   </p>
-                ) : screen === "story" ? (
-                  <p key={storyPage}>
-                    <TypewriterText text={STORY_SENTENCES[storyPage]} />
-                  </p>
-                ) : (
+                ) : isFollow ? (
                   followFormInline
-                )}
+                ) : null}
               </div>
             )}
 
-            {/* Lower spacer */}
             <div className="flex-1" />
-
           </div>
 
           {/* RIGHT PANE */}
           <div className="flex-1 flex flex-col bg-black overflow-hidden">
-            {screen === "home" ? (
+            {isHome && (
               <div
                 className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
                 onClick={() => {
@@ -817,19 +708,20 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                 <SideGradient />
                 <GrainOverlay />
               </div>
-            ) : screen === "catalog" ? (
+            )}
+            {isCatalog && (
               <div className="flex-1 relative overflow-hidden">
                 <img
-                  src={PRODUCTS[selected].image}
-                  alt={PRODUCTS[selected].name}
+                  src={currentProduct.image}
+                  alt={currentProduct.name}
                   className="absolute inset-0 w-full h-full object-contain"
                 />
                 <SideGradient />
                 <GrainOverlay />
               </div>
-            ) : screen === "story" ? (
+            )}
+            {isStory && (
               <div
-                key="story"
                 className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
                 onClick={() => {
                   if (storyVideoRef.current) {
@@ -851,9 +743,9 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
                 <SideGradient />
                 <GrainOverlay />
               </div>
-            ) : (
+            )}
+            {isFollow && (
               <div
-                key="follow"
                 className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
                 onClick={() => {
                   if (followVideoRef.current) {
@@ -881,7 +773,10 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
         </div>
       )}
 
-      {/* ── LANDING / PRELOADER ──────────────────────────────────── */}
+      {/* SEO content from child pages — invisible to users, readable by crawlers */}
+      <div className="sr-only">{children}</div>
+
+      {/* ── PRELOADER (home entry gate) ───────────────────────────── */}
       {!preloaderGone && (
         <div
           onClick={enter}
