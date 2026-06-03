@@ -271,7 +271,6 @@ const [followMode, setFollowMode] = useState<"subscribe" | "contact">("subscribe
   const [sheepReady, setSheepReady] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const homeVideoRef = useRef<HTMLVideoElement>(null);
   const storyVideoRef = useRef<HTMLVideoElement>(null);
   const followVideoRef = useRef<HTMLVideoElement>(null);
