@@ -12,7 +12,7 @@ async function getPosts(): Promise<GhostPost[]> {
     const key = process.env.GHOST_CONTENT_API_KEY;
     if (!base || !key) return [];
     const url = `${base}/ghost/api/content/posts/?key=${key}&limit=all&fields=title,excerpt,feature_image,published_at,slug`;
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) return [];
     const data = await res.json();
     return data.posts ?? [];

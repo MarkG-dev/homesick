@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const res = await fetch(
       `${base}/ghost/api/content/posts/?key=${key}&limit=all&fields=slug,updated_at`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 60 } }
     );
     if (!res.ok) return staticRoutes;
     const data = await res.json();
