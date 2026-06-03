@@ -25,7 +25,10 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Homesick",
+  title: {
+    default: "Homesick",
+    template: "%s — Homesick",
+  },
   description: "building magical objects",
   icons: {
     icon: "/mask.png",
@@ -35,11 +38,13 @@ export const metadata: Metadata = {
     title: "Homesick",
     description: "building magical objects",
     type: "website",
+    images: [{ url: "/og.png", width: 1600, height: 900 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Homesick",
     description: "building magical objects",
+    images: ["/og.png"],
   },
 };
 
