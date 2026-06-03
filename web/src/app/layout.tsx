@@ -18,7 +18,7 @@ const pilat = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://homesick.dev"),
+  metadataBase: new URL("https://www.homesick.dev"),
   title: {
     default: "Homesick",
     template: "%s — Homesick",
