@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Follow",
   description: "Follow Homesick for updates on magical objects, or reach out directly.",
+  alternates: { canonical: "/follow" },
 };
 
 export default function FollowPage() {
