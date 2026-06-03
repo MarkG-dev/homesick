@@ -89,27 +89,7 @@ function TypewriterText({ text, animKey }: { text: string; animKey: string | num
   );
 }
 
-// ─── Route helpers ──────────────────────────────────────────────────────────
-
-// Linear wheel index: 0=home, 1-6=products, 7=story, 8=follow
-function pathnameToIdx(p: string): number {
-  if (p === "/") return 0;
-  if (p.startsWith("/objects/")) {
-    const slug = p.split("/")[2];
-    const i = PRODUCTS.findIndex((pr) => pr.slug === slug);
-    return 1 + (i >= 0 ? i : 0);
-  }
-  if (p === "/objects") return 1;
-  if (p === "/story") return 7;
-  return 8;
-}
-
-function idxToPath(idx: number): string {
-  if (idx === 0) return "/";
-  if (idx >= 1 && idx <= 6) return `/objects/${PRODUCTS[idx - 1].slug}`;
-  if (idx === 7) return "/story";
-  return "/follow";
-}
+const ROWS = 6;
 
 // ─── Shell ──────────────────────────────────────────────────────────────────
 
@@ -117,16 +97,20 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
   const router = useRouter();
   const pathname = usePathname();
 
-  // Derive display state from URL
+  // Derive section from URL
   const isHome = pathname === "/";
   const isCatalog = pathname.startsWith("/objects");
-  const isStory = pathname === "/story";
+  const isAbout = pathname === "/about";
   const isFollow = pathname === "/follow";
 
   const currentProduct = isCatalog
     ? (PRODUCTS.find((p) => `/objects/${p.slug}` === pathname) ?? PRODUCTS[0])
     : PRODUCTS[0];
-  const selectedIdx = PRODUCTS.findIndex((p) => p === currentProduct);
+  const selectedIdx = Math.max(0, PRODUCTS.findIndex((p) => p === currentProduct));
+
+  // Story chapter index — local state (the /about route is a single page,
+  // but the wheel/taps page through its chapters like the original).
+  const [chapterIdx, setChapterIdx] = useState(0);
 
   // Preloader: show only on "/" when not yet entered; skip entirely on deep links
   const [entered, setEntered] = useState<boolean>(() => {
@@ -157,14 +141,16 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
-  // Wheel throttle — refs to survive without re-creating the listener
+  // Wheel throttle — refs so the listener stays stable
   const scrollCooldown = useRef(false);
   const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const enteredRef = useRef(entered);
   const pathnameRef = useRef(pathname);
+  const chapterIdxRef = useRef(chapterIdx);
 
   useEffect(() => { enteredRef.current = entered; }, [entered]);
   useEffect(() => { pathnameRef.current = pathname; }, [pathname]);
+  useEffect(() => { chapterIdxRef.current = chapterIdx; }, [chapterIdx]);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -183,27 +169,44 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
     a.play().catch(() => {});
   }, []);
 
-  // Restart the appropriate video when section changes
+  // Restart the relevant video whenever the section changes
   useEffect(() => {
-    if (isHome && homeVideoRef.current) {
-      homeVideoRef.current.currentTime = 0;
-      homeVideoRef.current.play().catch(() => {});
-    } else if (isStory && storyVideoRef.current) {
-      storyVideoRef.current.currentTime = 0;
-      storyVideoRef.current.play().catch(() => {});
-    } else if (isFollow && followVideoRef.current) {
-      followVideoRef.current.currentTime = 0;
-      followVideoRef.current.play().catch(() => {});
+    const v = isHome ? homeVideoRef.current : isAbout ? storyVideoRef.current : isFollow ? followVideoRef.current : null;
+    if (!v) return;
+    v.currentTime = 0;
+    v.play().catch(() => {});
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Linear navigation (desktop wheel): 0 home · 1-6 objects · 7-11 about · 12 follow ──
+  const linearIdxFromRefs = () => {
+    const p = pathnameRef.current;
+    if (p === "/") return 0;
+    if (p.startsWith("/objects")) {
+      const slug = p.split("/")[2];
+      const i = PRODUCTS.findIndex((pr) => pr.slug === slug);
+      return 1 + (i >= 0 ? i : 0);
     }
-  }, [pathname]);  // eslint-disable-line react-hooks/exhaustive-deps
+    if (p === "/about") return 7 + chapterIdxRef.current;
+    return 12;
+  };
 
-  const navigate = useCallback((delta: number) => {
-    const next = Math.max(0, Math.min(8, pathnameToIdx(pathnameRef.current) + delta));
-    const target = idxToPath(next);
-    if (target !== pathnameRef.current) router.push(target);
-  }, [router]);
+  const navigateLinear = useCallback((delta: number) => {
+    const cur = linearIdxFromRefs();
+    const next = Math.max(0, Math.min(12, cur + delta));
+    if (next === cur) return;
+    if (next === 0) {
+      router.push("/");
+    } else if (next <= 6) {
+      router.push(`/objects/${PRODUCTS[next - 1].slug}`);
+    } else if (next <= 11) {
+      if (pathnameRef.current !== "/about") router.push("/about");
+      setChapterIdx(next - 7);
+    } else {
+      router.push("/follow");
+    }
+  }, [router]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Desktop wheel → linear scroll
+  // Desktop wheel
   useEffect(() => {
     if (!isDesktop) return;
     const handleWheel = (e: WheelEvent) => {
@@ -215,11 +218,25 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => { scrollCooldown.current = false; }, 450);
       startAudio();
-      navigate(e.deltaY > 0 ? 1 : -1);
+      navigateLinear(e.deltaY > 0 ? 1 : -1);
     };
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isDesktop, navigate, startAudio]);
+  }, [isDesktop, navigateLinear, startAudio]);
+
+  // ── Screen navigation (mobile swipe): home · catalog · about · follow ──
+  const MOBILE_SCREENS = ["home", "catalog", "about", "follow"] as const;
+  const currentScreen = isHome ? "home" : isCatalog ? "catalog" : isAbout ? "about" : "follow";
+  const screenIdx = MOBILE_SCREENS.indexOf(currentScreen);
+  const pct = 100 / MOBILE_SCREENS.length;
+
+  const navigateScreen = useCallback((delta: number) => {
+    const paths = ["/", `/objects/${currentProduct.slug}`, "/about", "/follow"];
+    const next = Math.max(0, Math.min(3, screenIdx + delta));
+    if (next === screenIdx) return;
+    if (next === 2) setChapterIdx(0);
+    router.push(paths[next]);
+  }, [router, currentProduct.slug, screenIdx]);
 
   const toggleMute = useCallback(() => {
     setMuted((m) => {
@@ -234,6 +251,7 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
 
   const go = useCallback((path: string) => {
     startAudio();
+    if (path === "/about") setChapterIdx(0);
     router.push(path);
   }, [router, startAudio]);
 
@@ -343,45 +361,74 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
     </div>
   );
 
-  // ── Mobile content box (product list) ────────────────────────────────────
+  // ── Mobile content box (list + current text) ──────────────────────────────
 
-  const ROWS = 6;
-
-  const mobileContentBox = isCatalog ? (
-    <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase bg-black">
-      <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
-        {Array.from({ length: ROWS }).map((_, i) => {
-          const p = PRODUCTS[i];
-          if (!p) return <li key={i} aria-hidden className="invisible"><span className="flex items-center gap-[3px]"><Bullet on={false} />&nbsp;</span></li>;
-          const on = i === selectedIdx;
-          return (
-            <li key={p.slug}>
-              <button
-                onClick={() => go(`/objects/${p.slug}`)}
-                className={`flex items-center gap-[3px] text-left ${on ? "text-white" : "text-white/40"}`}
-              >
-                <Bullet on={on} />{p.name}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <div className="min-w-0 normal-case">
-        <p key={currentProduct.slug} className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
-          <TypewriterText text={currentProduct.description} animKey={currentProduct.slug} />
-        </p>
+  function MobileList({
+    items,
+    activeIndex,
+    onSelect,
+    children,
+  }: {
+    items: readonly string[];
+    activeIndex: number;
+    onSelect: (i: number) => void;
+    children: React.ReactNode;
+  }) {
+    return (
+      <div className="shrink-0 grid grid-cols-[auto_1fr] gap-x-4 px-3 pt-3 pb-2 text-body uppercase bg-black">
+        <ul className="list-none m-0 p-0 flex flex-col gap-0.5">
+          {Array.from({ length: ROWS }).map((_, i) => {
+            const label = items[i];
+            if (!label) {
+              return (
+                <li key={`spacer-${i}`} aria-hidden className="invisible">
+                  <span className="flex items-center gap-[3px]"><Bullet on={false} />&nbsp;</span>
+                </li>
+              );
+            }
+            const on = i === activeIndex;
+            return (
+              <li key={label}>
+                <button
+                  onClick={() => onSelect(i)}
+                  className={`flex items-center gap-[3px] text-left ${on ? "text-white" : "text-white/40"}`}
+                >
+                  <Bullet on={on} />{label}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="min-w-0 normal-case">{children}</div>
       </div>
-    </div>
-  ) : isStory ? (
-    <div className="shrink-0 px-3 pt-3 pb-2 overflow-y-auto max-h-[45vh] flex flex-col gap-4 bg-black">
-      {STORY.map((s) => (
-        <div key={s.id}>
-          <p className="text-body uppercase text-white/40 mb-1">{s.title}</p>
-          <p className="text-body normal-case text-white/80 leading-snug">{s.text}</p>
-        </div>
-      ))}
-    </div>
-  ) : isFollow ? (
+    );
+  }
+
+  const mobileCatalogBox = (
+    <MobileList
+      items={PRODUCTS.map((p) => p.name)}
+      activeIndex={selectedIdx}
+      onSelect={(i) => go(`/objects/${PRODUCTS[i].slug}`)}
+    >
+      <p key={currentProduct.slug} className="leading-snug line-clamp-6 overflow-hidden text-white text-body normal-case">
+        <TypewriterText text={currentProduct.description} animKey={currentProduct.slug} />
+      </p>
+    </MobileList>
+  );
+
+  const mobileAboutBox = (
+    <MobileList
+      items={STORY.map((s) => s.title)}
+      activeIndex={chapterIdx}
+      onSelect={setChapterIdx}
+    >
+      <p key={chapterIdx} className="leading-snug text-white text-body normal-case">
+        <TypewriterText text={STORY[chapterIdx].text} animKey={chapterIdx} />
+      </p>
+    </MobileList>
+  );
+
+  const mobileFollowBox = (
     <div className="shrink-0 px-3 pt-3 pb-2 bg-black">
       <div className="flex flex-col gap-0.5 text-body uppercase mb-2">
         {FOLLOW_MODES.map((label, i) => {
@@ -399,15 +446,7 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
       </div>
       {followContent}
     </div>
-  ) : null;
-
-  // ── Screens ───────────────────────────────────────────────────────────────
-
-  const SCREEN_ORDER = ["home", "catalog", "story", "follow"] as const;
-  type ScreenKey = typeof SCREEN_ORDER[number];
-  const currentScreen: ScreenKey = isHome ? "home" : isCatalog ? "catalog" : isStory ? "story" : "follow";
-  const screenIdx = SCREEN_ORDER.indexOf(currentScreen);
-  const pct = 100 / SCREEN_ORDER.length;
+  );
 
   return (
     <div className="fixed inset-0 bg-black overflow-hidden flex justify-center">
@@ -447,7 +486,6 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
       {entered && !isDesktop && (
         <div className="w-full max-w-[440px] h-full flex flex-col relative overflow-hidden">
 
-          {/* Sliding content area */}
           <div
             className="flex-1 relative overflow-hidden min-h-0"
             onTouchStart={(e) => {
@@ -460,15 +498,14 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
               const dy = e.changedTouches[0].clientY - touchStartY.current;
               const absDx = Math.abs(dx);
               const absDy = Math.abs(dy);
-              if (absDx < 40 || absDy > absDx) return; // only horizontal swipe navigates
-              navigate(dx > 0 ? 1 : -1);
+              if (absDx < 40 || absDy > absDx) return; // horizontal swipes only
+              navigateScreen(dx > 0 ? 1 : -1);
             }}
           >
-            {/* Film strip translates to show the current screen */}
             <div
               className="flex h-full transition-transform duration-700 ease-in-out"
               style={{
-                width: `${SCREEN_ORDER.length * 100}%`,
+                width: `${MOBILE_SCREENS.length * 100}%`,
                 transform: `translateX(-${screenIdx * pct}%)`,
               }}
             >
@@ -477,17 +514,12 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
               <div className="h-full shrink-0 flex flex-col bg-black" style={{ width: `${pct}%` }}>
                 <div
                   className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                  onClick={() => {
-                    homeVideoRef.current?.play();
-                  }}
+                  onClick={() => homeVideoRef.current?.play()}
                 >
                   <video
                     ref={homeVideoRef}
                     src="/assets/hero-video.mp4"
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="auto"
+                    autoPlay muted playsInline preload="auto"
                     onEnded={(e) => e.currentTarget.pause()}
                     className="absolute inset-0 w-full h-full object-cover bg-black"
                     style={{ objectPosition: "center 20%" }}
@@ -507,10 +539,10 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
                   />
                   <GrainOverlay />
                 </div>
-                {mobileContentBox}
+                {mobileCatalogBox}
               </div>
 
-              {/* STORY */}
+              {/* ABOUT */}
               <div className="h-full shrink-0 flex flex-col bg-black" style={{ width: `${pct}%` }}>
                 <div
                   className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
@@ -524,17 +556,14 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
                   <video
                     ref={storyVideoRef}
                     src="/assets/story-video.mp4"
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="auto"
+                    autoPlay muted playsInline preload="auto"
                     onEnded={(e) => e.currentTarget.pause()}
                     className="absolute inset-0 w-full h-full object-cover bg-black"
                   />
                   <SoftGradient />
                   <GrainOverlay />
                 </div>
-                {mobileContentBox}
+                {mobileAboutBox}
               </div>
 
               {/* FOLLOW */}
@@ -551,17 +580,14 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
                   <video
                     ref={followVideoRef}
                     src="/assets/follow-video.mp4"
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="auto"
+                    autoPlay muted playsInline preload="auto"
                     onEnded={(e) => e.currentTarget.pause()}
                     className="absolute inset-0 w-full h-full object-cover bg-black"
                   />
                   <SoftGradient />
                   <GrainOverlay />
                 </div>
-                {mobileContentBox}
+                {mobileFollowBox}
               </div>
 
             </div>
@@ -571,21 +597,18 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
           <div className="shrink-0 bg-black relative z-50">
             <nav className="shrink-0 flex items-center gap-4 px-3 pt-3 pb-2 text-body uppercase">
               {([
-                ["/objects/please-hold", "MAGICAL OBJECTS"],
-                ["/story", "STORY"],
-                ["/follow", "FOLLOW"],
-              ] as const).map(([target, label]) => {
-                const active = pathname.startsWith(target.split("/")[1] === "objects" ? "/objects" : target);
-                return (
-                  <button
-                    key={target}
-                    onClick={() => go(target)}
-                    className={`flex items-center gap-[3px] whitespace-nowrap ${active ? "text-white" : "text-white/40"}`}
-                  >
-                    <Bullet on={active} />{label}
-                  </button>
-                );
-              })}
+                ["/objects/please-hold", "MAGICAL OBJECTS", isCatalog],
+                ["/about", "ABOUT", isAbout],
+                ["/follow", "FOLLOW", isFollow],
+              ] as const).map(([target, label, active]) => (
+                <button
+                  key={target}
+                  onClick={() => go(target)}
+                  className={`flex items-center gap-[3px] whitespace-nowrap ${active ? "text-white" : "text-white/40"}`}
+                >
+                  <Bullet on={active} />{label}
+                </button>
+              ))}
             </nav>
             <div
               onClick={() => go("/")}
@@ -626,10 +649,10 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
                 <Bullet on={isCatalog} />MAGICAL OBJECTS
               </button>
               <button
-                onClick={() => go("/story")}
-                className={`flex items-center gap-[3px] text-left ${isStory ? "text-white" : "text-white/40"}`}
+                onClick={() => go("/about")}
+                className={`flex items-center gap-[3px] text-left ${isAbout ? "text-white" : "text-white/40"}`}
               >
-                <Bullet on={isStory} />STORY
+                <Bullet on={isAbout} />ABOUT
               </button>
               <button
                 onClick={() => go("/follow")}
@@ -654,24 +677,31 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
                   </li>
                 );
               })}
-              {isStory && STORY.map((s) => (
-                <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    className="flex items-center gap-[3px] text-white/40 hover:text-white/70 transition-colors"
-                  >
-                    <Bullet on={false} />{s.title}
-                  </a>
-                </li>
-              ))}
+              {isAbout && STORY.map((s, i) => {
+                const on = i === chapterIdx;
+                return (
+                  <li key={s.id}>
+                    <button
+                      onClick={() => setChapterIdx(i)}
+                      className={`flex items-center gap-[3px] ${on ? "text-white" : "text-white/40"}`}
+                    >
+                      <Bullet on={on} />{s.title}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
 
-            {/* Description area */}
+            {/* Description / text area */}
             {!isHome && (
               <div className="mt-7 shrink-0 text-body normal-case text-white/70 leading-snug">
                 {isCatalog ? (
                   <p key={currentProduct.slug}>
                     <TypewriterText text={currentProduct.description} animKey={currentProduct.slug} />
+                  </p>
+                ) : isAbout ? (
+                  <p key={chapterIdx}>
+                    <TypewriterText text={STORY[chapterIdx].text} animKey={chapterIdx} />
                   </p>
                 ) : isFollow ? (
                   followFormInline
@@ -682,92 +712,85 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
             <div className="flex-1" />
           </div>
 
-          {/* RIGHT PANE */}
-          <div className="flex-1 flex flex-col bg-black overflow-hidden">
-            {isHome && (
-              <div
-                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                onClick={() => {
-                  if (homeVideoRef.current) {
-                    homeVideoRef.current.currentTime = 0;
-                    homeVideoRef.current.play();
-                  }
-                }}
-              >
-                <video
-                  ref={homeVideoRef}
-                  src="/assets/hero-video.mp4"
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="auto"
-                  onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover bg-black"
-                  style={{ objectPosition: "center 20%" }}
-                />
-                <SideGradient />
-                <GrainOverlay />
-              </div>
-            )}
-            {isCatalog && (
-              <div className="flex-1 relative overflow-hidden">
-                <img
-                  src={currentProduct.image}
-                  alt={currentProduct.name}
-                  className="absolute inset-0 w-full h-full object-contain"
-                />
-                <SideGradient />
-                <GrainOverlay />
-              </div>
-            )}
-            {isStory && (
-              <div
-                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                onClick={() => {
-                  if (storyVideoRef.current) {
-                    storyVideoRef.current.currentTime = 0;
-                    storyVideoRef.current.play();
-                  }
-                }}
-              >
-                <video
-                  ref={storyVideoRef}
-                  src="/assets/story-video.mp4"
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="auto"
-                  onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover bg-black"
-                />
-                <SideGradient />
-                <GrainOverlay />
-              </div>
-            )}
-            {isFollow && (
-              <div
-                className="flex-1 relative overflow-hidden min-h-0 cursor-pointer"
-                onClick={() => {
-                  if (followVideoRef.current) {
-                    followVideoRef.current.currentTime = 0;
-                    followVideoRef.current.play();
-                  }
-                }}
-              >
-                <video
-                  ref={followVideoRef}
-                  src="/assets/follow-video.mp4"
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="auto"
-                  onEnded={(e) => e.currentTarget.pause()}
-                  className="absolute inset-0 w-full h-full object-cover bg-black"
-                />
-                <SideGradient />
-                <GrainOverlay />
-              </div>
-            )}
+          {/* RIGHT PANE — all media stay mounted; visibility toggles so returning
+              to a section never re-fetches or re-buffers the video. */}
+          <div className="flex-1 relative bg-black overflow-hidden">
+
+            {/* HOME video */}
+            <div
+              className={`absolute inset-0 cursor-pointer transition-opacity duration-300 ${isHome ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
+              onClick={() => {
+                if (homeVideoRef.current) {
+                  homeVideoRef.current.currentTime = 0;
+                  homeVideoRef.current.play();
+                }
+              }}
+            >
+              <video
+                ref={homeVideoRef}
+                src="/assets/hero-video.mp4"
+                autoPlay muted playsInline preload="auto"
+                onEnded={(e) => e.currentTarget.pause()}
+                className="absolute inset-0 w-full h-full object-cover bg-black"
+                style={{ objectPosition: "center 20%" }}
+              />
+              <SideGradient />
+              <GrainOverlay />
+            </div>
+
+            {/* CATALOG image */}
+            <div className={`absolute inset-0 transition-opacity duration-300 ${isCatalog ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}>
+              <img
+                src={currentProduct.image}
+                alt={currentProduct.name}
+                className="absolute inset-0 w-full h-full object-contain"
+              />
+              <SideGradient />
+              <GrainOverlay />
+            </div>
+
+            {/* ABOUT video */}
+            <div
+              className={`absolute inset-0 cursor-pointer transition-opacity duration-300 ${isAbout ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
+              onClick={() => {
+                if (storyVideoRef.current) {
+                  storyVideoRef.current.currentTime = 0;
+                  storyVideoRef.current.play();
+                }
+              }}
+            >
+              <video
+                ref={storyVideoRef}
+                src="/assets/story-video.mp4"
+                autoPlay muted playsInline preload="auto"
+                onEnded={(e) => e.currentTarget.pause()}
+                className="absolute inset-0 w-full h-full object-cover bg-black"
+              />
+              <SideGradient />
+              <GrainOverlay />
+            </div>
+
+            {/* FOLLOW video */}
+            <div
+              className={`absolute inset-0 cursor-pointer transition-opacity duration-300 ${isFollow ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
+              onClick={() => {
+                if (followVideoRef.current) {
+                  followVideoRef.current.currentTime = 0;
+                  followVideoRef.current.play();
+                }
+              }}
+            >
+              <video
+                ref={followVideoRef}
+                src="/assets/follow-video.mp4"
+                autoPlay muted playsInline preload="auto"
+                onEnded={(e) => e.currentTarget.pause()}
+                className="absolute inset-0 w-full h-full object-cover bg-black"
+              />
+              <SideGradient />
+              <GrainOverlay />
+            </div>
+
           </div>
 
         </div>
