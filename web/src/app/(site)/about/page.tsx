@@ -1,10 +1,26 @@
 import type { Metadata } from "next";
 import { STORY } from "../products";
 
+const DESCRIPTION =
+  "A story about what happens after everything works. About objects that feel like yours.";
+
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "A story about what happens after everything works. About objects that feel like yours.",
+  description: DESCRIPTION,
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About — Homesick",
+    description: DESCRIPTION,
+    url: "/about",
+    type: "website",
+    images: [{ url: "/og.png", width: 1600, height: 900 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About — Homesick",
+    description: DESCRIPTION,
+    images: ["/og.png"],
+  },
 };
 
 export default function AboutPage() {

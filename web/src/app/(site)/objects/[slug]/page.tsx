@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PRODUCTS } from "../../products";
 
+const WWW = "https://www.homesick.dev";
+
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
 }
@@ -15,9 +17,12 @@ export async function generateMetadata(
   return {
     title: product.name,
     description: product.description,
+    alternates: { canonical: `/objects/${product.slug}` },
     openGraph: {
       title: product.name,
       description: product.description,
+      url: `/objects/${product.slug}`,
+      type: "website",
       images: [{ url: product.image }],
     },
     twitter: {
@@ -39,9 +44,9 @@ export default async function ObjectPage({ params }: { params: Promise<{ slug: s
     "@type": "Product",
     name: product.name,
     description: product.description,
-    image: product.image,
+    image: `${WWW}${product.image}`,
     brand: { "@type": "Brand", name: "Homesick" },
-    url: `https://homesick.dev/objects/${product.slug}`,
+    url: `${WWW}/objects/${product.slug}`,
   };
 
   return (
