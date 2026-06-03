@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { PRODUCTS } from "./(site)/products";
 
-const BASE = "https://homesick.dev";
+const BASE = "https://www.homesick.dev";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
