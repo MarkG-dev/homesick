@@ -18,7 +18,7 @@ async function getPost(slug: string): Promise<GhostPost | null> {
   try {
     const res = await fetch(
       `${base}/ghost/api/content/posts/slug/${slug}/?key=${key}&fields=title,html,excerpt,feature_image,published_at,updated_at,slug`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 60 } }
     );
     if (!res.ok) return null;
     const data = await res.json();
@@ -37,7 +37,7 @@ export async function generateStaticParams() {
   try {
     const res = await fetch(
       `${base}/ghost/api/content/posts/?key=${key}&limit=all&fields=slug`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 60 } }
     );
     if (!res.ok) return [];
     const data = await res.json();
