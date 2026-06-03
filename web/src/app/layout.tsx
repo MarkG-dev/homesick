@@ -24,7 +24,7 @@ const siteUrl =
   ?? "https://homesick.dev";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL("https://www.homesick.dev"),
   title: {
     default: "Homesick",
     template: "%s — Homesick",
