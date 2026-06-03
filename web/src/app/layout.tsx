@@ -18,19 +18,26 @@ const pilat = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Homesick",
-  description: "Homesick",
+  metadataBase: new URL("https://homesick.dev"),
+  title: {
+    default: "Homesick",
+    template: "%s — Homesick",
+  },
+  description: "Homesick makes magical objects. Things that feel like yours.",
   icons: {
     icon: "/mask.png",
     apple: "/mask.png",
   },
   openGraph: {
     title: "Homesick",
-    description: "Homesick",
+    description: "Homesick makes magical objects. Things that feel like yours.",
+    type: "website",
     images: [{ url: "/og.png", width: 1600, height: 900 }],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Homesick",
+    description: "Homesick makes magical objects. Things that feel like yours.",
     images: ["/og.png"],
   },
 };

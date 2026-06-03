@@ -1,11 +1,14 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 interface GhostPost {
   slug: string;
   title: string;
   html: string;
+  excerpt: string | null;
   feature_image: string | null;
   published_at: string;
+  updated_at: string;
 }
 
 async function getPost(slug: string): Promise<GhostPost | null> {
@@ -14,7 +17,7 @@ async function getPost(slug: string): Promise<GhostPost | null> {
   if (!base || !key) return null;
   try {
     const res = await fetch(
-      `${base}/ghost/api/content/posts/slug/${slug}/?key=${key}&fields=title,html,feature_image,published_at,slug`,
+      `${base}/ghost/api/content/posts/slug/${slug}/?key=${key}&fields=title,html,excerpt,feature_image,published_at,updated_at,slug`,
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return null;
@@ -44,6 +47,38 @@ export async function generateStaticParams() {
   }
 }
 
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPost(slug);
+  if (!post) return { title: "Not found" };
+
+  const description = post.excerpt ?? undefined;
+  const images = post.feature_image ? [post.feature_image] : [];
+
+  return {
+    title: post.title,
+    description,
+    alternates: { canonical: `/writing/${post.slug}` },
+    openGraph: {
+      title: post.title,
+      description,
+      type: "article",
+      publishedTime: post.published_at,
+      modifiedTime: post.updated_at,
+      url: `/writing/${post.slug}`,
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images,
+    },
+  };
+}
+
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = await getPost(slug);
@@ -55,8 +90,23 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     day: "numeric",
   });
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt ?? undefined,
+    image: post.feature_image ?? undefined,
+    datePublished: post.published_at,
+    dateModified: post.updated_at,
+    publisher: { "@type": "Organization", name: "Homesick" },
+  };
+
   return (
     <article className="p-6 max-w-prose">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <a
         href="/writing"
         className="inline-block text-body uppercase text-white/40 hover:text-white transition-colors mb-6"
