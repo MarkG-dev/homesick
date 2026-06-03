@@ -1,10 +1,20 @@
 import type { MetadataRoute } from "next";
+import { PRODUCTS } from "./(site)/products";
 
 const BASE = "https://homesick.dev";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${BASE}/`, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
+    { url: `${BASE}/`, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
+    { url: `${BASE}/objects`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    ...PRODUCTS.map((p) => ({
+      url: `${BASE}/objects/${p.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    { url: `${BASE}/story`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/follow`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/writing`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   ];
 
