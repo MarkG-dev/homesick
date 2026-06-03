@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Homesick — Writing",
-  description: "Articles from Gentle Future",
+  title: "Writing",
+  description: "Writing from Homesick — on objects, design, and what happens after everything works.",
+  openGraph: {
+    title: "Writing — Homesick",
+    description: "Writing from Homesick — on objects, design, and what happens after everything works.",
+    type: "website",
+    images: [{ url: "/og.png", width: 1600, height: 900 }],
+  },
 };
 
 export default function WritingLayout({ children }: { children: React.ReactNode }) {
