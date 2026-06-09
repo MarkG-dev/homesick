@@ -60,14 +60,14 @@ export async function generateMetadata(
   return {
     title: post.title,
     description,
-    alternates: { canonical: `/writing/${post.slug}` },
+    alternates: { canonical: `https://www.gentlefuture.net/${post.slug}` },
     openGraph: {
       title: post.title,
       description,
       type: "article",
       publishedTime: post.published_at,
       modifiedTime: post.updated_at,
-      url: `/writing/${post.slug}`,
+      url: `https://www.gentlefuture.net/${post.slug}`,
       images,
     },
     twitter: {
