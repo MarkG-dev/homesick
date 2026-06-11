@@ -713,8 +713,11 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
           </div>
 
           {/* RIGHT PANE — all media stay mounted; visibility toggles so returning
-              to a section never re-fetches or re-buffers the video. */}
-          <div className="flex-1 relative bg-black overflow-hidden">
+              to a section never re-fetches or re-buffers the video. The inner
+              stage caps the media width so on very large/short screens the video
+              stops zooming (which cropped the sheep); black fills the sides. */}
+          <div className="flex-1 relative bg-black overflow-hidden flex justify-center">
+            <div className="relative h-full w-full max-w-[1400px]">
 
             {/* HOME video */}
             <div
@@ -791,6 +794,7 @@ export default function ExperienceShell({ children }: { children: React.ReactNod
               <GrainOverlay />
             </div>
 
+            </div>
           </div>
 
         </div>
