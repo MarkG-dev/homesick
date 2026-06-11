@@ -39,13 +39,15 @@ export default async function ObjectPage({ params }: { params: Promise<{ slug: s
   const product = PRODUCTS.find((p) => p.slug === slug);
   if (!product) notFound();
 
+  // TODO: at launch, restore @type: "Product" and add an Offer
+  // (price, priceCurrency: "USD", availability: "https://schema.org/InStock", url)
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "CreativeWork",
     name: product.name,
     description: product.description,
     image: `${WWW}${product.image}`,
-    brand: { "@type": "Brand", name: "Homesick" },
+    creator: { "@type": "Organization", name: "Homesick" },
     url: `${WWW}/objects/${product.slug}`,
   };
 
