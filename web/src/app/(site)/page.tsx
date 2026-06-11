@@ -54,7 +54,7 @@ export default function HomePage() {
         <a href="/objects">Magical Objects</a>
         <a href="/about">About</a>
         <a href="/follow">Follow</a>
-        <a href="/writing">Writing</a>
+        <a href="https://www.gentlefuture.net">Writing</a>
       </nav>
     </div>
   );
