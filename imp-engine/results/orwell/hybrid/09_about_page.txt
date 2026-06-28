@@ -1,0 +1,5 @@
+There is a particular kind of company that describes itself as passionate, collaborative, and customer-first, and means nothing at all by any of it. Brightpath is not that kind of company, though we understand why you might expect us to be.
+
+We started in 2021 with a plain observation: small businesses were being sold software that required three days of training to do what a pen and paper could do in ten minutes. We are engineers and designers, and we found that intolerable. So we built tools that work — not tools that promise to work, not tools that empower your synergistic workflow, but tools you open on a Monday morning and use without reading a manual. We do not say this to be clever. We say it because it is the only thing worth saying about software, and most software cannot say it.
+
+We are still young. There is more to build. But the goal has not changed since the first day: make the thing simpler, ship it, and let the work speak.
