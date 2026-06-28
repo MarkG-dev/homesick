@@ -1,3 +1,9 @@
+> **Superseded by [`full_run_summary.md`](full_run_summary.md)** — the complete 10×8×10
+> (800-rewrite) tournament. This kickoff doc is kept as the historical record of the 72-rewrite
+> signal check. Note: the kickoff's high usability scores did **not** hold at full scale — the
+> voice-friendly kickoff cases (tweet/blog/LinkedIn) masked the usability ceiling the full grid
+> exposed. See the full summary for the real verdict.
+
 # Kickoff summary — does taste transfer?
 
 Subset run: **3 authors × 8 structures × 3 test cases = 72 rewrites**, each scored 1–5 on
