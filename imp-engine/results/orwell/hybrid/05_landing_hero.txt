@@ -1,0 +1,3 @@
+**The work is there. The hours are not.**
+
+Flowstate is a task manager built on a simple observation: most people do not lack ambition or effort — they lack a system that does not collapse under the weight of a normal week. It organizes what you have to do, strips away what you do not, and keeps the next task in front of you until it is done. That is all. Try it free.
