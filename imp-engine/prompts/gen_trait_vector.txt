@@ -1,0 +1,26 @@
+You are a stylometric analyst. Score {author_name} on each taste axis from 0.0 to 1.0
+based strictly on the corpus below. Use the full range; do not cluster everything at 0.5.
+
+AXES (0 = first pole, 1 = second pole):
+  sentence_length        terse  -> flowing
+  abstraction            concrete -> abstract
+  formality              casual -> formal
+  hedging                direct -> hedged
+  humor                  serious -> playful
+  emotional_heat         cool -> passionate
+  vocabulary_complexity  plain -> ornate
+  metaphor_density       literal -> figurative
+  self_reference         absent -> prominent
+  paragraph_density      airy -> dense
+  rhetorical_repetition  none -> heavy
+  contrast_tension       smooth -> juxtaposed
+  sensory_detail         cerebral -> sensory
+  authority_stance       uncertain -> authoritative
+  pacing_variation       steady -> varied
+
+CORPUS:
+\"\"\"
+{corpus}
+\"\"\"
+
+Return ONLY a JSON object mapping each axis name to a float. No commentary.

@@ -1,0 +1,46 @@
+{
+  "author": "hemingway",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "The weather was extremely unpleasant and it rained continuously throughout the entire day.",
+      "author": "In the fall the rain came and did not stop. It rained all day. It rained on the road and on the river and it was cold."
+    },
+    {
+      "generic": "She felt an overwhelming and almost unbearable sense of grief at the news of his death.",
+      "author": "They told her he was dead. She did not say anything. She sat down and looked at the wall and after a while she went on cutting the bread."
+    },
+    {
+      "generic": "The protagonist consumed his meal with considerable enjoyment despite his troubled emotional state.",
+      "author": "He ate the eggs and drank the coffee. It was good. He was not hungry but he ate it all."
+    },
+    {
+      "generic": "It was a beautiful and serene morning when they finally arrived at the picturesque mountain village.",
+      "author": "The town stood on a hill above the river. It was early and the sun was on the white road and on the houses. It was clean and good in the morning."
+    },
+    {
+      "generic": "As a consequence of these events, the two men decided to relocate to a different establishment.",
+      "author": "They finished the wine and got up. There was nothing more to do there. They went out and walked down to the other café."
+    },
+    {
+      "generic": "He was profoundly afraid, though he attempted valiantly to conceal his deep-seated terror from the others.",
+      "author": "He was afraid. He did not let them see it. He held the cup and his hand was steady and he made it stay steady."
+    },
+    {
+      "generic": "Their love for one another was passionate, deep, and seemingly without limit or condition.",
+      "author": "She put her hand on his and he held it. 'You're fine,' he said. 'You're all right now.' She did not say anything. She held his hand."
+    },
+    {
+      "generic": "In conclusion, the war had irrevocably changed him in ways he could scarcely begin to comprehend.",
+      "author": "He came back and the country was the same. He was not the same. He did not talk about it. There was nothing to say about it."
+    },
+    {
+      "generic": "The old man demonstrated remarkable resilience and an indomitable spirit in the face of his many hardships.",
+      "author": "He was an old man and he fished alone. He had gone eighty-four days without a fish. He still believed he would catch one."
+    },
+    {
+      "generic": "After much deliberation, the soldier reluctantly accepted the grim reality of his situation.",
+      "author": "He looked at the river and the rain on it. So that was how it was, he thought. All right. He would do what he had to do."
+    }
+  ]
+}

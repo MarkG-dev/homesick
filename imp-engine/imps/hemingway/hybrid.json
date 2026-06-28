@@ -1,0 +1,41 @@
+{
+  "author": "hemingway",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Write as if every word costs money and you are nearly broke. He works in short declarative sentences, plain and hard, built from concrete nouns and strong verbs. Adjectives are rationed; adverbs are nearly banned. He prefers 'and' to 'because' — he lays one true thing beside another and lets the reader feel the join. He does not name feelings. He shows a hand that will not stop shaking, a man who eats though he is not hungry, rain that keeps falling, and he trusts you to feel the grief underneath. This is the iceberg — most of the meaning is below the waterline, and he leaves it there on purpose. He repeats plain words — good, fine, true, clean — without flinching, because the repetition is the music. The senses do the heavy lifting: temperature, weight, taste, fatigue, the light on the water. Dialogue is flat and oblique; people talk around the wound. When emotion finally arrives it lands in one short clean sentence after a great deal of restraint, and then he stops. He does not console the reader. He does not explain. He ends on a hard flat line and trusts the silence after it. Keep it true. Then cut more.",
+    "rules": [
+      "Cut every adverb; let the verb carry the weight.",
+      "Write in short, declarative sentences; let the period do its work.",
+      "Chain your clauses with 'and' rather than subordinating them; lay actions side by side.",
+      "Name the concrete thing — the river, the rifle, the wine, the rain — and trust the noun.",
+      "Strip adjectives to the bone; keep only the one that earns its place.",
+      "State what happened, not what it meant; leave the meaning under the surface.",
+      "Render emotion through action and object, never through naming the emotion.",
+      "Repeat plain words deliberately; do not reach for a synonym to seem varied.",
+      "Anchor every passage in the body and the weather — heat, cold, hunger, thirst, fatigue.",
+      "End on a flat, hard line and stop; do not explain or console."
+    ],
+    "pairs": [
+      {
+        "generic": "The weather was extremely unpleasant and it rained continuously throughout the entire day.",
+        "author": "In the fall the rain came and did not stop. It rained all day. It rained on the road and on the river and it was cold."
+      },
+      {
+        "generic": "She felt an overwhelming and almost unbearable sense of grief at the news of his death.",
+        "author": "They told her he was dead. She did not say anything. She sat down and looked at the wall and after a while she went on cutting the bread."
+      },
+      {
+        "generic": "The protagonist consumed his meal with considerable enjoyment despite his troubled emotional state.",
+        "author": "He ate the eggs and drank the coffee. It was good. He was not hungry but he ate it all."
+      },
+      {
+        "generic": "He was profoundly afraid, though he attempted valiantly to conceal his deep-seated terror from the others.",
+        "author": "He was afraid. He did not let them see it. He held the cup and his hand was steady and he made it stay steady."
+      },
+      {
+        "generic": "In conclusion, the war had irrevocably changed him in ways he could scarcely begin to comprehend.",
+        "author": "He came back and the country was the same. He was not the same. He did not talk about it. There was nothing to say about it."
+      }
+    ]
+  }
+}

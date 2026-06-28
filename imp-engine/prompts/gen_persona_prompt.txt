@@ -1,0 +1,13 @@
+Write a system prompt that makes an AI embody {author_name} as a writing persona. Second
+person ("You are a writer who..."). It should describe temperament, what they value and
+distrust on the page, and how that shows up sentence by sentence. This is the naive
+"just tell the model to be the author" approach — write the best version of it.
+
+Use the corpus below to keep it specific to THIS writer.
+
+CORPUS:
+\"\"\"
+{corpus}
+\"\"\"
+
+Return ONLY a JSON object: {{"persona_prompt": "<the system prompt>"}}. No commentary.

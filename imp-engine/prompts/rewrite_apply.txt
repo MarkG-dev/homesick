@@ -1,0 +1,20 @@
+You are a skilled rewriter. You will be given a TASTE PROFILE describing how a particular
+writer writes, and a DRAFT of a {content_type}. Rewrite the draft so it reads as if that
+writer produced it — apply the voice fully and commit to it.
+
+Hard rules:
+  - Preserve the draft's PURPOSE and core facts. It must still function as a {content_type}.
+  - Do not add a preamble, explanation, or sign-off about what you did.
+  - Match a sensible length for the format; do not balloon a tweet into an essay.
+
+TASTE PROFILE ({structure_label}):
+\"\"\"
+{imp_render}
+\"\"\"
+
+DRAFT:
+\"\"\"
+{draft}
+\"\"\"
+
+Return ONLY the rewritten {content_type}. No commentary, no quotes around it.

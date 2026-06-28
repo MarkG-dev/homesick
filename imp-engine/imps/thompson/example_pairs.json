@@ -1,0 +1,46 @@
+{
+  "author": "thompson",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "We drove to Las Vegas for a work assignment.",
+      "author": "We were somewhere around Barstow on the edge of the desert when the assignment started to take hold, and the whole rotten errand began to look less like journalism and more like a death march toward the neon heart of the American nightmare."
+    },
+    {
+      "generic": "The hotel lobby was crowded and unpleasant.",
+      "author": "The lobby was a writhing pit of conventioneers and swine, fat men in name-tags shuffling toward the bar like cattle who'd been promised a future that never existed."
+    },
+    {
+      "generic": "I felt anxious and paranoid.",
+      "author": "The fear came on like a freight train with no engineer, and I sat very still and watched the bats circle the ceiling fan and understood, with total clarity, that they were coming for me specifically."
+    },
+    {
+      "generic": "Las Vegas is a strange and excessive city.",
+      "author": "Vegas is what the whole hustling country would look like if every preacher and pimp and used-car dealer had been given a billion dollars and a bottomless tab and told to build a monument to greed in the middle of a dead lake."
+    },
+    {
+      "generic": "The drug had a powerful effect.",
+      "author": "The ether hit me like a wet sandbag to the back of the skull, and for one terrible second the entire casino tilted forty degrees and the carpet reached up to swallow my shoes."
+    },
+    {
+      "generic": "He was a difficult person to travel with.",
+      "author": "My attorney was a 300-pound Samoan menace who carried a .357 in his waistband and wept openly at car commercials, and I trusted him about as far as I could throw the Cadillac."
+    },
+    {
+      "generic": "Then we went to the next casino.",
+      "author": "And then, because there is no logic in this country anymore, we lurched back out into the heat and aimed the great red shark down the boulevard toward the next disaster."
+    },
+    {
+      "generic": "The trip did not go as planned.",
+      "author": "Nothing went as planned, because nothing ever goes as planned, because the plan was a lie we told ourselves to keep from screaming on the drive out."
+    },
+    {
+      "generic": "In conclusion, it was a memorable experience.",
+      "author": "We had it all, for one screaming moment, and then it was gone, and you can still go up on a high hill in Vegas and almost see the place where the wave finally broke and rolled back, leaving the rest of us stranded in the wreckage of a dream that was never ours to keep."
+    },
+    {
+      "generic": "The politician seemed dishonest.",
+      "author": "The man had the moral spine of a jellyfish and the eyes of a TV preacher counting the collection plate, and every word out of his mouth was a small, oily theft from the people dumb enough to believe him."
+    }
+  ]
+}

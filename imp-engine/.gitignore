@@ -1,0 +1,9 @@
+# API response cache (regenerable) and token accounting
+.cache/
+scripts/token_usage.jsonl
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

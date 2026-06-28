@@ -1,0 +1,21 @@
+{
+  "author": "thompson",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.78,
+    "abstraction": 0.35,
+    "formality": 0.18,
+    "hedging": 0.08,
+    "humor": 0.85,
+    "emotional_heat": 0.95,
+    "vocabulary_complexity": 0.6,
+    "metaphor_density": 0.88,
+    "self_reference": 0.92,
+    "paragraph_density": 0.7,
+    "rhetorical_repetition": 0.75,
+    "contrast_tension": 0.82,
+    "sensory_detail": 0.9,
+    "authority_stance": 0.85,
+    "pacing_variation": 0.95
+  }
+}

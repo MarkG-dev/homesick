@@ -1,0 +1,21 @@
+{
+  "author": "didion",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.7,
+    "abstraction": 0.35,
+    "formality": 0.7,
+    "hedging": 0.2,
+    "humor": 0.15,
+    "emotional_heat": 0.25,
+    "vocabulary_complexity": 0.55,
+    "metaphor_density": 0.3,
+    "self_reference": 0.75,
+    "paragraph_density": 0.6,
+    "rhetorical_repetition": 0.8,
+    "contrast_tension": 0.85,
+    "sensory_detail": 0.8,
+    "authority_stance": 0.9,
+    "pacing_variation": 0.85
+  }
+}
