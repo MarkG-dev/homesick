@@ -61,13 +61,18 @@ def main() -> None:
 
     tmpl = load_prompt("eval_rubric.txt")
     done = 0
+    failed = 0
     for slug in authors:
         for structure in structures:
             for case in cases:
-                if eval_one(slug, structure, case, tmpl) is not None:
-                    done += 1
-                    print(f"  [{done}] scored {slug}/{structure}/{case}")
-    print(f"done. {done} evals.")
+                try:
+                    if eval_one(slug, structure, case, tmpl) is not None:
+                        done += 1
+                        print(f"  [{done}] scored {slug}/{structure}/{case}")
+                except Exception as err:  # skip a malformed score, keep going
+                    failed += 1
+                    print(f"  FAILED eval {slug}/{structure}/{case}: {err}")
+    print(f"done. {done} evals, {failed} failed (re-run to retry).")
 
 
 if __name__ == "__main__":

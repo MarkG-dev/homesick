@@ -60,16 +60,19 @@ def main() -> None:
     cases = args.cases or (KICKOFF_CASES if args.kickoff else list(TEST_CASE_TYPES))
 
     tmpl = load_prompt("rewrite_apply.txt")
-    n = done = 0
+    total = len(authors) * len(structures) * len(cases)
+    done = failed = 0
     for slug in authors:
         for structure in structures:
             for case in cases:
-                n += 1
-                rewrite(slug, structure, case, tmpl)
-                done += 1
-                print(f"  [{done}/{len(authors)*len(structures)*len(cases)}] "
-                      f"{slug}/{structure}/{case}")
-    print(f"done. {done} rewrites.")
+                try:
+                    rewrite(slug, structure, case, tmpl)
+                    done += 1
+                    print(f"  [{done}/{total}] {slug}/{structure}/{case}")
+                except Exception as err:  # skip a bad rewrite, keep the run alive
+                    failed += 1
+                    print(f"  FAILED rewrite {slug}/{structure}/{case}: {err}")
+    print(f"done. {done} rewrites, {failed} failed (re-run to retry).")
 
 
 if __name__ == "__main__":

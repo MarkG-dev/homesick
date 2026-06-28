@@ -51,7 +51,10 @@ def _save(slug: str, structure: str, payload) -> None:
 def gen_llm(slug: str, structure: str) -> None:
     tmpl = load_prompt(LLM_STRUCTURES[structure])
     prompt = tmpl.format(author_name=AUTHOR_NAME[slug], corpus=corpus_blob(slug))
-    raw = call_claude(prompt, max_tokens=1800, temperature=0.6,
+    # 4000 tokens: verbose authors (Wallace, Baldwin) overran 1800 on example_pairs
+    # and truncated the JSON. The larger cap also changes the cache key, so any
+    # previously-cached truncated response is bypassed rather than re-read.
+    raw = call_claude(prompt, max_tokens=4000, temperature=0.6,
                       tag=f"gen:{structure}:{slug}")
     _save(slug, structure, extract_json(raw))
 
@@ -88,12 +91,15 @@ def generate_author(slug: str, only: set[str] | None, force: bool) -> None:
         if out.exists() and not force:
             print(f"    {structure}: cached, skip")
             continue
-        if structure in LLM_STRUCTURES:
-            gen_llm(slug, structure)
-        elif structure == "statistical":
-            gen_statistical(slug)
-        elif structure == "hybrid":
-            gen_hybrid(slug)
+        try:
+            if structure in LLM_STRUCTURES:
+                gen_llm(slug, structure)
+            elif structure == "statistical":
+                gen_statistical(slug)
+            elif structure == "hybrid":
+                gen_hybrid(slug)
+        except Exception as err:  # don't let one bad structure abort the whole run
+            print(f"    {structure}: FAILED ({err}); leaving unwritten, continuing")
 
 
 def main() -> None:
