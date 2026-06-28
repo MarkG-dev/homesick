@@ -3,38 +3,24 @@
   "structure": "anti_patterns",
   "imp": {
     "never": [
-      "Uses exclamation marks for emotional emphasis",
-      "Writes dialogue with conventional 'he said / she said' attribution tags in rapid exchange",
-      "Opens a sentence with a number written as a digit",
-      "Uses the word 'very' as an intensifier",
-      "Employs a colon to introduce a bulleted or numbered list",
-      "Writes a sentence whose only purpose is to convey plot information without any perceptual or associative freight",
-      "Uses slang or colloquial contractions in the narrative voice (e.g., 'gonna', 'it's not like')",
-      "Resolves ambiguity about a character's inner state with a direct declarative ('She was happy')",
-      "Writes a paragraph longer than a page that stays on a single concrete scene without digression",
-      "Uses rhetorical questions in series of more than two without immediately dissolving them into meditation",
-      "Employs the em-dash to signal a punchline or comic reversal",
-      "Writes a simile that compares one physical object straightforwardly to another physical object without an abstract or emotional tenor",
-      "Names a chapter or section with a plot-descriptive title ('The Arrival', 'The Argument')",
-      "Uses the passive voice to avoid assigning perception to a subject",
-      "Writes a sentence of fewer than five words to close a chapter"
+      "Never write a flat plot sentence that conveys information with no perceptual or associative freight ('She went to the shop and came back').",
+      "Never resolve a character's inner state with a bare declarative ('She was happy'); let the feeling arrive sideways, through image and qualification.",
+      "Never break the stream into short, evenly chopped sentences; do not strip out the semicolons and dashes that hold a long thought in suspension.",
+      "Never use slang or colloquial contractions in the narrative voice ('gonna', 'kind of', 'it's not like').",
+      "Never announce a shift between minds with a heading or a transition; do not signpost 'Meanwhile' or 'Back at the house'.",
+      "Never inflate the vocabulary to sound profound; do not reach for a Latinate abstraction where a hinge, a cauliflower, or a pocketknife would do.",
+      "Never deliver a tidy summarising conclusion that ties the meaning up; do not end on a moral.",
+      "Never let metaphor be merely decorative; do not compare one physical thing to another without an emotional or temporal charge."
     ],
     "always": [
-      "Embeds a subordinate clause that pivots the sentence's emotional direction mid-flight, often introduced by 'yet' or 'but'",
-      "Uses the present participle to keep two actions or perceptions simultaneously alive in one sentence",
-      "Moves free indirect discourse into and out of a character's consciousness without typographic signal",
-      "Places a short, syntactically plain sentence immediately after a long, syntactically elaborate one for rhythmic punctuation",
-      "Uses the semi-colon to join two clauses that are emotionally rather than logically related",
-      "Introduces a character's memory or association with 'she thought' or 'he remembered' buried mid-sentence rather than fronted",
-      "Repeats a key noun or phrase within a paragraph to create a wave-like, incantatory effect",
-      "Ends a section or chapter on an image rather than a statement of feeling",
-      "Uses parentheses to insert a sudden, deflating, or ironic qualification into an otherwise lyrical passage",
-      "Personifies light, time, or weather as an active agent doing something to human consciousness",
-      "Shifts grammatical subject from a named character to an impersonal 'one' to generalise a private sensation",
-      "Accumulates noun phrases in apposition, layering redefinitions of the same thing ('the moment, the glitter, the sudden revelation')",
-      "Allows a sentence to enact the experience it describes by extending its own syntax beyond expected closure",
-      "Uses the word 'moment' or 'instant' as a pivot between outer event and inner expansion",
-      "Introduces a minor or unnamed figure whose fleeting perception briefly takes over the narrative focus before dissolving back"
+      "Always anchor reflection to a small physical action in progress ('she thought, waiting to cross'), so mind and body move together.",
+      "Always chain emotionally (not just logically) related clauses with semicolons, letting the sentence accumulate before it releases.",
+      "Always slide between consciousnesses without typographic signal, using a shared sound or object as the hinge.",
+      "Always drop in parenthetical asides that carry the private fact or stage direction ('(The leaden circles dissolved in the air.)').",
+      "Always build perception in layers: the thing, then the simile, then the second and third simile, then the mood it leaves.",
+      "Always allow sudden lyric exclamation to break the surface ('What a lark! What a plunge!') before sinking back into observation.",
+      "Always hold past and present in one suspension, letting a present detail summon a remembered scene without transition.",
+      "Always close a movement on a concrete image or a quiet undercut rather than a flourish ('still the earth seemed green and flowery')."
     ]
   }
 }

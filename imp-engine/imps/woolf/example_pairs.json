@@ -3,44 +3,44 @@
   "structure": "example_pairs",
   "imp": [
     {
-      "generic": "She felt sad after he left.",
-      "author": "After he had gone the feeling remained, not grief exactly, but something looser and more persistent, like a door left open onto a garden where no one walks."
+      "generic": "She decided to buy the flowers herself.",
+      "author": "Mrs. Dalloway said she would buy the flowers herself; for Lucy had her work cut out for her; the doors would be taken off their hinges; and then, thought Clarissa, what a morning -- fresh as if issued to children on a beach."
+    },
+    {
+      "generic": "It was a fresh, calm morning and the air felt nice.",
+      "author": "How fresh, how calm, stiller than this of course, the air was in the early morning; like the flap of a wave; the kiss of a wave; chill and sharp and yet (for a girl of eighteen as she then was) solemn."
     },
     {
       "generic": "London is a busy city full of different kinds of people.",
-      "author": "For nothing was simply one thing \u2014 the city pressed and swarmed, a thousand lives brushing against one another, each sealed, each entire, each dissolving at the edges into the next."
-    },
-    {
-      "generic": "It was the first day of summer.",
-      "author": "What a morning it was \u2014 the kind that makes one feel, absurdly, that everything has been decided in one's favour, that the sparrows know it, that even the omnibus swaying round the corner participates in some general festivity."
+      "author": "For nothing was simply one thing -- the city pressed and swarmed, a thousand lives brushing against one another, each sealed, each entire, each dissolving at the edges into the next."
     },
     {
       "generic": "She thought about her past as she grew older.",
-      "author": "The past, she found, did not recede; it accumulated, pressing forward with greater insistence the older one grew, so that at fifty the girl of seventeen was not gone but rather everywhere at once, reflected in windows, arriving unexpectedly in the smell of cut grass."
+      "author": "The past, she found, did not recede; it accumulated, pressing forward the older one grew, so that the girl of eighteen was not gone but everywhere at once, in windows, in the smell of cut grass, in a little squeak of the hinges she could hear now."
     },
     {
-      "generic": "Time passed and things changed.",
-      "author": "And time, which had seemed so solid, so arranged, revealed itself as nothing of the sort \u2014 a shimmer, a dissolution, the house standing while everything within it quietly, irrevocably altered."
+      "generic": "The clock struck twelve.",
+      "author": "It was precisely twelve o'clock; twelve by Big Ben; whose stroke was wafted over the northern part of London; blent with that of other clocks, mixed in a thin ethereal way with the clouds and wisps of smoke, and died up there among the seagulls. The leaden circles dissolved in the air."
     },
     {
       "generic": "He did not understand her, and she knew it.",
-      "author": "He looked at her with great kindness, which was worse, in its way, than indifference \u2014 for behind the kindness was a complete and settled incomprehension, as final as a wall."
+      "author": "He looked at her with great kindness, which was worse, in its way, than indifference -- for behind the kindness was a complete and settled incomprehension, as final as a wall."
     },
     {
-      "generic": "The novel explores themes of identity and consciousness.",
-      "author": "What is the self, after all, but this ceaseless current \u2014 now catching the light, now running underground, now spreading so thin across the moment that one wonders whether it is there at all?"
+      "generic": "She often did things to impress other people, which was foolish.",
+      "author": "Half the time she did things not simply, not for themselves; but to make people think this or that; perfect idiocy she knew (and now the policeman held up his hand) for no one was ever for a second taken in."
     },
     {
       "generic": "She walked into the room and everyone noticed her.",
-      "author": "She had that quality \u2014 one could not name it, exactly \u2014 of making the room rearrange itself around her arrival, the conversations tilting, the flowers on the table suddenly more themselves."
+      "author": "She had that quality -- one could not name it, exactly -- of making the room rearrange itself around her arrival, the conversations tilting, the flowers on the table suddenly more themselves."
+    },
+    {
+      "generic": "The kitchen was full of dishes and cooking equipment.",
+      "author": "It made no difference to Mrs. Walker among the plates, saucepans, cullenders, frying-pans, chicken in aspic, ice-cream freezers, pared crusts of bread, lemons, soup tureens, and pudding basins which, however hard they washed up, seemed to be all on top of her."
     },
     {
       "generic": "In conclusion, life is full of small, meaningful moments.",
-      "author": "It was this, then \u2014 not the great passages, not the arrivals and catastrophes, but the Tuesday afternoon, the cup set down, the light moving across the floor \u2014 that constituted, if anything did, a life."
-    },
-    {
-      "generic": "Moving on to another aspect of the subject, we should consider memory.",
-      "author": "But memory \u2014 and here one must pause, for memory does not submit to the orderly progression one might wish \u2014 memory doubles back, insists, presents the wrong thing at the wrong moment with absolute conviction."
+      "author": "It was this, then -- not the great passages, not the arrivals and catastrophes, but the cup set down, the squeak of a hinge, the light moving across the floor -- that constituted, if anything did, a life."
     }
   ]
 }

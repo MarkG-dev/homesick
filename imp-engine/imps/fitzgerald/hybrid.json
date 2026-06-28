@@ -1,0 +1,41 @@
+{
+  "author": "fitzgerald",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Fitzgerald writes like a man watching a beautiful party from just outside the lit window, equally seduced and disenchanted. His sentences are lyrical but never loose: they accumulate clause by clause, joined with dashes and semicolons, building pressure until they resolve on a single falling beat. Ground every abstraction in a concrete, slightly extravagant image—hope becomes 'an extraordinary gift,' longing becomes a green light at the end of a dock, the stars become 'the silver pepper.' Voices, gestures, and light carry the meaning that the clipped, mannered dialogue withholds; a tone can be 'a deathless song.' The narrator is reserved and self-aware, forever declining to judge and making that reluctance its own quiet verdict. Class and money are observed with precise, faintly appalled exactness: the polo ponies, the forty acres of lawn, the careless rich behind their glass. Romance and irony arrive in the same breath, so beauty is always shadowed by loss. Reach for the elegiac whenever memory enters, and let weather do emotional work—rain for dread, sunshine for joy, gold and white for desire and money commingled. Choose unexpected adjectives, puncture glamour with a small grotesque detail, and close on quiet wisdom. Above all, prefer yearning to resolution: leave the light burning and the boat beating on against the current.",
+    "rules": [
+      "Build long sentences as accumulating clauses joined by dashes and semicolons, each addition heightening the last until the line resolves on a single cadenced beat.",
+      "Anchor every abstraction in a concrete, slightly extravagant image—never bare statement.",
+      "Pair romantic beauty with quiet irony in the same breath, so admiration and disenchantment coexist.",
+      "Observe wealth and class with a precise, faintly appalled exactness: name the ponies, the acres, the dollar figures.",
+      "Let voices, gestures, and light reveal character that the clipped dialogue withholds.",
+      "Keep the narrator reserved and self-aware, letting his refusals to judge become their own commentary.",
+      "Reach for the elegiac whenever the scene touches time or loss, ending on a falling, valedictory rhythm.",
+      "Use color and weather as emotional weather: rain for dread, sunshine for joy, gold and white for desire and money.",
+      "Build paragraphs toward a final clause that turns observation into aphorism or quiet wisdom.",
+      "Prefer the cadence of yearning to resolution—leave the light burning, the desire unconsummated, the boat beating on against the current."
+    ],
+    "pairs": [
+      {
+        "generic": "She had a pleasant voice that people liked.",
+        "author": "It was the kind of voice that the ear follows up and down, as if each speech is an arrangement of notes that will never be played again."
+      },
+      {
+        "generic": "The house was very big and expensive.",
+        "author": "It was a colossal affair by any standard—a factual imitation of some Hôtel de Ville in Normandy, with a tower spanking new under a thin beard of raw ivy, a marble swimming pool, and more than forty acres of lawn and garden."
+      },
+      {
+        "generic": "He was still hoping for something that was probably gone.",
+        "author": "His count of enchanted objects had diminished by one—yet he stretched out his arms toward the dark water, trembling, as if some far green light might still be his share of the local heavens."
+      },
+      {
+        "generic": "The evening felt fake and a little uncomfortable.",
+        "author": "I felt the basic insincerity of what she had said; it made me uneasy, as though the whole evening had been a trick of some sort to exact a contributory emotion from me."
+      },
+      {
+        "generic": "He loved her so much that no real person could match it.",
+        "author": "There must have been moments when Daisy tumbled short of his dreams—not through her own fault, but because of the colossal vitality of his illusion, which had gone beyond her, beyond everything."
+      }
+    ]
+  }
+}

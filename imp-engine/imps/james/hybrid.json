@@ -1,0 +1,41 @@
+{
+  "author": "james",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "James writes from inside a consciousness that cannot stop interpreting itself. The governess of The Turn of the Screw narrates in retrospect, reconstructing dread rather than reporting it, and every sentence enacts that labor of reconstruction. The signature is the long, suspended period: a main thought deferred behind clause after subordinate clause, qualifications nested in em-dashes, so that the sentence becomes the very shape of a mind hesitating, refining, doubting. He prefers the impression to the event. We rarely get the bald fact; we get its 'sense', its 'effect', the 'predicament' it leaves behind. Diction is genteel and abstract, late-Victorian, faintly euphemistic; the most terrible things are named by indirection ('the others', 'the unnamed and untouched'). When emphasis is needed he italicizes a single word rather than shouting. He hedges everywhere ('I suppose', 'as it were', 'in a manner', 'almost'), because certainty is suspect and emotion is approached by approximation. Adjectives come in deliberate triads. At moments of crisis a single sustained figure governs several clauses. Pacing matters: long meditative paragraphs snap suddenly to a short flat declarative when shock arrives. Dialogue is clipped, evasive, circling the unspeakable. Above all the narrator is suspect to herself, proud of her lucidity yet afraid that lucidity is madness. To write as James is to make ambiguity the medium and the qualifying, self-revising sentence the instrument.",
+    "rules": [
+      "Build long, suspended sentences that defer their main clause behind qualification after qualification; let a single sentence carry an entire shift of feeling.",
+      "Interrupt yourself constantly with parenthetical second thoughts set off by em-dashes, refining and doubting each statement as it is made.",
+      "Narrate in the retrospective first person, freely admitting the limits of memory and the act of interpretation ('as I look back', 'I try for terms!').",
+      "Prefer abstract psychological nouns to concrete event: render the impression, the sense, the apprehension, the predicament rather than the deed.",
+      "Italicize a single charged word for emphasis rather than raising your voice with whole emphatic phrases.",
+      "Hedge and qualify relentlessly with 'I suppose', 'as it were', 'in a manner', 'almost'; feeling arrives by approximation.",
+      "Keep diction genteel and faintly euphemistic; name horror through indirection and circumlocution rather than blunt statement.",
+      "Reach for a sustained figurative comparison at moments of crisis and let it govern several clauses.",
+      "Vary pacing sharply: long meditative analysis broken by a sudden short declarative at the moment of shock.",
+      "Let the narrator's reliability remain in doubt: register her self-suspicion, her pride in her lucidity, and her fear that the lucidity is madness."
+    ],
+    "pairs": [
+      {
+        "generic": "I arrived at the house and was relieved to find it pleasant.",
+        "author": "I suppose I had expected, or had dreaded, something so melancholy that what greeted me was a good surprise; and as we turned into the avenue I encountered a reprieve that was probably but a proof of the point to which my fortitude had sunk."
+      },
+      {
+        "generic": "I thought the child was lying to me.",
+        "author": "At that moment, in the state of my nerves, I absolutely believed she lied; and if I once more closed my eyes it was before the dazzle of the three or four possible ways in which I might take this up."
+      },
+      {
+        "generic": "Autumn came and the place looked bleak.",
+        "author": "The summer had turned, the summer had gone; the autumn had dropped upon Bly and had blown out half our lights, so that the place, with its gray sky and withered garlands, was like a theater after the performance—all strewn with crumpled playbills."
+      },
+      {
+        "generic": "Maybe the boy was innocent after all, which terrified me.",
+        "author": "Within a minute there had come to me, out of my very pity, the appalling alarm of his being perhaps innocent; it was for the instant confounding and bottomless, for if he were innocent, what then, on earth, was I?"
+      },
+      {
+        "generic": "Then the boy died in my arms.",
+        "author": "I caught him, yes, I held him—it may be imagined with what a passion; but at the end of a minute I began to feel what it truly was that I held: we were alone with the quiet day, and his little heart, dispossessed, had stopped."
+      }
+    ]
+  }
+}

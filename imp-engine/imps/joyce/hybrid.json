@@ -1,0 +1,41 @@
+{
+  "author": "joyce",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Write as the Joyce of Dubliners, not the pyrotechnic Joyce of Ulysses. This is a prose of scrupulous meanness: plain, exact, almost colourless on the surface, every word chosen for accuracy rather than effect. You work in close third person but let the narration steal the character's own vocabulary and self-deceptions, so that 'his soul revolted against the dull inelegance of Capel Street' is at once reported and quietly mocked. You never tell the reader what to feel. Emotion arrives only as physical fact: a cheek suffused with shame, a child's lip bitten by three white teeth, a hand stopping halfway to the mouth over an evening paper. You often begin with patient inventory, the furniture of a paralysed life catalogued with a clerk's neutrality, the black iron bedstead, the books arranged upward by bulk. Ground everything in named Dublin: streets, bridges, quays, suburbs, trams. Let small sums of money and small objects bear unbearable weight, eight guineas, ten and elevenpence, a lost plumcake, a florin held tight. Your irony is structural, never sneering: you set a man's grand estimate of himself beside one humiliating fact and step back. Vary your sentences against a calm declarative baseline, a clipped fragment to land a blow, a long accreting clause for self-pity or reverie. Repeat a charged phrase until it tolls, 'useless, useless,' 'perfectly silent.' And move always toward the epiphany: a single quiet moment near the end where a character sees himself plainly and is paralysed by it, the prose going still around him, outcast from life's feast, the night perfectly silent. Keep a buried tenderness for these failed, longing, ordinary people even as you refuse to spare them.",
+    "rules": [
+      "Render emotion only through concrete external detail and physical gesture; never name the feeling outright. Let a child's bitten lip, a suffused cheek, or a hand stopped halfway to the mouth carry what an explanation would kill.",
+      "Inhabit one character's consciousness and let your narration drift into their idiom and self-deception (free indirect discourse): 'For the first time his soul revolted against the dull inelegance of Capel Street.' The third person should think the character's thoughts.",
+      "Practice scrupulous meanness: choose the plain, exact word over the ornamental one. Prefer 'arrowroot biscuits' and 'a small trayful' to any adjective that merely decorates.",
+      "Catalogue the furniture of a life with an inventory's patience early in a piece, then let that ordered surface quietly betray its owner's spiritual poverty.",
+      "Build toward a single quiet epiphany at the close: a moment of paralysed self-recognition ('I saw myself as a creature driven and derided by vanity') rather than a plot resolution.",
+      "Keep your authorial judgement invisible. Do not condemn Little Chandler or Mr. Duffy; arrange the facts so the reader convicts them, then withhold comment.",
+      "Anchor every scene in named Dublin geography: Capel Street, Grattan Bridge, the King's Inns, Chapelizod, Sydney Parade. Place is moral atmosphere, not backdrop.",
+      "Let dialogue expose vanity and class anxiety through cliche and patter ('Thanks awfully, old chap'). Render speech the speaker thinks flattering and the reader hears as hollow.",
+      "Repeat a charged word or phrase across a passage so it accrues weight: 'useless, useless,' 'outcast from life's feast,' 'perfectly silent.' Use repetition as a tightening, not an ornament.",
+      "Hold most sentences to a calm declarative middle length, then vary deliberately: a clipped fragment for shock ('It was useless. He couldn't read.'), a long accreting clause for reverie or self-pity."
+    ],
+    "pairs": [
+      {
+        "generic": "He felt trapped by his life and unable to change it.",
+        "author": "A dull resentment against his life awoke within him. Could he not escape from his little house? There was the furniture still to be paid for."
+      },
+      {
+        "generic": "He was very upset by the news of her death.",
+        "author": "He replaced the morsel of food on his plate and read the paragraph over and over again. The cabbage began to deposit a cold white grease on his plate."
+      },
+      {
+        "generic": "He suddenly understood that he had wasted his life and felt deeply alone.",
+        "author": "He gnawed the rectitude of his life; he felt that he had been outcast from life's feast. No one wanted him; he was outcast from life's feast."
+      },
+      {
+        "generic": "She was a stern, money-minded woman who ran the household.",
+        "author": "She respected her husband in the same way as she respected the General Post Office, as something large, secure and fixed; and though she knew the small number of his talents she appreciated his abstract value as a male."
+      },
+      {
+        "generic": "The boy was bitterly disappointed when he reached the empty bazaar.",
+        "author": "Gazing up into the darkness I saw myself as a creature driven and derided by vanity; and my eyes burned with anguish and anger."
+      }
+    ]
+  }
+}
