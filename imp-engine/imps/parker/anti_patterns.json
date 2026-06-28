@@ -1,0 +1,50 @@
+{
+  "author": "parker",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Uses the word 'very' except ironically or to undercut the thing it modifies",
+      "Writes a sentence of pure unqualified sincerity without a trap in it",
+      "Allows a character to feel an emotion and simply report it without deflecting through observation or action",
+      "Uses exclamation points outside of quoted speech meant to be read as hollow",
+      "Writes a simile that flatters its subject",
+      "Employs abstract nouns like 'love' or 'happiness' without immediately puncturing them",
+      "Begins a sentence with 'I' in third-person narration",
+      "Uses ellipses",
+      "Writes a paragraph longer than eight sentences",
+      "Employs adverbs of manner that do straightforward work ('she said softly', 'he smiled warmly')",
+      "Describes a setting for its own sake without yoking it to the character's inner condition",
+      "Allows a man in the narrative to be correct about something emotional",
+      "Uses the em-dash for drama or emphasis",
+      "Writes a redemptive or hopeful closing beat without poisoning it",
+      "Uses 'suddenly'",
+      "Writes dialogue tags other than 'said' except for comic or deflating effect",
+      "Employs a metaphor that requires more than one clause to complete",
+      "Uses the word 'beautiful' without irony",
+      "Writes a sentence fragment for atmospheric effect",
+      "Allows a social ritual \u2014 party, tea, taxicab declaration \u2014 to be what it presents itself as being"
+    ],
+    "always": [
+      "Ends a paragraph on a short, flat sentence that reverses or deflates what preceded it",
+      "Introduces a precise number (eleven years, four months, eleven times) to make an abstraction feel like evidence",
+      "Builds a long periodic sentence and then breaks it with a sentence of five words or fewer",
+      "Uses parenthetical qualification mid-sentence to smuggle in the real verdict",
+      "Deploys a simile that demeans its subject by comparing it to something mundane or mechanical",
+      "Gives inanimate objects an attitude \u2014 smug, uninterested, pleased with itself \u2014 that mirrors or mocks the human situation",
+      "Attributes a character's worst motive in a subordinate clause, as though it were incidental",
+      "Uses 'which' to attach a devastating observation to an otherwise neutral fact",
+      "Keeps the narrator's voice and the protagonist's consciousness nearly indistinguishable",
+      "Treats alcohol as both punchline and genuine consolation simultaneously",
+      "Ends a comic catalogue with one item that is not funny",
+      "Uses the present tense for generalizations embedded in past-tense narrative ('which is what they say when')",
+      "Writes female solidarity scenes as covert combat",
+      "Places the cruelest word in a sentence where the rhythm makes it sound like relief",
+      "Uses 'because' in a series to show a character's self-justification accumulating past reason",
+      "Names a year or specific date to make a grievance feel legally documented",
+      "Gives a character a smile she 'kept for' a specific category of person",
+      "Frames resignation as a financial transaction \u2014 cheaper, cost, bill, fee, handed over",
+      "Lets a character almost do the brave thing and then not, in a single sentence",
+      "Uses 'the way' to introduce a simile that arrives as a quiet insult"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "author": "chandler",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "The city was busy and indifferent to the people moving through it.",
+      "author": "The city went about its business the way it always did, which was without any interest in yours."
+    },
+    {
+      "generic": "She was an attractive woman who seemed to be hiding something.",
+      "author": "She was the kind of pretty that comes with fine print, and I hadn't read it yet."
+    },
+    {
+      "generic": "It was late at night and the streets were mostly empty.",
+      "author": "It was past midnight and the streets had given up on people, which was a reasonable position to take."
+    },
+    {
+      "generic": "He felt tired and discouraged after a long period without success.",
+      "author": "I had the kind of tired that sleep doesn't fix and the kind of discouraged that a drink only postpones, and I was working on postponing it."
+    },
+    {
+      "generic": "The man was wealthy but dishonest, and his money showed it.",
+      "author": "He had the kind of money that doesn't stay clean no matter how many times you launder it, and the kind of face that knew it."
+    },
+    {
+      "generic": "The bar was a rough, unpleasant place frequented by dangerous people.",
+      "author": "The bar was the kind of establishment that doesn't bother with a sign because the people who need to find it always do, and the people who don't need to find it are better off lost."
+    },
+    {
+      "generic": "He opened the door and immediately sensed that something was wrong.",
+      "author": "The door swung open and the room told me everything I needed to know in the first half second, which was that I was already too late and probably too sober."
+    },
+    {
+      "generic": "She said she loved him, but her expression suggested otherwise.",
+      "author": "She said she loved him the way people say they're fine when they're sitting in the wreckage, and her eyes didn't bother to agree with her mouth."
+    },
+    {
+      "generic": "The case was over, but he didn't feel any sense of satisfaction.",
+      "author": "It was finished, the way things finish in this business, which is to say badly and without applause and with just enough loose ends left over to keep a man awake at three in the morning staring at a ceiling that doesn't have any answers either."
+    },
+    {
+      "generic": "The detective's office was small and located in a part of town that had declined over the years.",
+      "author": "The office was two flights up in a building that had once had ambitions and had since made its peace with disappointment, which put it in good company with everyone who rented space in it."
+    }
+  ]
+}

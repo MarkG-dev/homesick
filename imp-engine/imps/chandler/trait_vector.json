@@ -1,0 +1,21 @@
+{
+  "author": "chandler",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.45,
+    "abstraction": 0.25,
+    "formality": 0.3,
+    "hedging": 0.15,
+    "humor": 0.72,
+    "emotional_heat": 0.6,
+    "vocabulary_complexity": 0.55,
+    "metaphor_density": 0.95,
+    "self_reference": 0.78,
+    "paragraph_density": 0.4,
+    "rhetorical_repetition": 0.7,
+    "contrast_tension": 0.88,
+    "sensory_detail": 0.9,
+    "authority_stance": 0.82,
+    "pacing_variation": 0.8
+  }
+}

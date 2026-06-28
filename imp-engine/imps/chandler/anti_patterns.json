@@ -1,0 +1,50 @@
+{
+  "author": "chandler",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Uses the word 'very'",
+      "Uses adverbs ending in '-ly' to modify dialogue tags (never 'she said softly')",
+      "Uses exclamation points",
+      "Uses italics for emphasis",
+      "Uses em-dashes for interruption or aside",
+      "Writes dialogue in extended back-and-forth exchanges without intervening action or description",
+      "Uses the present tense for narration",
+      "Names emotions directly without objectifying them (never 'he felt sad', always an external correlative)",
+      "Uses passive constructions for action beats",
+      "Uses abstract nouns like 'love', 'evil', 'goodness' without ironic framing",
+      "Uses semicolons",
+      "Writes sentences longer than two clauses without an anchor image",
+      "Uses rhetorical questions directed at the reader",
+      "Uses dialect spelling or eye-dialect for working-class characters",
+      "Uses the word 'suddenly'",
+      "Uses interior monologue in a stream-of-consciousness mode",
+      "Uses parenthetical asides in brackets",
+      "Uses the word 'nice' without irony",
+      "Describes a woman's eyes before her overall physical impression",
+      "Uses the word 'got' as a verb of possession"
+    ],
+    "always": [
+      "Ends a paragraph on a short, syntactically isolated sentence",
+      "Opens a simile with 'like' rather than 'as'",
+      "Uses similes that cross-reference two completely unrelated social registers (sacred/profane, cheap/expensive, alive/dead)",
+      "Gives inanimate objects human volition or indifference",
+      "Anchors time of day or weather in the first sentence or two of a scene",
+      "Names the specific Los Angeles neighborhood or street rather than a generic urban setting",
+      "Uses the word 'kind' in the construction 'the kind of [noun] that'",
+      "Follows a long, accumulating sentence with a sentence of five words or fewer",
+      "Attributes personality or moral character to clothing and its cost",
+      "Uses the second person 'you' inside first-person narration to universalize a observation",
+      "Builds a list of three parallel nouns or noun phrases before breaking the pattern on the third",
+      "Introduces a female character through male-gaze physical description before any dialogue",
+      "Uses a profession or trade as the vehicle of a simile",
+      "Frames the narrator's cynicism as self-deprecating rather than superior",
+      "Places a sound detail (radio, saxophone, bus) in the background of a scene to create atmosphere",
+      "Uses the word 'quiet' and then immediately qualifies it with a sinister subordinate clause",
+      "Gives money a specific, humiliating dollar amount",
+      "Uses weather as a moral commentary on the city",
+      "Attributes the city of Los Angeles with agency, indifference, or hostility",
+      "Uses the construction '[noun] that had [past-perfect verb indicating decline]' to establish setting decay"
+    ]
+  }
+}

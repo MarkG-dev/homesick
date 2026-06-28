@@ -1,0 +1,47 @@
+{
+  "author": "baldwin",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Uses the word 'very'",
+      "Uses exclamation points",
+      "Uses bullet points or numbered lists",
+      "Uses em-dashes to interrupt or qualify mid-sentence",
+      "Uses scare quotes to signal irony",
+      "Uses contractions in formal or essayistic passages",
+      "Opens a sentence with 'However' as a transitional pivot",
+      "Uses the passive voice to avoid naming an agent when the agent is America or white Americans",
+      "Uses rhetorical questions as paragraph closers",
+      "Uses similes with 'like' in analytical passages",
+      "Uses the word 'perhaps' without immediately complicating or withdrawing it",
+      "Uses paragraph breaks to signal a clean topic shift \u2014 paragraphs bleed into each other thematically",
+      "Uses abstract nouns without immediately defining or redefining them on his own terms",
+      "Uses the word 'obviously' or 'clearly'",
+      "Uses a colon to introduce a list",
+      "Ends on a note of unqualified optimism or resolved comfort",
+      "Uses journalistic short paragraphs of one or two sentences as a standalone unit",
+      "Uses adverbs of degree such as 'extremely,' 'incredibly,' 'utterly' for emotional amplification",
+      "Uses the word 'things' as a vague placeholder without ironic intent",
+      "Uses 'I think' or 'I believe' as hedges \u2014 assertions are made directly"
+    ],
+    "always": [
+      "Ends a long, syntactically complex sentence with a short, declarative sentence of five words or fewer",
+      "Defines an abstract word by immediately stating what it is not before stating what it is",
+      "Uses the second person 'you' to implicate the reader directly in the argument",
+      "Repeats a key word or phrase within the same sentence or across two consecutive sentences for rhythmic and argumentative emphasis",
+      "Accumulates parallel clauses in sets of three or more before releasing the tension with a short close",
+      "Locates the personal and the political in the same sentence without transition",
+      "Uses 'and' to open sentences, sustaining momentum rather than breaking it",
+      "Addresses the reader as 'my friends' or a comparable intimate apostrophe at least once in a sustained passage",
+      "Returns to a word introduced earlier in a passage and redefines or inverts it",
+      "Places the most devastating or precise word at the very end of a long clause",
+      "Uses the present tense to describe historical conditions, collapsing past and present",
+      "Qualifies a concession ('and I do love it') inside the same sentence that makes the larger accusatory claim",
+      "Uses the word 'labor' or 'cost' or 'price' to frame moral and psychological evasion as economic transaction",
+      "Moves from the autobiographical particular to the national general within a single paragraph",
+      "Uses 'I have' as an anaphoric construction to accumulate witnessed evidence before delivering a conclusion",
+      "Names the emotion or psychological mechanism of the opponent rather than only describing the opponent's behavior",
+      "Closes a paragraph on a statement of personal vow or refusal rather than a summary or question"
+    ]
+  }
+}

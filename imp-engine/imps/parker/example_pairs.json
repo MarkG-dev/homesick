@@ -1,0 +1,46 @@
+{
+  "author": "parker",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "She was not having a good time at the party, though she pretended otherwise.",
+      "author": "She wore the smile she reserved for parties, funerals, and other occasions when there was nothing to be done about it."
+    },
+    {
+      "generic": "He said he loved her, but she was not sure she believed him.",
+      "author": "He said he loved her with the conviction of a man who had just thought of it, and would, she suspected, unconvince himself by Thursday."
+    },
+    {
+      "generic": "The relationship had not ended well, and she still thought about it sometimes.",
+      "author": "She thought of him occasionally, the way one thinks of a bad tooth after the pulling \u2014 not with longing, exactly, but with a dull and accurate memory of the nerve."
+    },
+    {
+      "generic": "Spring had arrived, and everything outside looked fresh and new.",
+      "author": "Spring came on schedule, bright and unreasonable, full of itself as only springs can be, and she pulled the curtain against it like a woman declining an argument she knows she cannot win."
+    },
+    {
+      "generic": "She had many acquaintances but sometimes felt profoundly alone.",
+      "author": "She knew a great many people, which is not the same thing as knowing anyone, and is in certain lights considerably lonelier."
+    },
+    {
+      "generic": "It was, in the end, not a very good poem, though she had tried hard to write one.",
+      "author": "She had given it her best, which is the saddest thing you can say about a poem, or indeed about anything."
+    },
+    {
+      "generic": "She poured herself a drink and sat down to think about what had happened.",
+      "author": "She poured herself a drink, because the evening had earned it, and sat down with it in the chair where she did her best and most useless thinking."
+    },
+    {
+      "generic": "Their friendship had lasted many years and had grown complicated over time.",
+      "author": "They had been friends for so long that they had long since run out of illusions about each other and were now operating, with great warmth, entirely on grievance."
+    },
+    {
+      "generic": "She decided it was better not to say anything and simply went home.",
+      "author": "She said nothing, which was the cleverest thing she had said all evening, and went home and gave herself full credit for it."
+    },
+    {
+      "generic": "Men, she had observed, tended to mistake silence for agreement.",
+      "author": "She had noticed, over the years, that men heard silence as consent, which explained a great deal about the history of the world and all of her marriages."
+    }
+  ]
+}
