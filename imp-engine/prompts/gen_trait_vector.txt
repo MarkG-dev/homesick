@@ -18,7 +18,10 @@ AXES (0 = first pole, 1 = second pole):
   authority_stance       uncertain -> authoritative
   pacing_variation       steady -> varied
 
-CORPUS:
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
 \"\"\"
 {corpus}
 \"\"\"

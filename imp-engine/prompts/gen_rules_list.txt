@@ -8,7 +8,10 @@ enough that a different writer could follow them — not vague praise.
 Good: "Cut every adverb; let the verb carry the weight."
 Bad: "Write beautifully and with feeling."
 
-CORPUS:
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
 \"\"\"
 {corpus}
 \"\"\"

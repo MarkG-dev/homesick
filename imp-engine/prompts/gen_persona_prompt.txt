@@ -5,7 +5,10 @@ distrust on the page, and how that shows up sentence by sentence. This is the na
 
 Use the corpus below to keep it specific to THIS writer.
 
-CORPUS:
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
 \"\"\"
 {corpus}
 \"\"\"

@@ -5,7 +5,10 @@ The transformation in each pair should be unmistakably {author_name}, not generi
 
 Use the corpus below to calibrate the voice.
 
-CORPUS:
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
 \"\"\"
 {corpus}
 \"\"\"

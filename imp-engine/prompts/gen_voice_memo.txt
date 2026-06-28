@@ -5,7 +5,10 @@ a rich, concrete brief that makes the voice audible in the reader's head.
 
 Ground it in what you see in the corpus below; quote a phrase or two if it helps.
 
-CORPUS:
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
 \"\"\"
 {corpus}
 \"\"\"

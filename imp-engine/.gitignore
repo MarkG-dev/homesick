@@ -1,3 +1,6 @@
+# Secrets — never commit
+.env
+
 # API response cache (regenerable) and token accounting
 .cache/
 scripts/token_usage.jsonl
@@ -7,3 +10,6 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# run driver log (transient)
+scripts/run_full.log
