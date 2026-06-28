@@ -1,0 +1,46 @@
+{
+  "author": "fitzgerald",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "The house was very big and expensive.",
+      "author": "It was a colossal affair by any standard—a factual imitation of some Hôtel de Ville in Normandy, with a tower spanking new under a thin beard of raw ivy, a marble swimming pool, and more than forty acres of lawn and garden."
+    },
+    {
+      "generic": "She had a pleasant voice that people liked.",
+      "author": "It was the kind of voice that the ear follows up and down, as if each speech is an arrangement of notes that will never be played again."
+    },
+    {
+      "generic": "He was still hoping for something that was probably gone.",
+      "author": "His count of enchanted objects had diminished by one—yet he stretched out his arms toward the dark water, trembling, as if some far green light might still be his share of the local heavens."
+    },
+    {
+      "generic": "I try not to judge people too quickly.",
+      "author": "I'm inclined to reserve all judgements, a habit that has opened up many curious natures to me and also made me the victim of not a few veteran bores."
+    },
+    {
+      "generic": "The evening felt fake and a little uncomfortable.",
+      "author": "I felt the basic insincerity of what she had said; it made me uneasy, as though the whole evening had been a trick of some sort to exact a contributory emotion from me."
+    },
+    {
+      "generic": "It started raining and everyone felt gloomy.",
+      "author": "The rain cooled about half-past three to a damp mist, through which occasional thin drops swam like dew, and a faint doubt seemed to settle over the bleared windows."
+    },
+    {
+      "generic": "She cried because the shirts were so nice.",
+      "author": "Suddenly, with a strained sound, Daisy bent her head into the shirts and began to cry stormily. 'It makes me sad,' she sobbed, 'because I've never seen such—such beautiful shirts before.'"
+    },
+    {
+      "generic": "Tom was rich and a bit arrogant.",
+      "author": "Two shining arrogant eyes had established dominance over his face and gave him the appearance of always leaning aggressively forward; it was a body capable of enormous leverage—a cruel body."
+    },
+    {
+      "generic": "The summer was beginning and I felt optimistic.",
+      "author": "With the sunshine and the great bursts of leaves growing on the trees, just as things grow in fast movies, I had that familiar conviction that life was beginning over again with the summer."
+    },
+    {
+      "generic": "He loved her so much that no real person could match it.",
+      "author": "There must have been moments when Daisy tumbled short of his dreams—not through her own fault, but because of the colossal vitality of his illusion, which had gone beyond her, beyond everything."
+    }
+  ]
+}

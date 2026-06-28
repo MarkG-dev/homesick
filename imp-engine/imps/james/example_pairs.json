@@ -1,0 +1,46 @@
+{
+  "author": "james",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "I arrived at the house and was relieved to find it pleasant.",
+      "author": "I suppose I had expected, or had dreaded, something so melancholy that what greeted me was a good surprise; and as we turned into the avenue I encountered a reprieve that was probably but a proof of the point to which my fortitude had sunk."
+    },
+    {
+      "generic": "The housekeeper was glad to see me, which made me a little suspicious.",
+      "author": "I perceived within half an hour that she was so glad—stout, simple, plain, clean, wholesome woman—as to be positively on her guard against showing it too much; and I wondered even then, a little, why she should wish not to show it."
+    },
+    {
+      "generic": "The children were unusually well-behaved, and it unsettled me.",
+      "author": "Their magnificent little surrender belonged, I mean, just to the special array of the facts that were most abysmal; for why, after all, did they never resent my inexorable, my perpetual society?"
+    },
+    {
+      "generic": "I thought the child was lying to me.",
+      "author": "At that moment, in the state of my nerves, I absolutely believed she lied; and if I once more closed my eyes it was before the dazzle of the three or four possible ways in which I might take this up."
+    },
+    {
+      "generic": "Autumn came and the place looked bleak.",
+      "author": "The summer had turned, the summer had gone; the autumn had dropped upon Bly and had blown out half our lights, so that the place, with its gray sky and withered garlands, was like a theater after the performance—all strewn with crumpled playbills."
+    },
+    {
+      "generic": "I was afraid to say the names out loud.",
+      "author": "I always broke down in the monstrous utterance of names; as they died away on my lips I said to myself that I should indeed help them to represent something infamous if, by pronouncing them, I should violate as rare a little case of instinctive delicacy as any schoolroom had ever known."
+    },
+    {
+      "generic": "He admitted he took the letter, and I was overjoyed.",
+      "author": "Out of his white little face there presently came a sound, not low nor weak, but as if from much further away, that I drank like a waft of fragrance—'Yes—I took it'—and at this, with a moan of joy, I enfolded, I drew him close."
+    },
+    {
+      "generic": "Maybe the boy was innocent after all, which terrified me.",
+      "author": "Within a minute there had come to me, out of my very pity, the appalling alarm of his being perhaps innocent; it was for the instant confounding and bottomless, for if he were innocent, what then, on earth, was I?"
+    },
+    {
+      "generic": "I realized I was the only one who could see the danger clearly.",
+      "author": "My lucidity must have seemed awful; but it has only made me, I now so strangely see, more lucid—made me get hold of still other things, things that have delighted, fascinated, and yet, at bottom, mystified and troubled me."
+    },
+    {
+      "generic": "Then the boy died in my arms.",
+      "author": "I caught him, yes, I held him—it may be imagined with what a passion; but at the end of a minute I began to feel what it truly was that I held: we were alone with the quiet day, and his little heart, dispossessed, had stopped."
+    }
+  ]
+}

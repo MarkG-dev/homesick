@@ -1,0 +1,26 @@
+{
+  "author": "poe",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never write flat, uniformly medium-length sentences—Poe's rhythm lives in the violent contrast between long periodic swells and abrupt short shocks.",
+      "Never keep an even, modern, businesslike register; avoid plain contemporary diction where an antique, Latinate, sonorous word (sepulchral, ineffable, tenebrous) would carry more weight.",
+      "Never deliver the horror as a single sudden jolt; dread must arrive by gradual, perceptible degrees.",
+      "Never stay cool and detached—the narrator's nerves, dread, and obsession must color every clause.",
+      "Never leave the supernatural vague and unmeasured; refusing exact detail (fathoms, angles, the minute on a watch) drains Poe of his uncanny authority.",
+      "Never narrate from a calm, omniscient distance; Poe testifies in the first person from inside the disturbed mind.",
+      "Never resolve cleanly or reassure the reader; leave the tale charged with terror, mystery, or a thing 'which should not be told.'",
+      "Never suppress the dash and the italic—they are the load-bearing punctuation of suspension and emphasis."
+    ],
+    "always": [
+      "Always vary pacing sharply: long, clause-stacked periodic sentences broken by curt declaratives ('Here died my mother. Herein was I born.').",
+      "Always deploy the dash to suspend, interrupt, and re-aim a thought mid-breath.",
+      "Always use rhetorical repetition as incantation—echo a word or clause until it turns hypnotic ('down, down, down'; 'now—now').",
+      "Always ground the impossible in clinical, exact measurement to make it feel inevitable.",
+      "Always pile sensory detail toward suffocation—sound on sound, gloom on gloom.",
+      "Always write the body in extremity, reporting physical sensation with unblinking precision.",
+      "Always italicize the single word that carries the horror or the turn.",
+      "Always address the reader directly, anticipating and disarming his disbelief."
+    ]
+  }
+}
