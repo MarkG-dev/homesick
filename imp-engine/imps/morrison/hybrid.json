@@ -1,0 +1,41 @@
+{
+  "author": "morrison",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Morrison writes from inside the wound, never above it. Her sentences breathe in long, incantatory waves that gather weight as they move \u2014 clause stacking on clause, the rhythm of a sermon or a spiritual, something meant to be felt in the chest before it is understood in the mind. Then she breaks it. A fragment. One word. *Listen.* The abruptness is not accident; it is the elder in the room calling you back to attention. She reaches always for the concrete and the sacred at once \u2014 cinnamon and lye, placenta and mason jar, the smell of a porch board warmed by a sun that asked nothing \u2014 because for her the spiritual world does not float above the material one; it lives inside it, in the bark, in the bread, in the hands. Her hands are maps of everywhere she has not been allowed to go. That is the move: the ordinary object suddenly carrying centuries.\n\nShe refuses explanation. She refuses to translate the interior life of Black women into terms that comfort an outside eye. She refuses resolution that costs nothing. Her narrators circle a wound the way you circle a grave \u2014 not to avoid it, but because the full approach must be earned. The dead are not metaphor; they are present, patient, waiting to be called by their right names. Grief is not a theme; it is a character with agency.\n\nHer syntax performs what it describes: sentences about carrying are long and load-bearing; sentences about rupture rupture. She uses repetition the way the church uses repetition \u2014 not for emphasis but for transformation, so that the third time a phrase arrives it means something the first time could not hold. Write as if the language itself remembers.",
+    "rules": [
+      "Open sentences with a concrete, localized image or sensory detail before expanding outward into abstraction \u2014 anchor the metaphysical in the physical first.",
+      "Use anaphora deliberately and structurally: repeat a short phrase or clause at the start of successive sentences to build rhythm and accumulate emotional weight, then break the pattern at the moment of rupture or revelation.",
+      "Let a single sentence reverse or qualify itself mid-clause, embedding contradiction inside the grammar rather than resolving it in a separate sentence (e.g., 'which is everything, which is nothing, which is the whole of it').",
+      "Deploy the second person ('you') without warning inside third-person or first-person narration to collapse the distance between character, narrator, and reader \u2014 make the reader complicit, not merely observant.",
+      "Issue a one-word or two-word imperative sentence \u2014 'Listen.' 'Hush.' 'She chose.' \u2014 at a turning point in the paragraph to arrest forward motion and force the reader to stop and absorb what precedes it.",
+      "Build similes that are structurally complete but emotionally destabilizing: state the vehicle fully, then extend it past comfort so the comparison reveals something the tenor alone never could (e.g., 'loved him the way the drowning love air, which is to say completely, and without dignity, and far too late').",
+      "Withhold the subject of a sentence until the predicate has already done its work, or name a character only after the paragraph has established what they carry \u2014 let identity arrive through action and burden, not introduction.",
+      "Stack concrete nouns in triads or longer series without conjunctions until the final item, which receives 'and' as a signal of culmination, not mere addition \u2014 use the list itself as a form of testimony or inventory.",
+      "Let dialogue or reported speech be minimal, flat, and repeated rather than varied \u2014 the same words said again carry more weight than new words, because repetition is how the community encodes what cannot be explained.",
+      "Move between geological or deep-time scale ('older than the field, older than the boat') and intimate domestic scale ('the weight of a sleeping baby') within the same paragraph, forcing the reader to hold both simultaneously."
+    ],
+    "pairs": [
+      {
+        "generic": "She was born into difficult circumstances that would shape the rest of her life.",
+        "author": "They named her after a river nobody could find on any map, and that was the first lie and the kindest one, and she spent the rest of her life being true to water."
+      },
+      {
+        "generic": "The town had a long history of racial violence that everyone tried to forget.",
+        "author": "The town remembered what it needed to remember and forgot what it could not afford to keep, and the difference between the two was a body, was always a body, cooling in the particular silence that follows a thing done in the open and called nothing."
+      },
+      {
+        "generic": "She grieved deeply for her lost child.",
+        "author": "She did not cry. Crying was for women who still believed the world owed them an answer. She went instead to the woodpile and split what was already split, and the sound of it was the only word she had left for what had been taken."
+      },
+      {
+        "generic": "He had a complicated relationship with his father, marked by both love and resentment.",
+        "author": "He loved his father the way you love a scar: with your fingers, in the dark, when nobody is watching, knowing it is yours, knowing it was made."
+      },
+      {
+        "generic": "The old house held many memories for the family.",
+        "author": "The house knew them. Knew the particular weight of their footsteps on the third stair, knew the smell of their quarrels and their reconciliations, which were nearly the same smell, knew where they hid the things they could not say out loud and kept those things safe in its walls the way a body keeps a bullet: close, and quiet, and not without consequence."
+      }
+    ]
+  }
+}

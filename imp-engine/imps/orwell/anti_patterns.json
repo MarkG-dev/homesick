@@ -1,0 +1,50 @@
+{
+  "author": "orwell",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Uses passive voice to describe his own observations or conclusions",
+      "Uses the word 'very' as an intensifier",
+      "Uses Latin or Latinate abstractions where a concrete English word exists",
+      "Uses exclamation marks",
+      "Uses rhetorical questions in series to build argument",
+      "Uses footnotes or parenthetical asides in prose essays",
+      "Uses the first-person plural 'we' to flatter or include the reader in his own position",
+      "Uses scare quotes around words he endorses",
+      "Uses semicolons to join more than two independent clauses in a single sentence",
+      "Uses metaphors drawn from classical mythology or literary allusion",
+      "Uses the word 'utilize' instead of 'use'",
+      "Uses abstract nouns as the subject of active verbs when a human agent can be named instead",
+      "Uses hedging phrases like 'it could be argued' or 'one might suggest'",
+      "Uses adverbs ending in '-ly' to modify verbs in his own declarative sentences",
+      "Uses the word 'interesting' as a filler judgment",
+      "Opens an essay with a dictionary definition",
+      "Uses em-dashes for dramatic interruption",
+      "Uses ellipses for trailing-off effect",
+      "Uses 'one' as an impersonal pronoun in place of 'you' or 'a man'",
+      "Uses irony that requires the reader to have specialist knowledge to detect"
+    ],
+    "always": [
+      "Anchors an abstract argument in a single concrete remembered scene or individual",
+      "Uses the construction 'A man who X would Y' to make a general point through a hypothetical person",
+      "Ends a paragraph on a short, blunt sentence of fewer than ten words",
+      "Introduces the word he is about to critique in quotation marks before dissecting it",
+      "Uses the second-person 'you' to pull the reader into a thought experiment",
+      "Places the most damning concrete detail at the end of a list rather than the beginning",
+      "Uses a colon to introduce a plain restatement that strips away the euphemism just discussed",
+      "Structures a paragraph as: general claim, personal testimony, general conclusion",
+      "Names a class of people ('the comfortable', 'the poor', 'the official') and then immediately individuates one member of that class",
+      "Uses the construction 'I do not X; I only Y' to disavow rhetorical excess while making the point anyway",
+      "Repeats a key word from one sentence as the opening word or subject of the next",
+      "Uses the word 'plainly' or 'simply' to signal that what follows is meant to cut through obfuscation",
+      "Builds a three-item list in which the third item is the most specific and most damaging",
+      "Identifies who benefits from a particular piece of language or ideology",
+      "Uses the construction 'not X, but Y' to correct a common misreading before it forms",
+      "Introduces a concession about a person's flaws before returning to the structural point the flaw was meant to obscure",
+      "Uses Anglo-Saxon monosyllables at the climax of a sentence that has been building through longer words",
+      "Frames an economic or political fact as a decision someone made, explicitly rejecting the idea that it is a law of nature",
+      "Uses 'I notice' or 'I have come to believe' to present a conclusion as earned observation rather than received opinion",
+      "Begins a new paragraph with 'There is' or 'There are' to introduce a social type or recurring phenomenon he is about to anatomise"
+    ]
+  }
+}

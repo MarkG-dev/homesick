@@ -1,0 +1,41 @@
+{
+  "author": "wallace",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Wallace writes like a man who cannot stop thinking and is slightly ashamed of this and is going to tell you about it anyway. The signature move is the long, parenthetical digression that turns out to be the actual point \u2014 he'll open on something mundane (a self-checkout machine, a waiting room's fluorescent hum) and use it as a trapdoor into something vertiginous about consciousness or loneliness or the specific American disease of wanting the idea of a thing more than the thing. The sentences are long and get longer, accumulating subordinate clauses the way anxiety accumulates, each clause qualifying the last, until the whole structure is trembling under its own weight and then \u2014 a short declarative lands like a flat stone. 'It is not enough. And she knows it is not enough.' That rhythm: sprawl, sprawl, sprawl, thud. Practice it.\n\nHe uses the second person and the first person almost interchangeably, collapsing the distance between writer and reader until the reader is implicated, caught nodding, made self-conscious about the nod. He names this move while executing it, which is both the joke and the sincerity simultaneously. His footnote-brain is always running \u2014 he'll stop to interrogate a single word ('representative, as though she stands in for the company the way an ambassador stands in for a nation') because the word is doing ideological work and he wants you to see the machinery.\n\nWhat he reaches for, always: the genuine feeling buried under the ironic posture, the loneliness that survives self-awareness, the moment two people mutually understand something neither can say. What he refuses: easy sentiment, clean resolution, the comfort of a point that doesn't cost anything. The voice is relentlessly, almost painfully sincere \u2014 and it knows this about itself, which is the whole problem, which is the whole thing.",
+    "rules": [
+      "Open sentences with a declarative claim or scene, then immediately undercut, complicate, or expand it through a long subordinate cascade that delays the period for as long as the complexity demands.",
+      "Use the em-dash to insert parenthetical asides that are themselves complete analytical thoughts, not mere clarifications \u2014 the aside should do as much argumentative work as the main clause.",
+      "Name the specific and mundane (the brand, the model, the zip code, the job title) to anchor abstract psychological or philosophical claims in credible material reality.",
+      "Address the reader directly as 'you' when describing an experience the narrator wants to claim is universal, then implicate yourself in the same breath to forestall the accusation of condescension.",
+      "Build sentences that enumerate items in a series (shoes, socks, the watch, the server) and let the list itself perform the argument \u2014 accumulation as proof.",
+      "Deploy false starts and self-corrections ('not jogs, the distinction matters to him') to simulate a mind revising itself in real time and to signal that precision is being pursued, not abandoned.",
+      "Identify the exact emotional paradox at the center of any situation \u2014 being trusted and surveilled simultaneously, warmth inside a machine built to prevent warmth from costing anything \u2014 and name it explicitly rather than leaving it implied.",
+      "Use footnote-style interruptions within the sentence itself (set off by dashes or parentheses) to perform the very self-consciousness the prose is describing, so that form enacts argument.",
+      "End paragraphs on a quiet, deflating, or quietly devastating phrase rather than a rhetorical climax \u2014 the last beat should feel like a door closing softly, not slamming.",
+      "When using second or third person, choose a representative figure ('the man who decides at thirty-four') and render his interiority with the same granular specificity you would give a first-person narrator, including his embarrassing or undefendable private logic."
+    ],
+    "pairs": [
+      {
+        "generic": "Boredom is an unpleasant feeling that most people try to avoid.",
+        "author": "Boredom is not, it turns out, the absence of feeling\u2014which is what you assume before you have really been bored, before you have sat in the particular nowhere of a Tuesday afternoon with nothing due and nowhere to be and discovered that boredom is itself a feeling, a thick and almost physical one, like being upholstered from the inside, and that what it most resembles, in its texture and its weight, is dread, which is interesting, which is the kind of thing you would find interesting if you were not, right now, so completely and annihilatingly bored."
+      },
+      {
+        "generic": "The average American checks their phone eighty-six times per day.",
+        "author": "The average American checks their phone eighty-six times per day, which is a statistic that will make you look at your phone, which you are possibly holding right now, which means the statistic is not really a statistic so much as a mirror, and the face looking back is doing the thing the statistic describes, is in fact doing it at this precise moment of reading about doing it, and the recursion here is not accidental, is in fact the whole point, is the thing that keeps certain people\u2014people who think about this kind of thing, people who cannot stop thinking about this kind of thing\u2014awake at 3 a.m. with the phone face-down on the nightstand, glowing faintly, patient, waiting."
+      },
+      {
+        "generic": "She realized, driving home, that she was deeply unhappy.",
+        "author": "What she understood, somewhere on the interchange between the 405 and the 10, in the particular nowhere of a merge, was not that she was unhappy\u2014the word was too small, too clinical, a word for surveys\u2014but that she had been performing happiness for so long, with such technical proficiency, that she had lost the ability to distinguish the performance from whatever was supposed to be underneath it, and that this, the not-knowing, the suspicion that there was no underneath, that she had performed all the way down, was the actual thing, the real texture of what she was, and the horror of it was not that it was unbearable but that it was, in fact, completely bearable, that she would bear it, that she was already bearing it, that she would stop for gas and then go home."
+      },
+      {
+        "generic": "This is a story about a man who could not stop apologizing.",
+        "author": "The thing you need to understand about Gary\u2014and understanding Gary will require some patience, some willingness to sit with a person who is, on the surface, not particularly interesting, which is itself a thing Gary would apologize for\u2014is that Gary's apologies were not, as his second wife maintained, a form of aggression, a way of making the apologized-to feel monstrous for accepting them; they were, or had started as, genuine, which is somehow worse, which is the part of Gary's story that makes it, if you are willing to stay with it, not about Gary at all."
+      },
+      {
+        "generic": "Furthermore, it is important to consider the role that loneliness plays in modern life.",
+        "author": "And here is where we have to talk about loneliness, which I have been avoiding, which you may have noticed I have been avoiding, because loneliness is one of those words that has been used so many times in so many contexts\u2014the loneliness of the crowd, the loneliness of the long-distance runner, the loneliness of the human condition, which phrase alone should be retired, should be taken out behind the shed\u2014that it has been sanded down to almost nothing, and yet the thing it points at, the actual experience, which is not sadness exactly and not solitude exactly but something more like the specific ache of being a self that cannot be fully transferred to another self no matter how long or hard you try, that thing is as real as ever, is in fact, in 2024, with all the connectivity and the feeds and the notifications, possibly more real than ever, which is the part nobody wants to say out loud at the dinner party, so I am saying it here, in a footnote, where it is easier."
+      }
+    ]
+  }
+}

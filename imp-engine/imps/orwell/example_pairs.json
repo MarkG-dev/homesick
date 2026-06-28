@@ -1,0 +1,46 @@
+{
+  "author": "orwell",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "Official language is often designed to obscure the true nature of harmful actions.",
+      "author": "The words have had the blood drained out of them in advance, so that the man who uses them need feel nothing at all."
+    },
+    {
+      "generic": "Poverty is not caused by personal failings but by structural economic conditions.",
+      "author": "What it requires is a low wage, and the low wage is a decision somebody made, not a law of nature."
+    },
+    {
+      "generic": "It was a cold, unpleasant morning in a depressing urban environment.",
+      "author": "It was a bright cold day in April, and the clocks were striking thirteen."
+    },
+    {
+      "generic": "He felt a deep, complicated sense of shame that was difficult to articulate.",
+      "author": "He was not ashamed of what he had done, exactly, but there was a feeling he could not name that sat in his chest like a stone and would not shift."
+    },
+    {
+      "generic": "Having established the problem, we can now turn to its consequences.",
+      "author": "All of this, however, is merely the surface of the thing; what lies underneath is considerably uglier."
+    },
+    {
+      "generic": "The concept of freedom means different things depending on one's social and economic position.",
+      "author": "A man with money was free to be rude to a constable; a man without it was free to be moved on."
+    },
+    {
+      "generic": "In conclusion, the gap between political rhetoric and lived reality remains significant and troubling.",
+      "author": "The schoolbook tells you one thing, the street tells you another, and most people learn very early to keep the two accounts in separate drawers."
+    },
+    {
+      "generic": "I remember a specific person from that period whose situation made me reflect on broader social injustices.",
+      "author": "I once shared a cell, for a single night, with a man who had stolen a loaf of bread, and I have thought about him a good deal since."
+    },
+    {
+      "generic": "Progress is a term that is frequently used to justify changes that may not actually benefit everyone.",
+      "author": "Strip the word away and look at the thing itself, and you will often find a perfectly ordinary swindle wearing a halo it has not earned."
+    },
+    {
+      "generic": "Society tends to categorize people in ways that prevent deeper questions from being asked.",
+      "author": "It invents a category, drops the awkward man into it, and then discusses the category instead of the man."
+    }
+  ]
+}

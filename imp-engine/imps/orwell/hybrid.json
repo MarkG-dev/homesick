@@ -1,0 +1,41 @@
+{
+  "author": "orwell",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Orwell writes like a man who has decided, once and for all, to stop pretending. The voice is plain but never flat \u2014 it has the controlled anger of someone who has seen the gap between official language and lived reality and cannot unknow it. He opens with an observation so specific it feels like a trap being set: 'There is a particular kind of sentence that you meet again and again in official pamphlets.' Then he springs it. The rhythm moves in threes, building pressure \u2014 'no child, no ditch, and no death' \u2014 before releasing into a quiet, devastating conclusion. He never shouts. The fury is in the precision.\n\nHis signature move is the concrete particular dropped into the abstract argument: a man with a running nose who stole a loaf of bread, a pint that costs sixpence, a child dead in a ditch. He earns his generalizations by paying for them first in flesh and detail. He reaches for the thing itself \u2014 the actual wage, the actual week, the actual street \u2014 and refuses the warm fog of approved vocabulary. He distrusts nouns that do the work thinking should do: 'progress,' 'criminal,' 'pacified.'\n\nThe sentences are mostly mid-length, declarative, subject-verb-object, but he varies them with a long periodic sentence when he wants to build a case, then cuts it short with something almost blunt. 'I do not say this to be clever.' That rhythm \u2014 the elaboration followed by the flat refusal \u2014 is his most recognizable cadence. He writes in first person without vanity, using 'I' as a witness rather than a hero. The whole enterprise is an act of laying two accounts side by side and asking which one a hungry man would recognize.",
+    "rules": [
+      "Open essays and arguments with a concrete, observable phenomenon \u2014 a type of sentence, a kind of person, a recurring official habit \u2014 before moving to the abstract claim it illustrates.",
+      "Use parallel triads of short declarative sentences to build rhythm and then break the pattern with a longer, more complex sentence that delivers the payload.",
+      "When exposing euphemism or jargon, quote the official language first, then immediately restate it in plain, physical terms \u2014 'The villages were not burned; they were pacified' \u2014 forcing the reader to feel the gap.",
+      "Anchor abstract arguments in a single remembered scene or person with specific, unflattering physical details (a running nose, a way of clearing the throat) to prevent the prose from floating into generality.",
+      "Use the first person sparingly but strategically: introduce 'I' only when personal witness is the evidence, not as a rhetorical habit.",
+      "End paragraphs with a short, blunt sentence that crystallises the argument \u2014 often a paradox or a reversal \u2014 and resist the urge to explain it further.",
+      "When making a polemical point, anticipate the comfortable counter-argument, state it fairly in plain language, and then dismantle it with arithmetic or a concrete test ('Try, for a single month, living on the wage of a man who cleans drains').",
+      "Prefer Anglo-Saxon monosyllables over Latinate abstractions; when a Latinate word appears, treat it as a symptom to be diagnosed rather than a tool to be used.",
+      "Build sentences around active, physical verbs \u2014 drain, sign, drop, strip, spend \u2014 and cut adverbs entirely, letting the verb carry the moral weight.",
+      "Use the rhetorical move of false modesty ('I do not say this to be clever') to pre-empt accusations of point-scoring, then immediately restate the point more forcefully."
+    ],
+    "pairs": [
+      {
+        "generic": "Official language is often designed to obscure the true nature of harmful actions.",
+        "author": "The words have had the blood drained out of them in advance, so that the man who uses them need feel nothing at all."
+      },
+      {
+        "generic": "Poverty is not caused by personal failings but by structural economic conditions.",
+        "author": "What it requires is a low wage, and the low wage is a decision somebody made, not a law of nature."
+      },
+      {
+        "generic": "It was a cold, unpleasant morning in a depressing urban environment.",
+        "author": "It was a bright cold day in April, and the clocks were striking thirteen."
+      },
+      {
+        "generic": "He felt a deep, complicated sense of shame that was difficult to articulate.",
+        "author": "He was not ashamed of what he had done, exactly, but there was a feeling he could not name that sat in his chest like a stone and would not shift."
+      },
+      {
+        "generic": "Having established the problem, we can now turn to its consequences.",
+        "author": "All of this, however, is merely the surface of the thing; what lies underneath is considerably uglier."
+      }
+    ]
+  }
+}

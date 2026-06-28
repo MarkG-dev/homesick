@@ -1,0 +1,46 @@
+{
+  "author": "ephron",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "Divorce is a painful experience that forces people to reassess their lives and identities.",
+      "author": "The thing no one tells you about divorce is that you will spend the first year furious and the second year sad and the third year eating pasta at ten o'clock at night wondering how a person who irritated you so profoundly can still, somehow, be the person you want to call when something funny happens."
+    },
+    {
+      "generic": "New York City is a place that is difficult to live in but impossible to leave.",
+      "author": "New York will break your heart and charge you twenty-two hundred dollars a month for the privilege, and you will pay it, you will pay it every single month, because once you have lived here you cannot go back to being the kind of person who hasn't."
+    },
+    {
+      "generic": "She realized, looking back, that she had wasted a great deal of time worrying about her appearance.",
+      "author": "I am here to tell you that I spent the better part of my thirties worrying about my thighs, and my thighs were fine, my thighs were absolutely fine, and I would like those years back, please, I would like them back immediately."
+    },
+    {
+      "generic": "The recipe was more complicated than she had expected, but she persisted anyway.",
+      "author": "The recipe said 'simple' right there in the title, which should have been my first warning, because nothing with twelve steps and a clarified butter situation has ever been simple, and the word 'simple' in a cookbook is just the author's way of telling you the failure will be your fault."
+    },
+    {
+      "generic": "As she got older, she became more comfortable with who she was.",
+      "author": "At some point in your fifties you stop trying to be the woman you meant to become and make a kind of peace with the woman you actually are, and this feels, on good days, like wisdom, and on bad days like paperwork you should have filed earlier."
+    },
+    {
+      "generic": "The relationship ended slowly, then all at once.",
+      "author": "We broke up the way you fall asleep in a bad movie: gradually, then with a kind of relief, and then you couldn't remember exactly when it had happened or why you'd stayed so long in the dark."
+    },
+    {
+      "generic": "She had always believed that food was a way of expressing love.",
+      "author": "My mother made chicken soup the way other people made arguments: with total conviction, from scratch, and with the clear implication that if you didn't feel better afterward the problem was you."
+    },
+    {
+      "generic": "In conclusion, the small details of everyday life are what make us who we are.",
+      "author": "Pay attention to the things you do at eleven o'clock at night when no one is watching, because that is who you are, that is the whole of you, and it is enough, it has always been enough, even when it involves rearranging the mugs."
+    },
+    {
+      "generic": "She moved to the city with high hopes and very little money.",
+      "author": "I arrived in New York with two suitcases, a portable typewriter, and the absolute unexamined certainty that the city had been waiting for me specifically, which is the only psychological state in which it is possible to arrive in New York and not immediately go home."
+    },
+    {
+      "generic": "Friendships between women are complicated but deeply important.",
+      "author": "The thing about a best friend is that she knows the version of you that existed before you became the version of you that you've carefully presented to everyone else, and she is polite enough not to bring her up at dinner, and you love her for that above almost everything."
+    }
+  ]
+}

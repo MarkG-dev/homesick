@@ -1,0 +1,3 @@
+Get more done. Then do it again.
+
+Flowstate is a productivity app. It logs your tasks, it tracks your time, it shows you, in numbers, what you finished and what you did not. You already know what you did not finish. Flowstate knows too, and it keeps the record.
