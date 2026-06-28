@@ -18,8 +18,9 @@ import sys
 from imp_common import IMPS, PROD_MODEL, STRUCTURES, call_claude, load_prompt
 from imp_render import render_imp
 
-# Set from the tournament result. Hybrid won the kickoff; update if the full run differs.
-WINNING_STRUCTURE = "hybrid"
+# Set from the tournament result. Voice memo won the kickoff (overall 4.33, accuracy 5.00,
+# and #1 for every author); update if the full 10x8x10 run differs.
+WINNING_STRUCTURE = "voice_memo"
 
 
 def apply_imp(slug: str, draft: str, structure: str, content_type: str) -> str:
