@@ -18,8 +18,9 @@ import sys
 from imp_common import IMPS, PROD_MODEL, STRUCTURES, call_claude, load_prompt
 from imp_render import render_imp
 
-# Set from the tournament result. Voice memo won the kickoff (overall 4.33, accuracy 5.00,
-# and #1 for every author); update if the full 10x8x10 run differs.
+# Set from the tournament result. Voice memo won the full 10x8x10 run too (overall 3.93,
+# distinctiveness 4.63, #1 or #2 for nearly every author). Usability (~3.2) is the ceiling
+# across all structures — a tone/intensity slider, not a different structure, is the fix.
 WINNING_STRUCTURE = "voice_memo"
 
 

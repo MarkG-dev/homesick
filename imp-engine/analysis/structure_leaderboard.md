@@ -4,11 +4,11 @@ Averaged across all authors and test cases.
 
 | Structure | Distinct. | Accuracy | Usability | Overall | n |
 | --- | --- | --- | --- | --- | --- |
-| Voice memo | 4.22 | 5.00 | 3.78 | 4.33 | 9 |
-| Anti-patterns + patterns | 3.67 | 4.44 | 4.00 | 4.04 | 9 |
-| Rules list | 3.78 | 4.44 | 3.67 | 3.96 | 9 |
-| Trait vector | 3.78 | 4.56 | 3.56 | 3.96 | 9 |
-| Persona prompt | 3.56 | 4.67 | 3.56 | 3.93 | 9 |
-| Example pairs | 3.78 | 4.44 | 3.22 | 3.81 | 9 |
-| Hybrid (rules + memo + pairs) | 3.44 | 4.56 | 3.44 | 3.81 | 9 |
-| Statistical fingerprint | 3.11 | 3.89 | 3.89 | 3.63 | 9 |
+| Voice memo | 4.63 | 3.95 | 3.20 | 3.93 | 100 |
+| Hybrid (rules + memo + pairs) | 4.64 | 4.01 | 2.98 | 3.88 | 100 |
+| Persona prompt | 4.39 | 3.78 | 3.34 | 3.84 | 100 |
+| Rules list | 4.62 | 3.79 | 2.94 | 3.78 | 100 |
+| Anti-patterns + patterns | 4.52 | 3.82 | 3.01 | 3.78 | 100 |
+| Example pairs | 4.36 | 3.64 | 3.32 | 3.77 | 100 |
+| Trait vector | 3.84 | 2.64 | 3.56 | 3.35 | 100 |
+| Statistical fingerprint | 3.13 | 2.54 | 3.42 | 3.03 | 100 |
