@@ -24,10 +24,10 @@ from imp_common import (
 DIMS = ["distinctiveness", "accuracy", "usability"]
 
 
-def load_all() -> list[dict]:
+def load_all(only: set[str] | None = None) -> list[dict]:
     rows = []
     for slug_dir in sorted(EVALS.iterdir()):
-        if not slug_dir.is_dir():
+        if not slug_dir.is_dir() or (only and slug_dir.name not in only):
             continue
         for struct_dir in sorted(slug_dir.iterdir()):
             for f in sorted(struct_dir.glob("*.json")):
@@ -157,17 +157,23 @@ def verdict(rows) -> str:
 
 
 def main() -> None:
-    rows = load_all()
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--authors", nargs="*", help="restrict analysis to these slugs")
+    ap.add_argument("--prefix", default="", help="filename prefix, e.g. 'real_' for a cohort report")
+    args = ap.parse_args()
+    rows = load_all(set(args.authors) if args.authors else None)
     if not rows:
         print("no evals found; run run_evals.py first.")
         return
     ANALYSIS.mkdir(parents=True, exist_ok=True)
-    (ANALYSIS / "structure_leaderboard.md").write_text(leaderboard(rows))
-    (ANALYSIS / "author_difficulty.md").write_text(author_difficulty(rows))
-    (ANALYSIS / "content_sensitivity.md").write_text(content_sensitivity(rows))
-    (ANALYSIS / "best_structure_per_author.md").write_text(best_per_author(rows))
-    (ANALYSIS / "taste_transfer_verdict.md").write_text(verdict(rows))
-    print(f"wrote 5 reports to {ANALYSIS} from {len(rows)} evals.")
+    p = args.prefix
+    (ANALYSIS / f"{p}structure_leaderboard.md").write_text(leaderboard(rows))
+    (ANALYSIS / f"{p}author_difficulty.md").write_text(author_difficulty(rows))
+    (ANALYSIS / f"{p}content_sensitivity.md").write_text(content_sensitivity(rows))
+    (ANALYSIS / f"{p}best_structure_per_author.md").write_text(best_per_author(rows))
+    (ANALYSIS / f"{p}taste_transfer_verdict.md").write_text(verdict(rows))
+    print(f"wrote 5 reports ({p or 'all'}) to {ANALYSIS} from {len(rows)} evals.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,21 @@
+{
+  "author": "poe",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.82,
+    "abstraction": 0.6,
+    "formality": 0.85,
+    "hedging": 0.35,
+    "humor": 0.3,
+    "emotional_heat": 0.9,
+    "vocabulary_complexity": 0.9,
+    "metaphor_density": 0.72,
+    "self_reference": 0.85,
+    "paragraph_density": 0.8,
+    "rhetorical_repetition": 0.88,
+    "contrast_tension": 0.78,
+    "sensory_detail": 0.88,
+    "authority_stance": 0.7,
+    "pacing_variation": 0.85
+  }
+}

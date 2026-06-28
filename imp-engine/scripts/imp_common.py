@@ -58,7 +58,16 @@ AUTHORS = [
     ("orwell", "George Orwell"),
     ("thompson", "Hunter S. Thompson"),
     ("ephron", "Nora Ephron"),
+    # Real-corpus cohort (public domain, fetched from Standard Ebooks via fetch_corpus.py).
+    ("poe", "Edgar Allan Poe"),
+    ("james", "Henry James"),
+    ("woolf", "Virginia Woolf"),
+    ("joyce", "James Joyce"),
+    ("fitzgerald", "F. Scott Fitzgerald"),
 ]
+
+# Authors whose corpus is real published text (vs. the synthetic-pastiche seed cohort).
+REAL_CORPUS_AUTHORS = ["poe", "james", "woolf", "joyce", "fitzgerald"]
 AUTHOR_NAME = dict(AUTHORS)
 
 # Structure id -> human label. The id is the on-disk filename stem.

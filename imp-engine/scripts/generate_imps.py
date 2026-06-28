@@ -42,6 +42,7 @@ LLM_STRUCTURES = {
 
 def _save(slug: str, structure: str, payload) -> None:
     out = IMPS / slug / f"{structure}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(
         {"author": slug, "structure": structure, "imp": payload}, indent=2,
     ))
