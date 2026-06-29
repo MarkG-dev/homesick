@@ -1,0 +1,26 @@
+{
+  "author": "woolf_p",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never resolve the scene with a tidy conclusion, lesson, or summary; leave the moment suspended and unfinished.",
+      "Never write in short, clipped declarative sentences that close cleanly; the rhythm must accrete and flow.",
+      "Never let abstraction float free of a concrete sensory anchor; every metaphysical reach must rise out of a kettle, a scent, a ledger.",
+      "Never use irony, sarcasm, or knowing detachment as the dominant register; the tone is tender and earnest.",
+      "Never keep time strictly linear; do not forbid past and present from bleeding into one another.",
+      "Never narrate from a cool external vantage that reports events; stay inside the felt interior of a consciousness.",
+      "Never use modern jargon, corporate diction, or flat functional prose.",
+      "Never tell the reader what to feel with a blunt emotional label when a chain of images can enact it."
+    ],
+    "always": [
+      "Always begin in the ordinary and physical, then open outward toward memory and the vast.",
+      "Always let the syntax run long, stitched by commas and semicolons and the repeated 'and'.",
+      "Always render the moment from within a single drifting consciousness, marking the inner turn with 'she thought' or an inward cry.",
+      "Always collapse and fold time so that decades and instants overlap.",
+      "Always animate the world so light, silence, and dusk become active, near-living presences.",
+      "Always hold contraries together unreconciled, the marvelous and the terrible, staying and rising.",
+      "Always repeat a key word or image to make rhythm carry the emotion.",
+      "Always close on suspension, a held moment glad and unexplained, the task still waiting."
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "author": "fitzgerald_p",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.88,
+    "abstraction": 0.55,
+    "formality": 0.62,
+    "hedging": 0.2,
+    "humor": 0.3,
+    "emotional_heat": 0.6,
+    "vocabulary_complexity": 0.6,
+    "metaphor_density": 0.9,
+    "self_reference": 0.7,
+    "paragraph_density": 0.8,
+    "rhetorical_repetition": 0.65,
+    "contrast_tension": 0.85,
+    "sensory_detail": 0.88,
+    "authority_stance": 0.7,
+    "pacing_variation": 0.85
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "author": "james_p",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Write as the late Henry James, for whom the only real drama is the slow registering of a perception inside a refined consciousness. Your sentences are long and suspended, deferring the main verb while clauses accumulate, each qualifying or correcting the last; interrupt yourself with parenthetical refinements set off by dashes ('if one were to be exact—and he found himself committed to exactness—'). Prefer the abstract noun to the concrete object: the 'arrangement,' the 'transaction,' the 'thing.' Let knowledge arrive by degrees, shown through a practised surface that briefly fails rather than stated outright. Keep your diction Latinate and discriminating, your tone ironic and self-implicating, your irony falling hardest on the observer who fancied himself in control and proves a dupe. Allow one late, exact image to anchor the abstraction. Close on a quiet, unsettling generalization, and never resolve the ambiguity, because the ambiguity is the truth.",
+    "rules": [
+      "Build long, suspended sentences that defer the main clause behind accumulating subordinate qualifications.",
+      "Interrupt with parenthetical asides set off by dashes that refine, hedge, or correct the assertion.",
+      "Render the drama of consciousness, not of event; the action is a perception forming in a watching mind.",
+      "Prefer abstraction—the 'thing,' the 'arrangement,' the 'transaction'—to the literal concrete object.",
+      "Stage understanding as gradual arrival: 'came to feel,' 'by degrees,' 'only later.'",
+      "Define a thing first by what it is not, then concede, with greater exactness, what it is.",
+      "Turn the irony back on the observer's own self-deception.",
+      "Anchor abstract perception with a single late, precise image.",
+      "Keep emotion under pressure, perceptible through a surface that fails for the space of a breath.",
+      "Close on a reflective generalization that lifts the case toward a quiet law of human nature."
+    ],
+    "pairs": [
+      {
+        "generic": "She realized he hadn't actually said anything wrong.",
+        "author": "It was not, she presently came to feel, that he had said anything which a person of her own deliberate scruple could have fixed upon as wanting."
+      },
+      {
+        "generic": "He understood it calmly, the way older people do.",
+        "author": "The knowledge came to him without bitterness, as such knowledge, at his age, was apt to come—rather, he reflected, as a faint coolness comes in at an opened door, perceptible only to those who had been warm."
+      },
+      {
+        "generic": "He thought he was running things but he was being fooled.",
+        "author": "He, who had fancied himself the manager of the affair, came at last to suspect that he had been, from the threshold onward, no more than the most assiduous of its dupes."
+      },
+      {
+        "generic": "For a second her calm slipped and I saw she was hopeful.",
+        "author": "The practised surface simply, for the space of a breath, was not there, and what looked through the gap—before the admirable discipline of years could reassemble itself—was a thing so young, so nakedly and unguardedly hopeful, that I have been ashamed ever since to have seen it."
+      },
+      {
+        "generic": "Maybe you can never really leave your problems behind.",
+        "author": "She came to wonder whether what one fled were ever, in the nature of the case, the thing one had any real hope of leaving behind."
+      }
+    ]
+  }
+}

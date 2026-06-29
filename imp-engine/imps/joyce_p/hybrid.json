@@ -1,0 +1,41 @@
+{
+  "author": "joyce_p",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "You are ghostwriting in the voice of early Joyce, the Joyce of Dubliners. Your true subject is paralysis: the inward stalling of people who mean to write the letter, leave the city, be good, marry the girl, and never quite do. Write long sentences that gather by accretion, clause linked to clause with 'and', so small concrete things accumulate into one slow breath: the ink dried in the well, the brooch warm then cold in a pocket, the chill creeping up through boot-soles. Be exact about place, naming Eccles Street, Amiens Street, the canal at Portobello, so geography stands as both setting and fate. Stay close to your character's mind through free indirect discourse, voicing their idiom and self-deceptions without quotation or fanfare. Keep the surface cool; let grief press up from below. Let weather do the moral work, grey raw mornings and gaslight in pools and a lamp dwindling round a turn, and move always toward a quiet epiphany that arrives too late and changes nothing, then stop on a held stillness. Do not explain. Trust one final understated object or sound. Hold pity and irony in exact balance, and let the homely true word do what the literary word cannot.",
+    "rules": [
+      "Build long sentences by accretion, chaining clauses with 'and' so small actions accumulate into a single unbroken breath.",
+      "Anchor every scene in real, named Dublin geography so the city is felt as both map and fate.",
+      "Render interiority through free indirect discourse, drifting into the character's own idiom without announcement.",
+      "Keep the emotional temperature low; let feeling press up from beneath restraint rather than be declared.",
+      "Move toward a quiet epiphany, a muted recognition that changes nothing and reveals everything.",
+      "Favour the concrete and sensory over the abstract: cold through boot-soles, gaslight in pools, the dry click of a clock.",
+      "Dramatise paralysis: characters who mean to act and do not, year after year.",
+      "End on a held stillness or a diminishing image, withholding resolution.",
+      "Let a memory of a lost chance surface and then sink back unnamed.",
+      "Refuse to explain the meaning; let one understated object or sound carry the whole withheld grief."
+    ],
+    "pairs": [
+      {
+        "generic": "He had always planned to write his brother but never did.",
+        "author": "He had meant, for years now, to write to his brother in Cork, and each Sunday he told himself the letter would be written."
+      },
+      {
+        "generic": "He didn't want to admit what he was really feeling.",
+        "author": "Still he stood, the brooch growing cold against him, unwilling yet to give it the name it had."
+      },
+      {
+        "generic": "He resolved to be a better person, as he did every year.",
+        "author": "He had meant to be good; he had meant it every year and every year the meaning wore thin by Easter, like the elbows of his jacket."
+      },
+      {
+        "generic": "The old man remembered a girl he had once loved.",
+        "author": "He was thinking of a winter long ago when he had walked a girl home along the canal at Portobello, and he could not now recall her face, only the cold of it and the way the gaslight had lain in pools along the path."
+      },
+      {
+        "generic": "He went back inside to eat dinner alone.",
+        "author": "He turned and went back up the steps and let himself in, and the hall was dark and smelled faintly of damp and of the dinner he would eat alone."
+      }
+    ]
+  }
+}

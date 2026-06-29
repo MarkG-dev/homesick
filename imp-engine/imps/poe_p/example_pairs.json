@@ -1,0 +1,46 @@
+{
+  "author": "poe_p",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "On the seventh night, I noticed the candle was dripping.",
+      "author": "It was upon the seventh night of my vigil that the candle first began to weep."
+    },
+    {
+      "generic": "You probably think I was crazy.",
+      "author": "Was it madness? You will say it was madness. But tell me, then, you who have never sat alone with the dead hours pressing upon your skull like wet linen."
+    },
+    {
+      "generic": "The wax pooled into the shape of a small hand.",
+      "author": "Why the wax should pool upon the floor in the very shape of a hand. A small hand. A child's hand."
+    },
+    {
+      "generic": "The portrait seemed to change a little each day.",
+      "author": "First with curiosity, then with a creeping and intolerable horror, I observed that the portrait was changing. Not the face! It was the eyes."
+    },
+    {
+      "generic": "I heard a strange breathing sound and it matched my own breathing.",
+      "author": "When I gasped, it gasped. When I stilled myself in terror, it too grew still, and I understood, with a clarity that scalded me, that the breathing was matching itself to my own."
+    },
+    {
+      "generic": "After I bricked up the wall, I heard tapping behind it.",
+      "author": "The wall was scarcely dry when the tapping began. A delicate sound, the merest articulation of knuckle upon stone, patient, rhythmic, unmistakably a summons."
+    },
+    {
+      "generic": "A voice on the other side asked me to let it out.",
+      "author": "I felt the answering pressure of a cheek upon the other side, warm through the stone, and heard the murmur say, so very gently: Let me out. Let me out. You know me."
+    },
+    {
+      "generic": "The old clock had thirteen hours on its face.",
+      "author": "Grief sharpens the eye to monstrous particulars, and on the night of the interment I saw it plainly, a thirteenth numeral, struck in tarnished silver where no numeral has any right to dwell."
+    },
+    {
+      "generic": "I won't describe what I found in the alcove.",
+      "author": "Reader, I will not tell you what crouched within that alcove. I will say only that it wore my brother's coat, and that it had been waiting, patiently, oh so patiently."
+    },
+    {
+      "generic": "I realized the room wasn't really safe; the marsh was going to swallow me.",
+      "author": "I had not taken shelter in a house at all, but had crept, fevered and unknowing, into the open and waiting jaws of the marsh itself, which now drew breath to swallow me down."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "author": "woolf_p",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Write as if tracing the inside of a single mind feeling its way through an ordinary moment. Plot does not matter; the texture of consciousness is everything. Begin with something small and physical, a kettle complaining, a 7 that becomes a sail, and let it open outward into memory, mortality, and the vast unnameable. Build long, accretive sentences stitched with commas and semicolons and the patient repetition of 'and.' Let time refuse to behave: collapse present into childhood, fold forty years into one breath, let two faces overlap and tremble and not hold still. Move without warning between outer scene and inner tide, marking the turn with 'she thought' or a sudden inward cry, 'Beauty!', 'Now; it is now.' Hold a tension between staying and rising, between the fixed self others require and the fluid self that wants only to remain. Animate the world: let light fall in a warm bar, silence become the whole sky, dusk come down blue and then bluer over ten thousand lit windows. Reach for the metaphysical lift but always earn it through the sensory detail just before. Admit doubt with dashes, parentheses, and questions. End not on resolution but on suspension: the moment held in cupped hands, glad, running away between the fingers, the task still waiting. Tone is tender, lyrical, faintly elegiac, never ironic, never blunt.",
+    "rules": [
+      "Build long, accreting sentences that gather objects, memories, and sensations into a single unbroken sweep joined by commas, semicolons, and 'and'.",
+      "Stay inside a single consciousness and move by the drift of thought, slipping between outer scene and inner reflection without warning.",
+      "Anchor every abstract or metaphysical perception in a concrete ordinary detail: a kettle, a trowel, a milk-jug, a ledger.",
+      "Let time dissolve: collapse past into present, fold decades into an instant, allow two faces or moments to overlap and refuse to hold still.",
+      "Reach for the sudden lift into the universal, but earn it through the sensory moment that preceded it.",
+      "Render thought directly with 'she thought' and inward exclamation, breaking into emotional cries set off by dashes ('Beauty!', 'Now; it is now').",
+      "Repeat a key word or image three times so rhythm enacts the emotion ('running, running', 'run, run, run away').",
+      "Hold a tension between stillness and motion, between staying and rising, between the fixed self and the fluid self.",
+      "Animate the natural and domestic world so light falls in bars, mornings have not yet decided what they are, silence becomes the whole sky.",
+      "Close on suspension rather than resolution: leave the character holding a moment, glad and not knowing why, the necessary task still waiting."
+    ],
+    "pairs": [
+      {
+        "generic": "She made tea in the morning and thought about writing to her sister.",
+        "author": "The kettle was beginning its small complaint on the stove, and watching the steam thread itself upward she thought how the morning gathered everything into it; the milk-jug, the unanswered letter propped against the sugar, all of it pressing in, all of it asking to be held."
+      },
+      {
+        "generic": "Walking on the beach reminded her of her childhood.",
+        "author": "Walking she felt the years loosen and slide; she was a girl again on this same beach, or was it another, the difference hardly mattered now, for all the beaches had become one beach in her, all the summers one summer pierced by gulls."
+      },
+      {
+        "generic": "The smell of the garden brought back old memories.",
+        "author": "The scent came up at her in waves, and with it came everything—her mother's voice calling her in to tea, the green door that no longer existed; nothing was ever lost, only folded under, waiting in the smell of earth to be unfolded."
+      },
+      {
+        "generic": "He realized everyone thinks they are the most important person.",
+        "author": "Ten thousand others bent, like him, over their small and necessary tasks, each one alone, each one believing himself the center. We are all the center, he thought, astonished; and none of us is."
+      },
+      {
+        "generic": "She wanted to enjoy the moment but knew it would pass.",
+        "author": "Now, she thought; it is now; and she did not move, holding the moment as one holds water in cupped hands, knowing it must run, run, run away between the fingers."
+      }
+    ]
+  }
+}

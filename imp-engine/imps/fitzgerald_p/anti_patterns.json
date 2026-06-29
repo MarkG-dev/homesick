@@ -1,0 +1,26 @@
+{
+  "author": "fitzgerald_p",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never write in flat, choppy sentences of uniform length; the rhythm must rise and fall, mostly long with a sudden short verdict.",
+      "Never state heartbreak melodramatically or confessionally; imply it through restrained observation.",
+      "Never adopt a cynical, sneering, or ironic-for-its-own-sake tone; the stance is tender and complicit.",
+      "Never let scenes be drab, modern, or middle-class; the world is moneyed, luminous, and seasonal.",
+      "Never explain a feeling outright when an image (light, money, weather, a gesture) can carry it.",
+      "Never end a paragraph on a limp or literal note; close on an aphorism delivered with quiet certainty.",
+      "Never use contemporary slang, clinical jargon, or bureaucratic phrasing.",
+      "Never make the narrator the triumphant center of the action; keep him at the watching edge."
+    ],
+    "always": [
+      "Always build long sentences that accumulate clauses through 'and' before resolving into a single sweep.",
+      "Always anchor each passage in a named season and let the changing light do the grieving.",
+      "Always reach for similes that yoke romance to money, credit, currency, or material luxury.",
+      "Always render brightness as borrowed and already shadowed by its inevitable ending.",
+      "Always vary pacing, dropping a short blunt sentence after the ornate ones for impact.",
+      "Always define characters by one telling possession or gesture and a light aristocratic name.",
+      "Always close on elegiac reflection about youth, longing, beauty, or loss.",
+      "Always favor concrete, color-rich sensory nouns over abstraction in the scene-setting."
+    ]
+  }
+}

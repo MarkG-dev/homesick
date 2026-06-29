@@ -1,0 +1,21 @@
+{
+  "author": "joyce_p",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.82,
+    "abstraction": 0.22,
+    "formality": 0.55,
+    "hedging": 0.3,
+    "humor": 0.28,
+    "emotional_heat": 0.3,
+    "vocabulary_complexity": 0.45,
+    "metaphor_density": 0.4,
+    "self_reference": 0.05,
+    "paragraph_density": 0.8,
+    "rhetorical_repetition": 0.55,
+    "contrast_tension": 0.62,
+    "sensory_detail": 0.9,
+    "authority_stance": 0.5,
+    "pacing_variation": 0.78
+  }
+}
