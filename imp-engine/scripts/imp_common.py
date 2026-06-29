@@ -68,7 +68,14 @@ AUTHORS = [
 
 # Authors whose corpus is real published text (vs. the synthetic-pastiche seed cohort).
 REAL_CORPUS_AUTHORS = ["poe", "james", "woolf", "joyce", "fitzgerald"]
+
+# Controlled A/B: the SAME five authors, but built from synthetic pastiche instead of real
+# text, with the same engine — isolates "corpus source" as the single variable. The display
+# name is identical (the "_p" suffix only separates the on-disk namespace).
+PASTICHE_TWINS = ["poe_p", "james_p", "woolf_p", "joyce_p", "fitzgerald_p"]
 AUTHOR_NAME = dict(AUTHORS)
+for _p in PASTICHE_TWINS:               # pastiche twins share their real author's display name
+    AUTHOR_NAME[_p] = AUTHOR_NAME[_p[:-2]]
 
 # Structure id -> human label. The id is the on-disk filename stem.
 STRUCTURES = {
