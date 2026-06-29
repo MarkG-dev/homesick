@@ -1,0 +1,20 @@
+{
+  "slug": "voice-filter",
+  "name": "Voice Filter",
+  "tagline": "Your writing → your voice, on any draft.",
+  "description": "Upload your writing and it builds a model of your voice — a measured stylistic fingerprint plus eight prompt formats — then rewrites any bland draft to sound like you, with a tone/intensity slider and an inline diff. Built on the Imp taste-transfer engine (800+ scored rewrites of research behind it).",
+  "status": "mvp",
+  "tags": ["writing", "ai", "voice", "style-transfer", "flask"],
+  "screenshot": "voice_filter_screenshot.png",
+  "tech": ["python", "flask", "anthropic"],
+  "source_repo": "markg-dev/homesick",
+  "source_path": "imp-engine/app",
+  "run": "pip install flask anthropic && export ANTHROPIC_API_KEY=sk-... && python app/server.py",
+  "local_url": "http://localhost:5001",
+  "highlights": [
+    "Multi-file upload + paste to build a voice",
+    "8 prompt formats (voice memo, persona, anti-patterns, statistical fingerprint, …)",
+    "Tone slider — subtle → full voice (the usability lever from the research)",
+    "Side-by-side rewrite with changed words highlighted"
+  ]
+}
