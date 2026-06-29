@@ -32,6 +32,8 @@ from imp_common import call_claude, load_prompt, extract_json, GEN_MODEL, PROD_M
 from ingest_corpus import normalize, strip_boilerplate, split_passages  # noqa: E402
 from stats_fingerprint import compute_fingerprint  # noqa: E402
 from imp_render import render_payload  # noqa: E402
+from voice_score import slop_index, _BUZZ, _NEG  # noqa: E402
+import re as _re  # noqa: E402
 
 DATA = Path(__file__).resolve().parent / "data" / "voices"
 DATA.mkdir(parents=True, exist_ok=True)
@@ -156,6 +158,54 @@ def rewrite(meta: dict, structure: str, draft: str, tone: int, content_type: str
 @app.get("/")
 def index():
     return send_from_directory(STATIC, "index.html")
+
+
+@app.get("/slop")
+def slop_page():
+    return send_from_directory(STATIC, "slop.html")
+
+
+def _slop_analyse(text: str) -> dict:
+    words = max(1, len(text.split()))
+    per1k = slop_index(text)
+    score = min(100, round(per1k * 4))          # ~25 markers/1k -> 100 (generic AI baseline ~21)
+    # collect flagged spans (buzzword/cliche + negation-antithesis), de-duplicated by position
+    spans = []
+    for m in _BUZZ.finditer(text):
+        spans.append((m.start(), m.end(), "buzz"))
+    for pat in _NEG:
+        for m in _re.finditer(pat, text, _re.I):
+            spans.append((m.start(), m.end(), "neg"))
+    spans.sort()
+    merged, last = [], -1
+    for s, e, k in spans:
+        if s >= last:
+            merged.append((s, e, k)); last = e
+    # build highlighted html
+    out, i = [], 0
+    for s, e, k in merged:
+        out.append(_esc(text[i:s])); out.append(f'<mark class="{k}">{_esc(text[s:e])}</mark>'); i = e
+    out.append(_esc(text[i:]))
+    counts = {"cliche/buzzword": sum(1 for _ in _BUZZ.finditer(text)),
+              "negation-antithesis": sum(len(_re.findall(p, text, _re.I)) for p in _NEG)}
+    fp = compute_fingerprint(text)
+    level = ("Heavy AI slop" if score >= 60 else "Some AI tells" if score >= 25 else "Clean")
+    return {
+        "words": words, "markers_per_1k": per1k, "score": score, "level": level,
+        "counts": counts, "highlighted_html": "".join(out),
+        "punctuation": {"em_dashes_per_1k": fp["em_dashes_per_1k"],
+                        "avg_sentence_length": fp["avg_sentence_length"],
+                        "exclamations_per_1k": fp["exclamations_per_1k"]},
+    }
+
+
+@app.post("/api/slop")
+def api_slop():
+    d = request.get_json(force=True)
+    text = (d.get("text") or "").strip()
+    if len(text.split()) < 5:
+        return jsonify({"error": "paste a bit more text"}), 400
+    return jsonify(_slop_analyse(text))
 
 
 @app.get("/static/<path:p>")
