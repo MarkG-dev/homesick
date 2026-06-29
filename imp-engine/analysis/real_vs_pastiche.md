@@ -1,3 +1,9 @@
+> **⚠️ Superseded on the causal claim by [`controlled_corpus_test.md`](controlled_corpus_test.md).**
+> This doc compares real-5 vs the *pastiche-10* — confounded by author set + engine. The clean
+> A/B (same 5 authors, same engine) finds the accuracy gain is **null**; real corpus's real
+> benefit is **usability/anti-caricature (+0.53)**, not accuracy. Read the controlled test for the
+> corrected conclusion.
+
 # Real corpus vs. pastiche — does grounding in actual text improve the Imps?
 
 Two tournaments:
