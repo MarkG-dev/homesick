@@ -13,3 +13,5 @@ venv/
 
 # run driver log (transient)
 scripts/run_full.log
+app/data
+app/server.log

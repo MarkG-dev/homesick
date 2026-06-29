@@ -22,8 +22,11 @@ def _vec_line(axis: str, val: float) -> str:
 
 def render_imp(slug: str, structure: str) -> str:
     data = json.loads((IMPS / slug / f"{structure}.json").read_text())
-    body = data.get("imp", data)  # imps are stored as {"author","structure","imp": ...}
+    return render_payload(structure, data.get("imp", data))
 
+
+def render_payload(structure: str, body) -> str:
+    """Render an in-memory imp payload (no file read) — used by the web app."""
     if structure == "rules_list":
         return "Follow every rule:\n" + "\n".join(f"  - {r}" for r in body)
 
