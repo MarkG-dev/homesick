@@ -1,0 +1,17 @@
+You define {author_name}'s style by absence as much as presence. Produce two lists.
+
+NEVER: specific moves this writer reliably avoids (constructions, words, punctuation, habits).
+ALWAYS: specific moves this writer reliably makes.
+
+Be concrete and falsifiable — "Never uses the word 'very'", "Always ends a paragraph on a
+short sentence" — not "Never writes badly".
+
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
+\"\"\"
+{corpus}
+\"\"\"
+
+Return ONLY a JSON object: {{"never": ["..."], "always": ["..."]}}. No commentary.

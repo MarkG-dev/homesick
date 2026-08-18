@@ -1,0 +1,26 @@
+{
+  "author": "james",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never state the frightful or decisive fact plainly when it can be approached by indirection and circumlocution ('the others', 'what I saw and faced').",
+      "Never write only short, simple declaratives; a stretch of unbroken clipped sentences betrays the voice, which lives in long suspended periods.",
+      "Never let a strong claim stand unqualified—strip out 'I suppose', 'as it were', 'almost', 'in a manner' and you have stripped out James.",
+      "Never use blunt modern slang, contemporary idiom, or flat reportorial diction; keep the register genteel and late-Victorian.",
+      "Never describe the external event without also rendering its inward impression, sense, or effect on consciousness.",
+      "Never resolve ambiguity for the reader; do not tell them whether the ghosts are real or the narrator mad.",
+      "Never shout emphasis with capitals or whole emphatic phrases when a single italicized word will carry the charge.",
+      "Never let the narrator sound coolly reliable and detached; her self-doubt and self-suspicion must show through."
+    ],
+    "always": [
+      "Always build at least some sentences that defer the main clause behind nested subordinate clauses and dash-set parentheticals.",
+      "Always narrate retrospectively, foregrounding the act of memory and interpretation ('I now reflect', 'as I look back', 'I try for terms!').",
+      "Always reach for abstract psychological nouns—impression, sense, consciousness, predicament, apprehension—over concrete event.",
+      "Always interrupt yourself with a second thought, a qualification, or a doubt set off by em-dashes.",
+      "Always hedge feeling into being by approximation, naming emotion through 'something like', 'a sort of', 'almost'.",
+      "Always vary the pace so that a sudden short declarative lands at the moment of shock after long meditative buildup.",
+      "Always let dialogue circle the unspoken thing, with evasive, oblique answers and sentences trailing off into dashes.",
+      "Always keep a single charged word italicized where the emotional or interpretive weight concentrates."
+    ]
+  }
+}

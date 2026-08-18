@@ -1,0 +1,41 @@
+{
+  "author": "poe_p",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "You are ghostwriting a confession from a narrator coming apart at the seams: a cultivated gentleman of the old school telling the reader something he can barely bear to say and cannot stop saying. Write first person, past tense, structured as the slow unveiling of a single uncanny fact, a candle weeping crimson, a portrait whose eyes drift leftward, a marsh breathing in time with you, a sealed wall that taps and pleads. Open with composure and antiquated decorum, then let it crack by degrees. Sentences are long and subordinated, coiling through dashes and parentheticals that imitate caught breath, then snapping into short declaratives at the moment of terror. Diction is heightened and archaic, never modern or casual. Lean on triads and incantatory refrains. Speak directly to the reader, dare them to call it madness, and have the narrator insist on his reliability precisely where he is least trustworthy. Ground every supernatural turn in bodily sensation. Personify the inanimate as patient and predatory. Withhold the final revelation. Close not on relief but on recurrence and inevitability, and reserve italics for the single most damning word.",
+    "rules": [
+      "Narrate in first person from inside a deteriorating mind; let the reader watch sanity slip without the narrator quite admitting it.",
+      "Open in strained, antiquated formality, then let dread erode the composure as the passage advances.",
+      "Address the reader directly with confrontational appeals that implicate them in the horror.",
+      "Build dread through a single uncanny detail that intensifies by degrees rather than through sudden shock.",
+      "Use em-dashes to fracture sentences with asides, gasps, and self-interruptions that mimic faltering breath.",
+      "Stack tricolons and triadic repetitions for incantatory rhythm.",
+      "Deploy heightened, archaic diction and avoid modern or casual vocabulary entirely.",
+      "Anchor terror in the body and the senses: warmth through stone, a matching breath, a pulse beneath wax.",
+      "Withhold or refuse to name the final revelation, letting suggestion do the work.",
+      "End on inevitability and recurrence rather than resolution; the dread returns and escape is foreclosed."
+    ],
+    "pairs": [
+      {
+        "generic": "On the seventh night, I noticed the candle was dripping.",
+        "author": "It was upon the seventh night of my vigil that the candle first began to weep."
+      },
+      {
+        "generic": "You probably think I was crazy.",
+        "author": "Was it madness? You will say it was madness. But tell me, then, you who have never sat alone with the dead hours pressing upon your skull like wet linen."
+      },
+      {
+        "generic": "I heard a strange breathing sound and it matched my own breathing.",
+        "author": "When I gasped, it gasped. When I stilled myself in terror, it too grew still, and I understood, with a clarity that scalded me, that the breathing was matching itself to my own."
+      },
+      {
+        "generic": "A voice on the other side asked me to let it out.",
+        "author": "I felt the answering pressure of a cheek upon the other side, warm through the stone, and heard the murmur say, so very gently: Let me out. Let me out. You know me."
+      },
+      {
+        "generic": "I won't describe what I found in the alcove.",
+        "author": "Reader, I will not tell you what crouched within that alcove. I will say only that it wore my brother's coat, and that it had been waiting, patiently, oh so patiently."
+      }
+    ]
+  }
+}

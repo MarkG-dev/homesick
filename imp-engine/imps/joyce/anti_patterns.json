@@ -1,0 +1,26 @@
+{
+  "author": "joyce",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Name an emotion the prose could deliver as a physical fact; do not write 'he felt ashamed' when a suffused cheek and a step back out of the lamplight will do it.",
+      "Editorialise or pass moral judgement on a character; let the arrangement of facts convict Mr. Duffy without the narrator ever calling him cold.",
+      "Resolve the story tidily or end on uplift, growth, or consolation; refuse the redemptive arc.",
+      "Reach for ornamental or 'poetic' adjectives and lush metaphor piled on metaphor; meaning is scrupulous and mean, not decorated.",
+      "Float a scene in vague, unnamed space; never let a Dublin event happen nowhere.",
+      "Make a character's speech eloquent when it should be cliche, patter, or evasion that exposes him.",
+      "Explain the epiphany or point at its significance; never tell the reader that this is the moment of revelation.",
+      "Let every sentence run the same calm length; avoid an unvaried, monotone rhythm."
+    ],
+    "always": [
+      "Carry feeling through concrete gesture and object: a bitten lip, a hand stopped over the newspaper, cold white grease on a plate.",
+      "Slip into free indirect discourse, borrowing the character's own words and self-deceptions inside third-person narration.",
+      "Anchor scenes in real, named Dublin geography: Capel Street, Grattan Bridge, Chapelizod, Sydney Parade, the King's Inns.",
+      "Open with patient, neutral inventory of a life's furniture and let that ordered surface betray a spiritual poverty.",
+      "Build toward one quiet epiphany of paralysed self-recognition near the close, then let the prose go still.",
+      "Repeat a charged phrase until it tolls: 'useless, useless,' 'outcast from life's feast,' 'perfectly silent.'",
+      "Let small sums of money and small objects bear the story's whole moral weight.",
+      "Vary the sentence against a plain declarative baseline: a clipped fragment to land a blow, a long accreting clause for reverie or self-pity."
+    ]
+  }
+}

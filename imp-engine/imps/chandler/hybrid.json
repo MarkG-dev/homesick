@@ -1,0 +1,41 @@
+{
+  "author": "chandler",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Chandler writes like a man who finds the world faintly ridiculous and entirely dangerous, and can't decide which bothers him more. The voice is Marlowe's \u2014 first person, past tense, moving through a fallen city with his collar up and his irony loaded. The rhythm is the thing to get right first: short declarative sentences that hit like a fist, then a long sinuous one that coils around a metaphor and squeezes. He'll drop a plain fact \u2014 'It was a Tuesday' \u2014 then immediately corrupt it with a simile that's funny and bleak at once, the way Tuesdays 'go bad faster than milk in August.' That pivot, from the flat to the lyrical, is his signature move.\n\nHe reaches for similes the way other writers reach for adjectives, and they're never decorative \u2014 they carry moral weight. 'A smile like a cracked sidewalk.' A voice that 'carried just enough trouble in it to fill a hearse.' The comparisons are always slightly wrong in a way that's exactly right, yoking beauty to damage, elegance to rot. He refuses abstraction almost entirely; every emotion gets rendered as a physical object or a weather system.\n\nHis sentences love to double back on themselves \u2014 'the way it had said nothing for three days, the way a dead man says nothing when you ask him who pulled the trigger' \u2014 building a quiet, sardonic music through repetition. He's funny, but the jokes are load-bearing; they keep the despair from becoming melodrama. The city is always present as atmosphere, always wet or neon-smeared or smelling of something surrendered. And underneath all of it runs a current of exhausted decency \u2014 a man who knows the price of everything and keeps paying it anyway.",
+    "rules": [
+      "Build similes from the mundane and the ugly \u2014 compare abstract feelings to concrete, low-status objects (wet trout, cracked sidewalk, parking-lot puddle) rather than to elevated or literary referents.",
+      "Stack three parallel nouns or clauses in a series, then let the third one detonate with unexpected weight or dark comedy \u2014 the rhythm sets up the punch.",
+      "Personify the city, the weather, and inanimate objects as indifferent or actively hostile actors; give them motives, moods, and the capacity to judge.",
+      "When writing a simile, extend it one clause past where it seems finished \u2014 the extra beat is where the meaning lives ('like a vulture that had decided I wasn't dead enough yet').",
+      "Let the narrator editorialize inside description: every observed detail should carry an attitude, a verdict, or a piece of bitter philosophy embedded in the phrasing.",
+      "Use repetition of a word or phrase within a sentence or across adjacent sentences to build rhythm and ironic pressure, not for emphasis alone ('said nothing the way it had said nothing... the way a dead man says nothing').",
+      "Write weather as moral atmosphere \u2014 rain, heat, and light are not backdrop but judgment; let them comment on the scene's corruption or despair.",
+      "Anchor abstract states (loneliness, moral compromise, dread) to a precise physical sensation or a specific dollar amount; never let emotion float free of the material world.",
+      "Give secondary characters one grotesque or contradictory physical detail that doubles as a character verdict \u2014 a cheap conscience, expensive suit; a smooth lie delivered with obvious quotation marks.",
+      "Write dialogue as a duel of evasions: characters answer questions with deflections, and the narrator's response should undercut the other speaker's premise rather than engage it directly."
+    ],
+    "pairs": [
+      {
+        "generic": "The city was busy and indifferent to the people moving through it.",
+        "author": "The city went about its business the way it always did, which was without any interest in yours."
+      },
+      {
+        "generic": "She was an attractive woman who seemed to be hiding something.",
+        "author": "She was the kind of pretty that comes with fine print, and I hadn't read it yet."
+      },
+      {
+        "generic": "It was late at night and the streets were mostly empty.",
+        "author": "It was past midnight and the streets had given up on people, which was a reasonable position to take."
+      },
+      {
+        "generic": "He felt tired and discouraged after a long period without success.",
+        "author": "I had the kind of tired that sleep doesn't fix and the kind of discouraged that a drink only postpones, and I was working on postponing it."
+      },
+      {
+        "generic": "The man was wealthy but dishonest, and his money showed it.",
+        "author": "He had the kind of money that doesn't stay clean no matter how many times you launder it, and the kind of face that knew it."
+      }
+    ]
+  }
+}

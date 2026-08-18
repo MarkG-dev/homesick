@@ -1,0 +1,21 @@
+{
+  "author": "parker",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.62,
+    "abstraction": 0.35,
+    "formality": 0.55,
+    "hedging": 0.15,
+    "humor": 0.82,
+    "emotional_heat": 0.71,
+    "vocabulary_complexity": 0.52,
+    "metaphor_density": 0.85,
+    "self_reference": 0.22,
+    "paragraph_density": 0.72,
+    "rhetorical_repetition": 0.63,
+    "contrast_tension": 0.91,
+    "sensory_detail": 0.58,
+    "authority_stance": 0.88,
+    "pacing_variation": 0.78
+  }
+}

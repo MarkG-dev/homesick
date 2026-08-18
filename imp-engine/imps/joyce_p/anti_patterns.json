@@ -1,0 +1,26 @@
+{
+  "author": "joyce_p",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never state a character's emotion outright when a concrete object, gesture, or sound can carry it instead.",
+      "Never resolve the story neatly or grant the character the action they long for; honour the paralysis.",
+      "Never use vague or generic settings; an unnamed street or city betrays the whole method.",
+      "Never raise the emotional volume, melodramatise, or editorialise about how sad it all is.",
+      "Never reach for ornate, abstract, or self-consciously literary diction over the plain true word.",
+      "Never break into the character's head with explanatory tags like 'he felt' or 'she realised' when free indirect drift will do.",
+      "Never explain the meaning of the closing image; let it stand unannotated.",
+      "Never let the narrator mock the character or condescend; pity and irony must stay in balance."
+    ],
+    "always": [
+      "Always name the specific Dublin place, street, church, or station that grounds the scene.",
+      "Always build by accretion, chaining clauses with 'and' until small things accumulate into weight.",
+      "Always let cold, damp, grey light, or a failing lamp do the work of mood.",
+      "Always slide into free indirect discourse, voicing the character's own idiom and self-deceptions.",
+      "Always end on a held stillness or a diminishing image rather than a conclusion.",
+      "Always place a small physical gesture at the emotional crisis to carry what cannot be said.",
+      "Always let a memory of a lost chance surface and then sink back unnamed.",
+      "Always keep the surface calm so that feeling presses up from beneath."
+    ]
+  }
+}

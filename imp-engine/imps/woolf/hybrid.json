@@ -1,0 +1,41 @@
+{
+  "author": "woolf",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Woolf writes from inside a moving mind. Her basic unit is not the sentence but the suspended clause: thoughts accrete across semicolons, qualify themselves, double back on a dash, and only resolve when the pressure of accumulated perception forces a release. Watch how she works in Mrs Dalloway. A character is always doing something small and ordinary -- buying flowers, waiting to cross, laying a green dress on a bed -- and the prose threads consciousness through the gesture so that reflection and action share one breath: 'she thought, stepping on to the pavement.' Perception arrives in layers. She sees a thing, reaches for a simile, then a second and a third, each escalating the mood ('like the flap of a wave; the kiss of a wave; chill and sharp and yet... solemn'), until the image becomes a feeling. Time is porous: the present summons Bourton, eighteen years old, the burst-open French windows, and both moments live at once. Sound organises everything -- Big Ben striking, the leaden circles dissolving in the air, an old woman's song -- recurring as refrains that slip the narration from one mind to the next without announcement. Her diction stays plain and concrete (hinges, cauliflowers, pocketknife); the syntax, not the vocabulary, carries the metaphysics. She lets sudden lyric exclamation break the surface -- 'What a lark! What a plunge!' -- then sinks back into observation. She is tender toward the ordinary and faintly ironic toward self-importance. Keep the parenthetical asides, the self-correction, the catalogues of saucepans and lemons, the quiet undercut endings. The voice is the flow itself.",
+    "rules": [
+      "Chain clauses with semicolons rather than ending sentences; let a thought accrue qualification after qualification until it nearly bursts, then release it on a dash or a short declarative.",
+      "Render thought as it happens, mid-action: anchor an abstraction to a body in motion ('she thought, waiting to cross'), so reflection and gesture occur in the same breath.",
+      "Interrupt yourself with parentheses that carry the secret aside or stage direction of the mind: '(The leaden circles dissolved in the air.)'.",
+      "Use the em-dash to swerve, to second-guess, to catch a memory mid-flight, posing a remembered phrase then doubting it ('was that it?').",
+      "Build perception in layers: see the thing, then the simile, then the simile's mood, then what it makes the watcher feel, all in one sustained clause.",
+      "Pile similes in threes, escalating: 'like the flap of a wave; the kiss of a wave; chill and sharp and yet...'.",
+      "Glide between minds across a crowded scene without announcement; let one consciousness yield to another as a sound, a car, a clock passes between them.",
+      "Catalogue the ordinary world in long, comma-strung inventories ('plates, saucepans, cullenders, frying-pans, chicken in aspic') so abundance itself becomes the feeling.",
+      "Keep the diction plain and concrete in its nouns but let the syntax carry the metaphysics; never inflate the vocabulary to sound grand.",
+      "End movements quietly, on an undercut or a small concrete image rather than a flourish ('still the earth seemed green and flowery')."
+    ],
+    "pairs": [
+      {
+        "generic": "She decided to buy the flowers herself.",
+        "author": "Mrs. Dalloway said she would buy the flowers herself; for Lucy had her work cut out for her; the doors would be taken off their hinges; and then, thought Clarissa, what a morning -- fresh as if issued to children on a beach."
+      },
+      {
+        "generic": "It was a fresh, calm morning and the air felt nice.",
+        "author": "How fresh, how calm, stiller than this of course, the air was in the early morning; like the flap of a wave; the kiss of a wave; chill and sharp and yet (for a girl of eighteen as she then was) solemn."
+      },
+      {
+        "generic": "The clock struck twelve.",
+        "author": "It was precisely twelve o'clock; twelve by Big Ben; whose stroke was wafted over the northern part of London; blent with that of other clocks, mixed in a thin ethereal way with the clouds and wisps of smoke, and died up there among the seagulls. The leaden circles dissolved in the air."
+      },
+      {
+        "generic": "She often did things to impress other people, which was foolish.",
+        "author": "Half the time she did things not simply, not for themselves; but to make people think this or that; perfect idiocy she knew (and now the policeman held up his hand) for no one was ever for a second taken in."
+      },
+      {
+        "generic": "In conclusion, life is full of small, meaningful moments.",
+        "author": "It was this, then -- not the great passages, not the arrivals and catastrophes, but the cup set down, the squeak of a hinge, the light moving across the floor -- that constituted, if anything did, a life."
+      }
+    ]
+  }
+}

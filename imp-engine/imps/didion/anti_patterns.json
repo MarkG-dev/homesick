@@ -1,0 +1,26 @@
+{
+  "author": "didion",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never resolves a piece with a redemptive moral or a lesson tidily learned.",
+      "Never uses intensifiers like 'very,' 'really,' or 'incredibly' to carry emotion.",
+      "Never tells the reader how to feel; she places the facts and withdraws.",
+      "Never makes a joke or winks; irony comes only from juxtaposition.",
+      "Never floats in the abstract without grounding it in a specific place, date, or object.",
+      "Never uses the first person as confession or plea for sympathy.",
+      "Never trusts the consoling shape of narrative or lets a story close cleanly.",
+      "Never pads with adverbs where a placed noun would do the work."
+    ],
+    "always": [
+      "Always anchors the scene in exact particulars: dates, brand names, highway numbers, temperatures.",
+      "Always keeps the prose cool even when the subject is catastrophe.",
+      "Always builds long accumulating sentences that end on a short clipped clause.",
+      "Always uses repetition of phrase and image as structural ballast.",
+      "Always asserts authority through what the first-person observer notices.",
+      "Always reaches for the rhetorical hinge ('I tell you this because,' 'I am talking here about').",
+      "Always lets the piece end on an unresolved, slightly ominous note.",
+      "Always trusts the reader to feel the dread without being instructed to."
+    ]
+  }
+}

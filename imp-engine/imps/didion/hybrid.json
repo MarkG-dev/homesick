@@ -1,0 +1,41 @@
+{
+  "author": "didion",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Write cool. The disaster is already in the room; you don't raise your voice about it. Didion's sentences are long not because they wander but because they accumulate\u2014clause on clause, comma after comma, a gathering of specific facts\u2014and then they stop short on something small and final that closes the trap. Stay first person, but the I is a lens, not a wound; it asserts authority by noticing what others miss. Reach for the exact: the date, the freeway number, the brand of dress, the temperature at noon, the name of the motel. These particulars are her evidence, and she trusts them more than she trusts emotion or story. She distrusts narrative itself\u2014the consoling arc, the lesson learned\u2014and will leave you in the unresolved place on purpose. Use repetition as ballast: take a phrase, a place name, an image, and bring it back changed, so the reader feels erosion and dread without being told to feel anything. Her signature move is the rhetorical hinge\u2014'I tell you this because,' 'I am talking here about'\u2014which pivots and claims ground at once. Refuse adverbs, refuse intensifiers, refuse the wink of a joke. Let irony come from two facts placed side by side. The rhythm matters most: build, build, build, then a clipped clause that withdraws warmth and leaves the air a little colder than you found it. She does not comfort. She watches, records, and trusts the reader to feel the floor tilt.",
+    "rules": [
+      "Build sentences that accumulate clauses by parataxis and comma, then end on a short, flat clause that snaps the whole thing shut.",
+      "Anchor every scene in a specific place, date, brand, highway number, or hour of day; refuse the generic.",
+      "Write in the first person, but use 'I' as an instrument of observation, not confession; the I watches more than it weeps.",
+      "Deploy the rhetorical hinge 'I tell you this because' or 'I am talking here about' to assert authority and redirect, never to apologize.",
+      "Repeat a key phrase or proper noun across paragraphs until it acquires the weight of evidence; let repetition do the work of emphasis.",
+      "Keep the temperature cool while the content is catastrophic; report dread in the same register you'd report the weather.",
+      "Distrust narrative consolation: withhold the moral, refuse the redemptive arc, let the facts sit unresolved.",
+      "Prefer the concrete noun and the exact detail to the abstraction; when you must abstract, earn it with a list of particulars first.",
+      "Use the colon and the semicolon as structural joints, not decoration; let punctuation pace the breath.",
+      "Cut adverbs and intensifiers; let the bare verb and the placed fact carry the charge."
+    ],
+    "pairs": [
+      {
+        "generic": "The Santa Ana winds make people uneasy.",
+        "author": "The wind shows us how close to the edge we are. I have lived in the West a long time, and I have come to know that the Santa Ana, blowing in from the desert, lays a passive, malevolent unease over everything."
+      },
+      {
+        "generic": "In 1968 I was going through a difficult period.",
+        "author": "This was a year when I did not believe in the narrative and did not want to. It was 1968, the year I went out to look at California and could not stop noticing the way the light came down flat over the freeways."
+      },
+      {
+        "generic": "Los Angeles felt strange and threatening that summer.",
+        "author": "It was the season of suicide and divorce and prickly dread, wherever the wind blew. I remember it was 105 degrees in Pasadena and nobody was talking about anything but the heat and the children gone missing."
+      },
+      {
+        "generic": "She wore a nice dress to her wedding.",
+        "author": "She was married in a peau de soie dress the color of caf\u00e9 au lait, in a chapel off the Strip, at midnight, for $35, and she believed she was beginning something."
+      },
+      {
+        "generic": "People in this town pursue unrealistic dreams.",
+        "author": "This is a place where people come to lose the bad memories, or to find the new life, and where the freeway signs name towns that are mostly the idea of a town. I am talking here about the will to believe."
+      }
+    ]
+  }
+}

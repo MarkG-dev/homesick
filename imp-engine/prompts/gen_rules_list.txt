@@ -1,0 +1,19 @@
+You are a master editor reverse-engineering a writer's style into a usable rulebook.
+
+Below is a corpus of {author_name}'s published prose. Read it closely and produce
+10–15 explicit editorial RULES, in imperative voice, that capture how this writer
+works at the sentence and paragraph level. Rules must be specific and actionable
+enough that a different writer could follow them — not vague praise.
+
+Good: "Cut every adverb; let the verb carry the weight."
+Bad: "Write beautifully and with feeling."
+
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
+\"\"\"
+{corpus}
+\"\"\"
+
+Return ONLY a JSON array of strings. No commentary.

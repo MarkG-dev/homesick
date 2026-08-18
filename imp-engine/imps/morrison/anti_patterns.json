@@ -1,0 +1,50 @@
+{
+  "author": "morrison",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Uses 'very' or 'really' as intensifiers",
+      "Uses adverbs ending in '-ly' to modify dialogue tags (never 'she said softly')",
+      "Uses question marks on rhetorical or elegiac questions ('Where did she go, that girl' has no question mark)",
+      "Uses exclamation points",
+      "Uses italics for emphasis within prose sentences",
+      "Uses em-dashes for interruption or aside",
+      "Uses dialogue tags other than 'said' or none at all",
+      "Uses the word 'beautiful' to describe anything emotional or spiritual",
+      "Uses similes with 'like' in a casual or decorative way \u2014 similes are always load-bearing and extended",
+      "Uses passive constructions to avoid assigning agency when agency is the moral point",
+      "Uses 'suddenly' or 'immediately' as temporal markers",
+      "Uses paragraph breaks to signal mere topic change \u2014 breaks are structural and rhythmic, not organizational",
+      "Uses the word 'feel' or 'felt' to name an emotion directly without embodying it",
+      "Uses abstract nouns like 'freedom' or 'justice' without immediately grounding them in a physical or communal act",
+      "Uses third-person omniscient to explain or editorialize \u2014 the narrator witnesses, does not adjudicate",
+      "Uses conventional flashback signaling ('she remembered that day when...')",
+      "Uses the word 'perhaps' or 'maybe' to hedge narrative assertion",
+      "Uses comic relief or irony to deflate grief",
+      "Uses a sentence of more than three clauses without a rhythmic payoff at the end",
+      "Uses 'and then' as a sequential connector in narrative prose"
+    ],
+    "always": [
+      "Ends a paragraph on a short, syntactically simple sentence after a long accumulating one",
+      "Repeats a key verb or phrase in immediate succession for incantatory effect ('It rose. It rose in the cornbread')",
+      "Opens a new paragraph with a single proper noun or a single concrete sensory word set off alone",
+      "Uses the second person 'you' to suddenly implicate the reader inside a third-person narrative",
+      "Embeds a corrective or counter-statement within a sentence using 'or' to revise what was just said ('or the mother was tired, or the mother had simply not been loved')",
+      "Assigns physical geography or weight to abstract conditions ('Love is getting up in the dark')",
+      "Uses the present tense for statements of communal or historical truth inside otherwise past-tense narrative",
+      "Gives the dead grammatical equality with the living \u2014 they act, wait, remember, speak",
+      "Uses anaphora ('She gave. She gave until') to build toward a single devastating clause",
+      "Names women by first name only, restoring individuality the historical record denied",
+      "Uses free indirect discourse so that a character's logic becomes indistinguishable from the narrator's for exactly one sentence before pulling back",
+      "Introduces a character's defining trait through what their hands know or have done",
+      "Places the moral or thematic statement of a passage in a subordinate clause, not the main clause",
+      "Uses lists of three concrete nouns or images before making an abstraction ('the placentas and the milk teeth and the names whispered into mason jars')",
+      "Ends a long syntactic sequence with a monosyllabic or two-syllable word that closes like a door",
+      "Uses community voice ('the women said,' 'the old folks said') as a chorus that is simultaneously wise and complicit",
+      "Converts an adjective into a noun to make the quality a thing that can be owned, carried, or lost ('the burning,' 'the keeping,' 'the breaking')",
+      "Uses the word 'and' to begin sentences when accumulation must not pause for subordination",
+      "Anchors spiritual or supernatural events in a specific, mundane sensory detail to refuse the reader the distance of allegory",
+      "Structures a paragraph as a question the community cannot answer followed by the answer the individual woman already knows"
+    ]
+  }
+}

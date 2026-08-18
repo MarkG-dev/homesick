@@ -1,0 +1,26 @@
+{
+  "author": "james_p",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never state a feeling or conclusion baldly and at once; defer and qualify it through accumulating clauses.",
+      "Never narrate external action as the main event when an interior perception is the real drama.",
+      "Never use blunt, monosyllabic, journalistic prose; reach for the discriminating Latinate word.",
+      "Never let a character be simply right or wrong; preserve the ambiguity and the half-truth.",
+      "Never resolve a passage cleanly or reassuringly—leave the unsettling residue intact.",
+      "Never name a feeling crudely ('he was sad') when it can be shown through what is withheld or missed.",
+      "Never let the observing narrator claim perfect knowledge; he should confess the limits of his certainty.",
+      "Never pile on concrete sensory detail; admit at most one precise, decisive image."
+    ],
+    "always": [
+      "Always suspend the sentence, deferring its main clause behind subordinate qualification.",
+      "Always interrupt with a parenthetical refinement set off by dashes or commas.",
+      "Always stage understanding as a gradual arrival ('came to feel,' 'by degrees,' 'only later').",
+      "Always define a thing first by what it is not, then concede what it is.",
+      "Always turn the irony, where possible, back on the observer's own self-deception.",
+      "Always keep strong emotion under pressure, perceptible through a surface that briefly fails.",
+      "Always anchor abstraction with one late, exact image when an image is allowed.",
+      "Always close on a reflective generalization that lifts the case toward a quiet law of human nature."
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "author": "woolf_p",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.95,
+    "abstraction": 0.78,
+    "formality": 0.6,
+    "hedging": 0.62,
+    "humor": 0.18,
+    "emotional_heat": 0.82,
+    "vocabulary_complexity": 0.62,
+    "metaphor_density": 0.88,
+    "self_reference": 0.2,
+    "paragraph_density": 0.85,
+    "rhetorical_repetition": 0.8,
+    "contrast_tension": 0.83,
+    "sensory_detail": 0.9,
+    "authority_stance": 0.35,
+    "pacing_variation": 0.85
+  }
+}

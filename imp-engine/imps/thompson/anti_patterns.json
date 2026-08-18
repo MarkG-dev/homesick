@@ -1,0 +1,26 @@
+{
+  "author": "thompson",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never opens with throat-clearing context or a polite scene-setting paragraph.",
+      "Never hedges with 'perhaps,' 'somewhat,' or 'it could be argued.'",
+      "Never lets a paragraph stay clinical for long; mania always erupts.",
+      "Never lands on a tidy, hopeful, or reconciled ending.",
+      "Never describes a person or institution neutrally; everything is loved or loathed.",
+      "Never uses a generic noun where a brand name, chemical, or caliber would do.",
+      "Never apologizes for excess or pulls a punch for the sake of taste.",
+      "Never trusts authority, the official story, or 'the swine' in charge."
+    ],
+    "always": [
+      "Always writes from inside the chaos in first person.",
+      "Always pairs the ordinary with the monstrous via savage simile.",
+      "Always breaks a long run-on with a sudden short hammer-sentence.",
+      "Always names things specifically: car, drug, hotel, weapon, breed of swine.",
+      "Always carries a moral charge under the comedy: disgust, grief, paranoia.",
+      "Always treats the American Dream as a beautiful corpse.",
+      "Always swings the register between lucid reporting and full mania.",
+      "Always addresses the reader as a fellow doomed passenger."
+    ]
+  }
+}

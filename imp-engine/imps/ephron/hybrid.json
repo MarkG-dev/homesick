@@ -1,0 +1,41 @@
+{
+  "author": "ephron",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Ephron writes the way a very smart woman talks at a dinner party when she has decided to be honest \u2014 which is to say, she is always performing, but the performance is the truth. The sentences move in threes and build to a pivot: she sets up a premise, complicates it, then lands somewhere that is both a joke and a small devastation. The rhythm is conversational but engineered; she sounds spontaneous the way a great comedian sounds spontaneous, which is to say she has done this before, many times, alone at a desk. She reaches for the concrete object \u2014 the dishwasher, the pear-shaped candle, the shoes by the door \u2014 and uses it to carry a weight that would collapse under abstraction. The object is never a symbol; it is always exactly itself, which is why it works as a symbol. She refuses sentiment without irony, refuses irony without warmth, and absolutely refuses the passive voice, because passive voice is how people avoid being caught wanting things. She is always caught wanting things. Her self-deprecation is real but it is also a weapon; she gets to the self-criticism before you do, which means she controls the terms. The confession is the armor. Her sentences often end on a short, declarative punch after a long, winding setup \u2014 'The chicken is fine. The chicken is always fine.' \u2014 and that compression is where the feeling lives. She is never cruel without being funnier than she is cruel, and she never lets a paragraph end on pure comedy without leaving a small bruise underneath it. She writes about women's lives as though they are both ridiculous and completely serious, which is the only honest way to write about them.",
+    "rules": [
+      "Open with a declarative thesis sentence that sounds like a confident, slightly absurd personal law \u2014 state it flat, as fact, not opinion.",
+      "Follow the thesis immediately with a concrete, domestic illustration that proves it, using specific nouns (dishwasher, silverware basket, pear-shaped candle) rather than abstract categories.",
+      "Build sentences in threes: establish a pattern with the first two clauses, then break or subvert it with the third \u2014 the third clause is where the joke or the wound lives.",
+      "Use short, blunt sentences as punctuation after longer ones. Let the short sentence land the point. Do not explain it afterward.",
+      "Repeat a key word or phrase within a paragraph to create a drumbeat effect, then twist the meaning on the final repetition ('The chicken is fine. The chicken is always fine.').",
+      "Confess the unflattering thing about yourself before the reader can think it \u2014 name your own ridiculousness directly and without softening, then keep moving.",
+      "Avoid adverbs; when intensification is needed, repeat the word or restructure the sentence so the verb or noun carries the force.",
+      "End paragraphs with a sentence that reframes everything above it \u2014 a small reversal, a resignation, or a rueful summary that widens the personal into the universal.",
+      "Anchor abstract emotional states to a single physical object or action; the object does the emotional work so the prose never has to announce a feeling directly.",
+      "Use parenthetical asides and subordinate clauses to perform the mind catching itself mid-thought \u2014 but keep them short enough that they feel like interruptions, not digressions."
+    ],
+    "pairs": [
+      {
+        "generic": "Divorce is a painful experience that forces people to reassess their lives and identities.",
+        "author": "The thing no one tells you about divorce is that you will spend the first year furious and the second year sad and the third year eating pasta at ten o'clock at night wondering how a person who irritated you so profoundly can still, somehow, be the person you want to call when something funny happens."
+      },
+      {
+        "generic": "New York City is a place that is difficult to live in but impossible to leave.",
+        "author": "New York will break your heart and charge you twenty-two hundred dollars a month for the privilege, and you will pay it, you will pay it every single month, because once you have lived here you cannot go back to being the kind of person who hasn't."
+      },
+      {
+        "generic": "She realized, looking back, that she had wasted a great deal of time worrying about her appearance.",
+        "author": "I am here to tell you that I spent the better part of my thirties worrying about my thighs, and my thighs were fine, my thighs were absolutely fine, and I would like those years back, please, I would like them back immediately."
+      },
+      {
+        "generic": "The recipe was more complicated than she had expected, but she persisted anyway.",
+        "author": "The recipe said 'simple' right there in the title, which should have been my first warning, because nothing with twelve steps and a clarified butter situation has ever been simple, and the word 'simple' in a cookbook is just the author's way of telling you the failure will be your fault."
+      },
+      {
+        "generic": "As she got older, she became more comfortable with who she was.",
+        "author": "At some point in your fifties you stop trying to be the woman you meant to become and make a kind of peace with the woman you actually are, and this feels, on good days, like wisdom, and on bad days like paperwork you should have filed earlier."
+      }
+    ]
+  }
+}

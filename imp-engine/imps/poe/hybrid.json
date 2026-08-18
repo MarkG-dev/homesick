@@ -1,0 +1,41 @@
+{
+  "author": "poe",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Poe writes as a haunted witness, not a reporter. The voice is almost always first-person, confessional, and over-rational—a narrator who marshals exact measurements and learned authorities to prove his sanity while the prose itself shows him coming apart. His signature instrument is the long periodic sentence: clause stacked upon clause, qualification upon qualification, the breath held and held until a dash ruptures it and re-aims the thought. Against these long swells he sets sudden short declaratives that land like blows: 'Here died my mother. Herein was I born.' Repetition is his incantation—he echoes a word until it gains meaning ('down, down, down'; 'now—now'), and italicizes the single term that carries the horror. His diction is antique and Latinate, sonorous and a little overripe: tenebrous, ineffable, sepulchral, immethodical. He moves from abstraction toward dread, opening on a metaphysical generalization and descending, particular by particular, into the concrete. Crucially, he grounds the supernatural in clinical precision—latitudes, fathoms, the exact angle of a funnel, the minute on a watch—so the impossible feels measured and inevitable. The senses pile toward suffocation; the body is always in extremity. He addresses the reader directly, anticipating disbelief. To ghostwrite Poe: testify, don't summarize; let the sentence strain and snap; make terror exact.",
+    "rules": [
+      "Write in the first person of an obsessive, over-rational narrator who insists on his own sanity even as the prose betrays his unraveling.",
+      "Build long periodic sentences out of stacked subordinate clauses, then rupture them with the dash to suspend, interrupt, and re-aim the thought mid-breath.",
+      "Punctuate the long-breathed passages with abrupt, short declaratives for shock ('Here died my mother. Herein was I born.').",
+      "Use rhetorical repetition as incantation—echo a word or clause until it acquires a hypnotic, obsessive force.",
+      "Move from abstraction toward terror: open on a metaphysical generalization and descend, particular by particular, into concrete dread.",
+      "Anchor the supernatural in clinical, exact detail—latitudes, fathoms, inches, watch-times, degrees—so the impossible feels measured and inevitable.",
+      "Italicize the single word that carries the horror or the turn.",
+      "Favor an antique, Latinate, sonorous vocabulary over plain modern diction.",
+      "Layer the senses toward suffocation, piling sound upon sound and gloom upon gloom until the scene oppresses.",
+      "Let dread arrive by gradual, perceptible degrees rather than a single jolt ('Down and still down, it came.')."
+    ],
+    "pairs": [
+      {
+        "generic": "I felt scared and couldn't move.",
+        "author": "An icy chill ran through my frame; a sense of insufferable anxiety oppressed me; a consuming curiosity pervaded my soul; and sinking back upon the chair, I remained for some time breathless and motionless."
+      },
+      {
+        "generic": "Everyone suffers in different ways.",
+        "author": "Misery is manifold. The wretchedness of earth is multiform. Overreaching the wide horizon as the rainbow, its hues are as various as the hues of that arch—as distinct too, yet as intimately blended."
+      },
+      {
+        "generic": "He came down very slowly and it felt like it would never stop.",
+        "author": "Down and still down, it came. It had already buried its sharp edge a full inch in my flesh, and my sensations grew indistinct and confused; and still—slowly, but very perceptibly—it descended."
+      },
+      {
+        "generic": "You probably won't believe this story.",
+        "author": "You will say now, of course, that I dreamed; but not so. I now tell it to you—and I can scarcely expect you to put more faith in it than did the merry fishermen of Lofoden."
+      },
+      {
+        "generic": "The water started spinning faster and turned into a huge whirlpool.",
+        "author": "Each moment added to its speed—to its headlong impetuosity; and the whole sea burst suddenly into frenzied convulsion—heaving, boiling, hissing—gyrating in gigantic and innumerable vortices."
+      }
+    ]
+  }
+}

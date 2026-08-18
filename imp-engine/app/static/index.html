@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice Filter</title>
+<style>
+  :root{--bg:#0f1115;--panel:#171a21;--line:#262b36;--ink:#e7e9ee;--mut:#9aa3b2;--acc:#7c9cff;--ins:#1f6f4f;--good:#3fb27f}
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+  header{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:12px}
+  header h1{font-size:18px;margin:0;letter-spacing:.2px}
+  header .tag{color:var(--mut);font-size:13px}
+  main{max-width:1080px;margin:0 auto;padding:24px;display:grid;gap:20px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut);margin:0 0 14px}
+  label{display:block;font-size:13px;color:var(--mut);margin:0 0 6px}
+  input[type=text],textarea,select{width:100%;background:#0d0f14;border:1px solid var(--line);color:var(--ink);
+    border-radius:8px;padding:10px 12px;font:inherit;resize:vertical}
+  textarea{min-height:120px}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:200px}
+  button{background:var(--acc);color:#0b0d12;border:0;border-radius:8px;padding:10px 16px;font:600 14px/1 inherit;cursor:pointer}
+  button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  button:disabled{opacity:.5;cursor:default}
+  .drop{border:1.5px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--mut);cursor:pointer}
+  .drop.over{border-color:var(--acc);color:var(--ink)}
+  .files{font-size:13px;color:var(--mut);margin-top:8px}
+  .slider{display:flex;align-items:center;gap:12px}
+  input[type=range]{flex:1}
+  .pill{display:inline-block;background:#0d0f14;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:12px;color:var(--mut);margin:2px 4px 2px 0}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .out{background:#0d0f14;border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-height:120px;white-space:pre-wrap}
+  ins{background:rgba(63,178,127,.18);color:#cdebdc;text-decoration:none;border-radius:3px;padding:0 2px}
+  .muted{color:var(--mut);font-size:13px}
+  .err{color:#ff8d8d;font-size:13px;margin-top:8px}
+  .fp{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .hidden{display:none}
+  @media(max-width:760px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>Voice Filter</h1><span class="tag">your writing → your voice, on any draft</span><a href="/slop" style="margin-left:auto;color:#7c9cff;text-decoration:none;font-size:13px">→ Slop Score</a></header>
+<main>
+
+  <section class="panel">
+    <h2>1 · Build a voice</h2>
+    <div class="row">
+      <div style="flex:0 0 240px"><label>Voice name</label><input id="vname" type="text" placeholder="e.g. My newsletter voice"></div>
+      <div><label>Or load an existing voice</label>
+        <select id="voicelist"><option value="">— new voice —</option></select></div>
+    </div>
+    <div style="margin-top:14px">
+      <label>Upload writing samples (multiple files: .txt, .md)</label>
+      <div id="drop" class="drop">Drop files here, or click to choose. The more of your real writing, the better.</div>
+      <input id="file" type="file" multiple accept=".txt,.md,.markdown,text/*" class="hidden">
+      <div id="filelist" class="files"></div>
+    </div>
+    <div style="margin-top:14px"><label>…and / or paste text</label>
+      <textarea id="paste" placeholder="Paste a few thousand words of your writing — posts, emails, essays…"></textarea></div>
+    <div style="margin-top:14px;display:flex;gap:10px;align-items:center">
+      <button id="build">Build my voice</button>
+      <span id="buildmsg" class="muted"></span>
+    </div>
+    <div id="builderr" class="err"></div>
+  </section>
+
+  <section id="voicecard" class="panel hidden">
+    <h2>Voice profile</h2>
+    <div id="vsummary" class="muted"></div>
+    <div class="fp" id="fp"></div>
+  </section>
+
+  <section id="rewritepanel" class="panel hidden">
+    <h2>2 · Filter a draft</h2>
+    <div class="row">
+      <div><label>Format (prompt structure)</label><select id="format"></select></div>
+      <div style="flex:0 0 220px"><label>Content type (kept functional)</label>
+        <input id="ctype" type="text" placeholder="LinkedIn post, email, blog…"></div>
+    </div>
+    <div style="margin-top:14px"><label>Tone / intensity — <span id="tonelbl">Medium</span></label>
+      <div class="slider"><span class="muted">subtle</span>
+        <input id="tone" type="range" min="0" max="100" value="60">
+        <span class="muted">full voice</span></div></div>
+    <div style="margin-top:14px"><label>Your draft</label>
+      <textarea id="draft" placeholder="Paste the bland / generic draft to rewrite in your voice…"></textarea></div>
+    <div style="margin-top:14px;display:flex;gap:10px;align-items:center">
+      <button id="run">Rewrite in my voice</button>
+      <span id="runmsg" class="muted"></span></div>
+    <div id="runerr" class="err"></div>
+    <div id="result" class="hidden" style="margin-top:18px">
+      <div class="cols">
+        <div><label>Original</label><div id="orig" class="out"></div></div>
+        <div><label>In your voice <span class="muted">(green = changed)</span></label><div id="rew" class="out"></div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

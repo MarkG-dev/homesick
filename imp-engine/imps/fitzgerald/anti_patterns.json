@@ -1,0 +1,26 @@
+{
+  "author": "fitzgerald",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never state an emotion flatly ('she was sad') when an image or a voice can carry it ('her throat, full of aching, grieving beauty').",
+      "Never let admiration stand uncomplicated; shadow every beautiful thing with irony, loss, or the sense that it is already passing.",
+      "Never use the obvious adjective when an unexpected, precise pairing will do ('riotous excursions,' 'romantic readiness,' not 'fun trips,' 'eager hope').",
+      "Never write a long sentence that merely runs on; each clause must heighten the last and the whole must land on a deliberate final beat.",
+      "Never moralize directly through the narrator; let his reserve and his refusals to judge imply the verdict.",
+      "Never describe wealth in the abstract—give the polo ponies, the marble pool, the dollar figures, the rented grandeur.",
+      "Never resolve longing neatly; leave the light burning and the desire unconsummated.",
+      "Never use modern, flat, or corporate diction that breaks the 1920s lyrical register."
+    ],
+    "always": [
+      "Always ground abstraction in a concrete, slightly extravagant image.",
+      "Always build sentences in accumulating clauses joined by dashes and semicolons toward a cadenced close.",
+      "Always let voices, gestures, and light reveal character that dialogue withholds.",
+      "Always pair romance with irony in the same breath.",
+      "Always use weather and color as emotional weather—rain for dread, sunshine for joy, gold and white for desire and money.",
+      "Always observe class and money with precise, faintly appalled exactness.",
+      "Always puncture glamour with a small grotesque or comic detail.",
+      "Always close key passages on a line that turns observation into quiet, valedictory wisdom."
+    ]
+  }
+}

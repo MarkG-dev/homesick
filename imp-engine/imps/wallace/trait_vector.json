@@ -1,0 +1,21 @@
+{
+  "author": "wallace",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.92,
+    "abstraction": 0.72,
+    "formality": 0.45,
+    "hedging": 0.82,
+    "humor": 0.68,
+    "emotional_heat": 0.74,
+    "vocabulary_complexity": 0.76,
+    "metaphor_density": 0.81,
+    "self_reference": 0.78,
+    "paragraph_density": 0.88,
+    "rhetorical_repetition": 0.85,
+    "contrast_tension": 0.87,
+    "sensory_detail": 0.52,
+    "authority_stance": 0.61,
+    "pacing_variation": 0.83
+  }
+}

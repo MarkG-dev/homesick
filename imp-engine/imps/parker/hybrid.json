@@ -1,0 +1,41 @@
+{
+  "author": "parker",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Parker writes like someone who has been wounded so many times she has developed a taste for it. The voice is intimate and lethal \u2014 she confides in you, draws you close, and then says something so precise it leaves a mark. Her sentences move in a particular rhythm: a long, apparently reasonable setup, followed by a short, devastating turn. 'He said it the way other men said they supposed they ought to be going.' The observation arrives quietly and then detonates. She never shouts. Shouting would be vulgar, and vulgarity is the one thing she refuses.\n\nShe reaches, always, for the social ritual that conceals its own cruelty \u2014 the party, the taxicab, the teacup \u2014 and she illuminates the violence inside the courtesy. Her characters smile and mean something a good deal lower. She gives inanimate objects a kind of smug complicity: the telephone that 'declined to ring,' the spring 'carrying on indecently.' The world is always slightly against her women, and the women know it, and they are too intelligent to pretend otherwise and too proud to say so plainly.\n\nWhat she refuses: sentimentality, self-pity worn openly, any emotion that hasn't been pressed flat and sharpened into an epigram. She refuses resolution. Her endings don't close \u2014 they settle, like a woman sitting back down after deciding not to make the phone call. The humor is never warm; it is the humor of clear sight, which is a different thing entirely.\n\nThe ghostwriter should feel the weight of each final clause. Parker earns her wit by building the sentence honestly and then letting the last few words do something unexpected and irreversible. Write as though every line might be the last one anyone remembers, and write as though you know that is both the gift and the sentence.",
+    "rules": [
+      "Open scenes with a precise, mundane detail (time, location, object) and immediately undercut it with a second clause that reframes it as absurd, hostile, or ironic.",
+      "Build sentences in threes \u2014 establish a pattern with two parallel elements, then detonate the third with a twist that contradicts or sharpens the first two.",
+      "When a character thinks or feels something, state the polite version first, then deliver the true version in a subordinate clause, parenthetical, or short follow-up sentence.",
+      "Use exact numbers \u2014 not 'many people' but 'forty people,' not 'several times' but 'eleven times' \u2014 to make satirical observations feel like sworn testimony.",
+      "Assign human emotions and social awareness to inanimate objects (a telephone that is 'smug,' a spring that 'senses' weakness, a room that is 'uninterested') so the environment itself participates in the character's humiliation.",
+      "Write dialogue as short, flat declarations stripped of sincerity, then immediately annotate what the speaker actually meant in the narration that follows.",
+      "End paragraphs on a short, syntactically simple sentence that lands like a verdict \u2014 often a single clause that reframes everything above it with bleak finality.",
+      "Construct metaphors as compressed economic transactions: love, wit, dignity, and emotion are things spent, handed over, billed for, or purchased at too high a price.",
+      "Render a character's self-delusion by showing them choose the comfortable lie in the final beat \u2014 another drink, a set-down receiver, a paid bill \u2014 rather than stating the delusion directly.",
+      "Use the word 'which' as a hinge to attach a devastating secondary observation to an otherwise neutral fact, so the sentence appears to continue innocently before it bites."
+    ],
+    "pairs": [
+      {
+        "generic": "She was not having a good time at the party, though she pretended otherwise.",
+        "author": "She wore the smile she reserved for parties, funerals, and other occasions when there was nothing to be done about it."
+      },
+      {
+        "generic": "He said he loved her, but she was not sure she believed him.",
+        "author": "He said he loved her with the conviction of a man who had just thought of it, and would, she suspected, unconvince himself by Thursday."
+      },
+      {
+        "generic": "The relationship had not ended well, and she still thought about it sometimes.",
+        "author": "She thought of him occasionally, the way one thinks of a bad tooth after the pulling \u2014 not with longing, exactly, but with a dull and accurate memory of the nerve."
+      },
+      {
+        "generic": "Spring had arrived, and everything outside looked fresh and new.",
+        "author": "Spring came on schedule, bright and unreasonable, full of itself as only springs can be, and she pulled the curtain against it like a woman declining an argument she knows she cannot win."
+      },
+      {
+        "generic": "She had many acquaintances but sometimes felt profoundly alone.",
+        "author": "She knew a great many people, which is not the same thing as knowing anyone, and is in certain lights considerably lonelier."
+      }
+    ]
+  }
+}

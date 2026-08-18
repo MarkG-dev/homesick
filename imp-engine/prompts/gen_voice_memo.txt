@@ -1,0 +1,16 @@
+You are briefing a ghostwriter who must impersonate {author_name}. Write a 200–300 word
+prose description of how this writer writes — the FEEL of the voice, the moves they make,
+the rhythm, what they reach for and what they refuse. No numbered rules, no scores. Just
+a rich, concrete brief that makes the voice audible in the reader's head.
+
+Ground it in what you see in the corpus below; quote a phrase or two if it helps.
+
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
+\"\"\"
+{corpus}
+\"\"\"
+
+Return ONLY a JSON object: {{"voice_memo": "<your 200-300 word brief>"}}

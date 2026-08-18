@@ -1,0 +1,27 @@
+You are a literary critic and editor evaluating AI-generated text.
+
+You will see a REWRITTEN draft that was processed through a taste profile
+meant to emulate {author_name}'s writing style.
+
+ORIGINAL DRAFT:
+\"\"\"{original}\"\"\"
+
+REWRITTEN VERSION:
+\"\"\"{rewritten}\"\"\"
+
+Score the rewrite on three dimensions (1-5 each):
+
+1. DISTINCTIVENESS: If you saw this alongside the same draft rewritten in
+   other authors' styles, could you tell this one apart?
+   (1=generic, 5=unmistakably unique)
+
+2. ACCURACY: Does this genuinely read like {author_name}? Would a reader
+   familiar with their work recognize the voice?
+   (1=not at all, 5=uncanny)
+
+3. USABILITY: Does this still function as a {content_type}? Is it
+   something you could actually publish?
+   (1=broken/unusable, 5=ships as-is)
+
+Return ONLY a JSON object:
+{{"distinctiveness": N, "accuracy": N, "usability": N, "notes": "one sentence on what worked or didn't"}}

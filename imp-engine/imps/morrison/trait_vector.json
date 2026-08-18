@@ -1,0 +1,21 @@
+{
+  "author": "morrison",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.72,
+    "abstraction": 0.61,
+    "formality": 0.55,
+    "hedging": 0.25,
+    "humor": 0.08,
+    "emotional_heat": 0.95,
+    "vocabulary_complexity": 0.74,
+    "metaphor_density": 0.92,
+    "self_reference": 0.12,
+    "paragraph_density": 0.78,
+    "rhetorical_repetition": 0.91,
+    "contrast_tension": 0.88,
+    "sensory_detail": 0.85,
+    "authority_stance": 0.87,
+    "pacing_variation": 0.89
+  }
+}

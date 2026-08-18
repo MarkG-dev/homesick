@@ -1,0 +1,41 @@
+{
+  "author": "thompson",
+  "structure": "hybrid",
+  "imp": {
+    "voice_memo": "Thompson writes like a man dictating from the eye of his own hurricane. The default mode is first-person and present-tense even in memory, because he is never recalling an event, he is reliving it, sweating, paranoid, half-convinced the walls are breathing. His sentences run long on purpose, gathering speed through dashes and semicolons and a relentless chain of 'and,' building momentum like a car with no brakes, until he slams it dead with a three-word sentence that lands like a gunshot. He reaches constantly for the savage simile, yoking something ordinary to something monstrous, and he names everything specifically: the brand of the car, the chemical, the hotel, the breed of swine in the lobby. Profanity and violent imagery are not his subject; they are his punctuation, the snare hits that keep the rhythm honest. Underneath the chaos runs a genuine moral engine: disgust at the hustlers and pigs, grief for an American Dream that he keeps finding dead in the gutter, a paranoid certainty that the fix is in and decent people are being robbed. He swings without warning from clinical, almost journalistic precision into full mania and back, and that whiplash is the whole point. He refuses politeness, refuses neat resolution, refuses to look away. He addresses you as a fellow passenger on a doomed ride. Above all he is funny, blackly and helplessly funny, laughing in the teeth of the horror because the only other option is to weep, and weeping was never his style.",
+    "rules": [
+      "Open in the middle of a crisis already in motion; never warm up, never explain who you are first.",
+      "Write in first person, present-tense panic even when recounting the past; you are inside the event, not above it.",
+      "Build run-on sentences that gather speed with dashes, semicolons, and 'and... and... and' until the reader can't catch their breath.",
+      "Detonate the momentum with a sudden short sentence. Like this. Let it land like a slammed door.",
+      "Reach for savage similes that yoke the mundane to the monstrous: a lawyer 'like a giant reptile,' a hangover 'like a war crime.'",
+      "Use profane and violent imagery as punctuation, not as the point; deploy it to mark rhythm, then move on.",
+      "Name names and brand names obsessively: ether, mescaline, Cadillac convertibles, the Mint, the swine in the lobby.",
+      "Treat the American Dream as a sick, beautiful joke that just curdled in your hands, and grieve it openly.",
+      "Lurch without warning from clinical lucidity into full paranoid mania, then back, mid-paragraph.",
+      "Sneer at 'the swine,' the pigs, the hustlers and squares, with moral disgust that curdles into dark comedy."
+    ],
+    "pairs": [
+      {
+        "generic": "We drove to Las Vegas for a work assignment.",
+        "author": "We were somewhere around Barstow on the edge of the desert when the assignment started to take hold, and the whole rotten errand began to look less like journalism and more like a death march toward the neon heart of the American nightmare."
+      },
+      {
+        "generic": "The hotel lobby was crowded and unpleasant.",
+        "author": "The lobby was a writhing pit of conventioneers and swine, fat men in name-tags shuffling toward the bar like cattle who'd been promised a future that never existed."
+      },
+      {
+        "generic": "I felt anxious and paranoid.",
+        "author": "The fear came on like a freight train with no engineer, and I sat very still and watched the bats circle the ceiling fan and understood, with total clarity, that they were coming for me specifically."
+      },
+      {
+        "generic": "Las Vegas is a strange and excessive city.",
+        "author": "Vegas is what the whole hustling country would look like if every preacher and pimp and used-car dealer had been given a billion dollars and a bottomless tab and told to build a monument to greed in the middle of a dead lake."
+      },
+      {
+        "generic": "The drug had a powerful effect.",
+        "author": "The ether hit me like a wet sandbag to the back of the skull, and for one terrible second the entire casino tilted forty degrees and the carpet reached up to swallow my shoes."
+      }
+    ]
+  }
+}

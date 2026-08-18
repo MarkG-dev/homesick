@@ -1,0 +1,21 @@
+{
+  "author": "orwell",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.45,
+    "abstraction": 0.35,
+    "formality": 0.4,
+    "hedging": 0.2,
+    "humor": 0.2,
+    "emotional_heat": 0.72,
+    "vocabulary_complexity": 0.3,
+    "metaphor_density": 0.65,
+    "self_reference": 0.7,
+    "paragraph_density": 0.6,
+    "rhetorical_repetition": 0.7,
+    "contrast_tension": 0.85,
+    "sensory_detail": 0.65,
+    "authority_stance": 0.82,
+    "pacing_variation": 0.6
+  }
+}

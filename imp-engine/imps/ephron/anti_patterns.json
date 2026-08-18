@@ -1,0 +1,50 @@
+{
+  "author": "ephron",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Uses 'very' as an intensifier",
+      "Uses exclamation points",
+      "Writes sentences longer than three clauses before breaking rhythm with a short one",
+      "Uses em-dashes for parenthetical asides (prefers commas or standalone sentences instead)",
+      "Opens an essay with an abstract thesis or generalization disconnected from a concrete object or scene",
+      "Uses the second-person 'you' to mean 'one' in a distancing, formal sense",
+      "Uses passive voice to avoid naming herself as the agent",
+      "Writes subordinate clauses that bury the joke or the turn \u2014 the payoff comes at the end of the sentence, not the middle",
+      "Uses adverbs to modify how a character feels (e.g., 'she felt deeply sad')",
+      "Quotes other writers or critics as authority",
+      "Uses rhetorical questions that she then refuses to answer",
+      "Writes a paragraph that ends on a long, winding sentence",
+      "Uses italics for emphasis within a sentence",
+      "Employs abstract nouns like 'journey,' 'growth,' 'healing,' or 'process'",
+      "Uses ellipses",
+      "Writes metaphors that require more than one sentence to unpack",
+      "Begins a sentence with 'However' or 'Nevertheless'",
+      "Uses the word 'beautiful' unironically to describe an emotion or experience",
+      "Writes in any tense other than simple past or simple present",
+      "Uses hedging phrases like 'it seems to me' or 'one might argue'"
+    ],
+    "always": [
+      "Ends a paragraph on a short, declarative sentence that reframes everything above it",
+      "Introduces a comic premise in the first sentence of an essay or section",
+      "Structures confessions as lists, often tripling the items before landing on the most self-incriminating one",
+      "Names specific brand names, decades, or presidents to anchor an abstraction in time",
+      "Builds a paragraph around a single concrete domestic object (a candle, a dishwasher, a pair of shoes)",
+      "Uses repetition of a word or short phrase within a paragraph for comic or rhythmic emphasis (e.g., 'The chicken is fine. The chicken is always fine.')",
+      "Moves from the specific complaint to the universal female condition in the final sentence of a section",
+      "Employs a colon to introduce a list that turns the joke",
+      "Writes the self as both the fool and the judge of the fool simultaneously",
+      "Uses parenthetical qualifications inside a sentence that undercut the sentence's own claim",
+      "Constructs a sentence whose second half contradicts or complicates the first half with a comma and no conjunction",
+      "Grounds psychological insight in a physical action or gesture rather than naming the emotion directly",
+      "Uses the simple past tense for anecdotes and the simple present for conclusions drawn from them",
+      "Places the most self-aware or most damning observation last in any sequence",
+      "Gives inanimate objects moral or emotional qualities ('accusatory,' 'aspirational') without signaling that she is being figurative",
+      "Writes sentences that accelerate through a list and then stop dead on a three-to-five-word sentence",
+      "Deploys the word 'exactly' to signal false precision that is actually comic exaggeration",
+      "Structures an essay so that the final paragraph circles back to the opening object or image",
+      "Uses 'and' to chain clauses in a way that mimics the rhythm of someone thinking aloud",
+      "Names the category of woman she is or fears becoming as a way of defining herself against it"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "author": "poe",
+  "structure": "example_pairs",
+  "imp": [
+    {
+      "generic": "The old man was very tired and didn't want to talk at first.",
+      "author": "For some minutes the old man seemed too much exhausted to speak; and when at length he found his voice, it was as of one who, having looked once upon a thing unutterable, can never again be wholly among the living."
+    },
+    {
+      "generic": "The water started spinning faster and turned into a huge whirlpool.",
+      "author": "Each moment added to its speed—to its headlong impetuosity; and the whole sea, seamed and scarred into a thousand conflicting channels, burst suddenly into frenzied convulsion—heaving, boiling, hissing—gyrating in gigantic and innumerable vortices."
+    },
+    {
+      "generic": "I felt scared and couldn't move.",
+      "author": "An icy chill ran through my frame; a sense of insufferable anxiety oppressed me; a consuming curiosity pervaded my soul; and sinking back upon the chair, I remained for some time breathless and motionless."
+    },
+    {
+      "generic": "I grew up in an old family house and spent a lot of time reading.",
+      "author": "There are no towers in the land more time-honored than my gloomy, gray, hereditary halls; and there, in the silence of that library chamber, I loitered away my boyhood in books, and dissipated my youth in reverie."
+    },
+    {
+      "generic": "Everyone suffers in different ways.",
+      "author": "Misery is manifold. The wretchedness of earth is multiform. Overreaching the wide horizon as the rainbow, its hues are as various as the hues of that arch—as distinct too, yet as intimately blended."
+    },
+    {
+      "generic": "He came down very slowly and it felt like it would never stop.",
+      "author": "Down and still down, it came. It had already buried its sharp edge a full inch in my flesh, and my sensations grew indistinct and confused; and still—slowly, but very perceptibly—it descended."
+    },
+    {
+      "generic": "She had changed a lot since getting sick, and it disturbed me.",
+      "author": "Disease—a fatal disease—fell like the simoon upon her frame; and, even while I gazed upon her, the spirit of change swept over her, disturbing, in a manner the most subtle and terrible, the very identity of her person."
+    },
+    {
+      "generic": "You probably won't believe this story.",
+      "author": "You will say now, of course, that I dreamed; but not so. I now tell it to you—and I can scarcely expect you to put more faith in it than did the merry fishermen of Lofoden."
+    },
+    {
+      "generic": "I had trouble understanding what kind of person he was.",
+      "author": "I found it impossible to comprehend him either in his moral or his physical relations. Whence he came, I never ascertained; and even about his age there was something which perplexed me in no little degree."
+    },
+    {
+      "generic": "The streets were noisy and full of commotion.",
+      "author": "The confusion and bustle in the streets were terrible. Men were talking. Women were screaming. Children were choking. Carts they rattled. Bulls they bellowed. Dogs they danced. Danced! Could it then be possible?"
+    }
+  ]
+}

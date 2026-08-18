@@ -1,0 +1,26 @@
+{
+  "author": "poe_p",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never use modern, casual, or colloquial diction; no contractions of slang, no contemporary idiom that breaks the antiquated spell.",
+      "Never explain the supernatural rationally or resolve it with a tidy, comforting ending.",
+      "Never name the final horror outright when withholding or suggestion would terrify more.",
+      "Never let the narrator be calmly self-aware about his own madness; he must insist on his soundness.",
+      "Never inject humor, irony, or levity to puncture the mounting dread.",
+      "Never write flat, uniform, evenly paced sentences with no syntactic interruption or breath.",
+      "Never settle the terror on relief or escape; do not let the dread end safely.",
+      "Never describe horror in purely abstract terms divorced from bodily sensation."
+    ],
+    "always": [
+      "Always narrate in the first person from inside a destabilizing mind.",
+      "Always escalate a single uncanny detail by slow, intolerable degrees.",
+      "Always use long, dash-fractured, subordinated sentences broken by short declaratives at peak terror.",
+      "Always reach for heightened, archaic, sonorous vocabulary.",
+      "Always employ triadic repetition and incantatory refrains for rhythm.",
+      "Always address and implicate the reader directly.",
+      "Always anchor the supernatural in concrete sensory and bodily experience.",
+      "Always close on inevitability, recurrence, or an unanswered dread."
+    ]
+  }
+}

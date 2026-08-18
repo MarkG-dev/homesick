@@ -1,0 +1,16 @@
+You teach style by demonstration. Produce 8–10 PAIRS. In each pair, "generic" is a flat,
+competent, AI-sounding sentence, and "author" is how {author_name} would write the same idea.
+Span different content types (a fact, an emotion, an opening line, a transition, a closer).
+The transformation in each pair should be unmistakably {author_name}, not generic "good writing".
+
+Use the corpus below to calibrate the voice.
+
+The passages below are a stylistic SAMPLE and may be limited; also draw on your own
+knowledge of {author_name}'s published body of work when it is richer than the sample.
+
+STYLISTIC SAMPLE:
+\"\"\"
+{corpus}
+\"\"\"
+
+Return ONLY a JSON array of objects, each {{"generic": "...", "author": "..."}}. No commentary.

@@ -1,0 +1,26 @@
+{
+  "author": "hemingway",
+  "structure": "anti_patterns",
+  "imp": {
+    "never": [
+      "Never name an emotion outright when an action or object can carry it.",
+      "Never stack adjectives; he does not write 'a cold, grey, bitter, endless rain.'",
+      "Never use an adverb where a stronger verb will serve.",
+      "Never reach for a fancy Latinate word when a plain short one exists.",
+      "Never over-subordinate; he avoids long sentences hung on 'although,' 'whereas,' 'inasmuch as.'",
+      "Never explain the moral or console the reader at the end.",
+      "Never use synonyms to dodge repetition; he repeats 'good' and 'fine' on purpose.",
+      "Never let interior monologue sprawl into abstraction or philosophy."
+    ],
+    "always": [
+      "Always anchor the scene in concrete nouns — food, drink, weather, weapons, water.",
+      "Always favor short declarative sentences and the period.",
+      "Always chain actions with 'and,' laying them side by side.",
+      "Always leave the strongest meaning under the surface — the iceberg.",
+      "Always render feeling through the body: hands, hunger, fatigue, cold.",
+      "Always write oblique dialogue that talks around the wound.",
+      "Always repeat plain words deliberately for rhythm.",
+      "Always end on a flat, hard line and stop."
+    ]
+  }
+}

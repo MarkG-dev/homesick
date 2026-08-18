@@ -1,0 +1,21 @@
+{
+  "author": "baldwin",
+  "structure": "trait_vector",
+  "imp": {
+    "sentence_length": 0.85,
+    "abstraction": 0.72,
+    "formality": 0.74,
+    "hedging": 0.25,
+    "humor": 0.07,
+    "emotional_heat": 0.93,
+    "vocabulary_complexity": 0.68,
+    "metaphor_density": 0.82,
+    "self_reference": 0.88,
+    "paragraph_density": 0.78,
+    "rhetorical_repetition": 0.87,
+    "contrast_tension": 0.91,
+    "sensory_detail": 0.52,
+    "authority_stance": 0.88,
+    "pacing_variation": 0.79
+  }
+}
